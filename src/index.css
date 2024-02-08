@@ -1,0 +1,21 @@
+:root {
+  --black: #000000;
+  --white: #ffffff;
+}
+/* * {
+  font-family: 'Poppins';
+} */
+.header {
+  height: 48px;
+  background: var(--black);
+  color: var(--white);
+}
+
+.footer {
+  height: 440px;
+  background-color: var(--black);
+  color: var(--white);
+}
+.footer-row{
+  padding-top:80px;
+}
