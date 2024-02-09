@@ -3,7 +3,7 @@ import React from 'react';
 function Navbar() {
   return (
     <div class="container-fluid">
-      <div className="container">
+      <div className="container pt-1">
         <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
           <a class="navbar-brand" href="logo">
             HOUSE OF CAMBRIDGE
