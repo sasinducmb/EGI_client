@@ -188,24 +188,21 @@ const Sidebarwithslider = () => {
               <div class="carousel-item active">
                 <img
                   src="../../img/Frame560.png"
-                  class="d-block"
-                  style={{ width: '892px', height: '344px' }}
+                  class="d-block img-fluid"
                   alt="..."
                 />
               </div>
               <div class="carousel-item">
                 <img
                   src="../../img/Frame560.png"
-                  class="d-block "
-                  style={{ width: '892px', height: '344px' }}
+                  class="d-block img-fluid"
                   alt="..."
                 />
               </div>
               <div class="carousel-item">
                 <img
                   src="../../img/Frame560.png"
-                  class="d-block"
-                  style={{ width: '892px', height: '344px' }}
+                  class="d-block img-fluid"
                   alt="..."
                 />
               </div>

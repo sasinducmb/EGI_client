@@ -3,6 +3,7 @@ import Home from './views/Home';
 import About from './views/About';
 import Signup from './views/Signup';
 import Login from './views/Login';
+import Account from './views/Account';
 import DefaultLayout from './components/DefaultLayout';
 import GuestLayout from './components/GuestLayout';
 
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: '/about', element: <About /> },
       { path: '/signup', element: <Signup /> },
       { path: '/login', element: <Login /> },
+      { path: '/account', element: <Account /> },
     ],
   },
 ]);
