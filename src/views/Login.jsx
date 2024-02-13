@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Login = () => {
+  const [data, SetData] = useState({
+    username: "",
+    password: "",
+  });
+  const [errMsg, setErrMsg] = useState("");
+
+  const userLogin=async(e)=>{
+      e.preventDefault();
+      const {username, password } = data;
+  }
+
+
+
   return (
     <div className="container pt-4 pb-5 d-flex">
       <img
@@ -19,10 +32,10 @@ const Login = () => {
           Enter your details below
         </h4>
 
-        <form>
+        <form method="POST" onSubmit={userLogin}>
           <div class="form-group pt-3">
             <input
-              type="email"
+              type="text"
               class="form-control"
               id="inputEmail"
               aria-describedby="emailHelp"
@@ -33,6 +46,7 @@ const Login = () => {
                 outline: 'none',
                 borderRadius: '0',
               }}
+              onChange={(e) => SetData({ ...data, username: e.target.value })}
             />
           </div>
 
@@ -48,6 +62,7 @@ const Login = () => {
                 outline: 'none',
                 borderRadius: '0',
               }}
+              onChange={(e) => SetData({ ...data, password: e.target.value })}
             />
           </div>
 

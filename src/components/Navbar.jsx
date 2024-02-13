@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function Navbar() {
   return (
     <div class="container-fluid">
@@ -41,7 +42,7 @@ function Navbar() {
                   <a
                     class="nav-link active mx-lg-3"
                     aria-current="page"
-                    href="#"
+                    href="/"
                   >
                     Home
                   </a>
@@ -59,8 +60,8 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="#">
-                    {' '}
+                  <a class="nav-link mx-lg-3" href="/signup">
+                    
                     Sign in{' '}
                   </a>
                 </li>
