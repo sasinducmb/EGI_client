@@ -123,22 +123,22 @@ const Signup = () => {
             />
           </div>
 
-          <div class="form-group pt-3 pb-3">
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword"
-              required
+              <div class="form-group pt-3 pb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPassword"
+                  required
               placeholder="Password"
-              style={{
-                border: "none",
-                borderBottom: "1px solid #000",
-                outline: "none",
-                borderRadius: "0",
-              }}
-              onChange={(e) => SetData({ ...data, password: e.target.value })}
+                  style={{
+                    border: "none",
+                    borderBottom: "1px solid #000",
+                    outline: "none",
+                    borderRadius: "0",
+                  }}
+                  onChange={(e) => SetData({ ...data, password: e.target.value })}
             />
-          </div>
+              </div>
 
           <button
             style={{

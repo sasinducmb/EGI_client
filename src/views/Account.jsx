@@ -1,11 +1,21 @@
 import React from 'react';
-import './sidebar.css';
 
-const Sidebarwithslider = () => {
+const Account = () => {
   return (
-    <>
+    <div>
       <div className="d-flex">
-        <div>
+        <>
+          <h6 style={{ opacity: '50%' }}>Home /</h6>
+          <h6 className="ms-2 "> My Account </h6>
+        </>
+        <div class="row">
+          <div class="row align-items-end">
+            <h6> Welcome! </h6>
+          </div>
+        </div>
+      </div>
+      <div className="Container d-flex pt-2">
+        <div className="pt-3">
           <div
             className="flex-shrink-0 p-3 bg-white"
             style={{ width: '280px' }}
@@ -15,6 +25,7 @@ const Sidebarwithslider = () => {
               class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom"
             >
               <svg class="bi me-2" width="30" height="24">
+                {/* <use xlink:href="#bootstrap" /> */}
               </svg>
               <span class="fs-5 fw-semibold">Collapsible</span>
             </a>
@@ -155,86 +166,99 @@ const Sidebarwithslider = () => {
           </div>
         </div>
 
-        <div>
-          <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-bs-ride="carousel"
+        <form class="custom-form row ">
+          <h4
+            style={{
+              fontFamily: 'Poppins',
+              fontWeight: 500,
+              fontSize: '20px',
+              color: '#DB4444',
+            }}
+            className="m-3"
           >
-            <div class="carousel-indicators">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-              ></button>
-              <button
-                type="button"
-                data-bs-target="#carouselExampleIndicators"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-              ></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img
-                  src="../../img/Frame560.png"
-                  class="d-block img-fluid"
-                  alt="..."
+            Edit Your Profile
+          </h4>
+          <div class="form-row">
+            <div class="d-flex pt-4">
+              <div class="form-group col-md-6">
+                <label for="inputFirst">First Name</label>
+                <input
+                  type="first"
+                  class="form-control"
+                  id="inputFirst"
+                  placeholder="Md"
                 />
               </div>
-              <div class="carousel-item">
-                <img
-                  src="../../img/Frame560.png"
-                  class="d-block img-fluid"
-                  alt="..."
-                />
-              </div>
-              <div class="carousel-item">
-                <img
-                  src="../../img/Frame560.png"
-                  class="d-block img-fluid"
-                  alt="..."
+              <div class="form-group col-md-6 ms-2">
+                <label for="inputLast">Last Name</label>
+                <input
+                  type="last"
+                  class="form-control"
+                  id="inputLast"
+                  placeholder="Rimel"
                 />
               </div>
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+            <div class="d-flex">
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Email</label>
+                <input
+                  type="Email"
+                  class="form-control"
+                  id="inputEmail"
+                  placeholder="rimel1111@gmail.com"
+                />
+              </div>
+              <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input
+                  type="address"
+                  class="form-control"
+                  id="inputAddress"
+                  placeholder="Kingston, 5236, United State"
+                />
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div className="pt-2">
+            <div class="form-group">
+              <label for="inputAddress2">Password Changes</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputAddress2"
+                placeholder="Current Passwod"
+              />
+            </div>
+            <div class="form-group pt-2">
+              <input
+                type="text"
+                class="form-control"
+                id="inputAddress2"
+                placeholder="New Passwod"
+              />
+            </div>
+            <div class="form-group pt-2">
+              <input
+                type="text"
+                class="form-control"
+                id="inputAddress2"
+                placeholder="Confirm New Passwod"
+              />
+            </div>
+          </div>
+          <button type="submit" class="custom-style">
+            <span>Cancle</span>
+          </button>
+
+          <button type="submit" class="custom-style row align-items-end ms-3">
+            Sign in
+          </button>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Sidebarwithslider;
+export default Account;

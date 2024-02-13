@@ -19,3 +19,79 @@
 .footer-row{
   padding-top:80px;
 }
+
+.footer img {
+  max-width: 100%;
+  height: auto;
+}
+.custom-form {
+    width: 750px;
+    height: 600px;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 13px 0px #0000000D;
+}
+
+/* For tablets */
+@media (max-width: 768px) {
+    .custom-form {
+        width: 80%; /* Adjusted width */
+        height: auto; /* Flexible height */
+        top: 10%; /* Adjusted positioning */
+        left: 10%;
+        position: relative;
+    }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+    .custom-form {
+        width: 95%; /* Further adjusted width for smaller screens */
+        top: 5%; /* Adjusted positioning */
+        left: 2.5%;
+        position: relative;
+    }
+}
+
+.custom-style {
+    width: 214px;
+    height: 56px;
+    border-radius: 4px;
+    padding: 16px 48px 16px 48px; /* top, right, bottom, left */
+    background-color: #DB4444;
+}
+
+.custom-box {
+  width: 270px;
+  height: 350px;
+}
+.card-inner {
+  width: 270px;
+  height: 250px;
+  position: relative;
+}
+.card-bgcolor {
+  background-color: #F5F5F5;
+}
+
+.card-box-inner {
+    width: 55px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: #DB4444;
+    padding:4px 12px 10px 15px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.card-outer{
+  position: absolute;
+  top: 20%;
+  left: 18%
+}
+
+.card-heart{
+  position: absolute;
+  top: 4%;
+  left: 85%
+}

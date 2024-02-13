@@ -1,12 +1,13 @@
 import React from 'react';
 
+
 function Footer() {
   return (
     <>
       <div className="container-fluid footer">
         <div class="container text-left pt-5">
           <div class="row">
-            <div class="col">
+            <div class="col-12 col-md-6 col-lg">
               <h6
                 style={{
                   fontFamily: 'poppins',
@@ -19,25 +20,13 @@ function Footer() {
               <p className="pt-4">Subscribe</p>
               <p className="pt-2">Get 10% off your first order</p>
               <div class="custom-box">
-                <div
-                  class="input-group mb-3"
-                  //   style={{
-                  //     // width: '217px',
-                  //     // height: '48px',
-                  //     borderRadius: '4px',
-                  //     border: '1.5px solid #ffffff',
-                  //     padding: '12px 0 12px 16px',
-                  //     fontFamily: 'Poppins',
-                  //     fontWeight: 800,
-                  //     fontSize: '24px',
-                  //   }}
-                >
+                <div class="input-group mb-3">
                   <input
                     style={{
                       width: '150px',
                       height: '48px',
                       background: 'black',
-                      color: 'white'
+                      color: 'white',
                     }}
                     type="text"
                     class="form-control"
@@ -61,7 +50,7 @@ function Footer() {
                 </div>
               </div>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6 col-lg">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -93,7 +82,7 @@ function Footer() {
               <p className="pt-2">Wishlist</p>
               <p className="pt-2">Shop</p>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6 col-lg">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -108,7 +97,7 @@ function Footer() {
               <p className="pt-2">FAQ</p>
               <p className="pt-2">Contact</p>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-6 col-lg">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -129,7 +118,7 @@ function Footer() {
                 Save $3 with App New User Only
               </p>
               <div className="d-flex">
-                <div>
+                <div className="pt-2">
                   <img src="../../img/Qrcode1.png" />
                 </div>
                 <div className="abc">
@@ -139,22 +128,22 @@ function Footer() {
               </div>
               <div className="d-flex pt-4">
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/fb.jpg"
                   style={{ height: '40px', width: '40px' }}
                 />
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/Group.png"
                   style={{ height: '40px', width: '40px' }}
                 />
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/icon-instagram.png"
                   style={{ height: '40px', width: '40px' }}
                 />
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/Vector1.png"
                   style={{ height: '40px', width: '40px' }}
                 />

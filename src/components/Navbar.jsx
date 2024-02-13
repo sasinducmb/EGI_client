@@ -6,7 +6,7 @@ function Navbar() {
     <div class="container-fluid">
       <div className="container pt-1">
         <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
-          <a class="navbar-brand" href="logo">
+          <a class="navbar-brand" href="/">
             HOUSE OF CAMBRIDGE
           </a>
           <button
@@ -60,10 +60,12 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="/signup">
+                  <a class="nav-link mx-lg-3" href="/signup"/>
                     
+              
+                    {' '}
                     Sign in{' '}
-                  </a>
+            
                 </li>
               </ul>
               <form class="d-flex mt-1" role="search">
