@@ -5,7 +5,7 @@ function Navbar() {
     <div class="container-fluid">
       <div className="container pt-1">
         <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
-          <a class="navbar-brand" href="logo">
+          <a class="navbar-brand" href="/">
             HOUSE OF CAMBRIDGE
           </a>
           <button
@@ -41,7 +41,7 @@ function Navbar() {
                   <a
                     class="nav-link active mx-lg-3"
                     aria-current="page"
-                    href="#"
+                    href="/"
                   >
                     Home
                   </a>
@@ -59,7 +59,7 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="#">
+                  <a class="nav-link mx-lg-3" href="/signup">
                     {' '}
                     Sign in{' '}
                   </a>

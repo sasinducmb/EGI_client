@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react';
 const CountdownTimer = ({ targetDate }) => {
   const calculateTimeLeft = () => {
     const difference = +new Date(targetDate) - +new Date();
-    let timeLeft = {};
+    let timeLeft = {
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    };
 
     if (difference > 0) {
       timeLeft = {
@@ -27,23 +32,40 @@ const CountdownTimer = ({ targetDate }) => {
     return () => clearTimeout(timer);
   });
 
-  const timerComponents = [];
-
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-      <span key={interval}>
-        {timeLeft[interval]} {interval}{' '}
-      </span>
-    );
-  });
+  const timeUnit = (label, value) => (
+    <div style={{ textAlign: 'center', margin: '0 10px' }}>
+      <div>{label}</div>
+      <div style={{ fontSize: '22px' }}>{value}</div>
+    </div>
+  );
 
   return (
     <div>
-      {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+      {timeLeft.days ||
+      timeLeft.hours ||
+      timeLeft.minutes ||
+      timeLeft.seconds ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontFamily: 'poppins',
+            fontWeight: 400,
+            fontSize: '14px',
+          }}
+        >
+          {timeUnit('Days', timeLeft.days)}
+          <span style={{ color: '#E07575' }}>:</span>
+          {timeUnit('Hours', timeLeft.hours)}
+          <span style={{ color: '#E07575' }}>:</span>
+          {timeUnit('Minutes', timeLeft.minutes)}
+          <span style={{ color: '#E07575' }}>:</span>
+          {timeUnit('Seconds', timeLeft.seconds)}
+        </div>
+      ) : (
+        <span>Time's up!</span>
+      )}
     </div>
   );
 };

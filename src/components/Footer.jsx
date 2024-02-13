@@ -1,5 +1,5 @@
 import React from 'react';
-import '../index.css';
+
 
 function Footer() {
   return (
@@ -118,7 +118,7 @@ function Footer() {
                 Save $3 with App New User Only
               </p>
               <div className="d-flex">
-                <div className='pt-2'>
+                <div className="pt-2">
                   <img src="../../img/Qrcode1.png" />
                 </div>
                 <div className="abc">
@@ -128,22 +128,22 @@ function Footer() {
               </div>
               <div className="d-flex pt-4">
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/fb.jpg"
                   style={{ height: '40px', width: '40px' }}
                 />
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/Group.png"
                   style={{ height: '40px', width: '40px' }}
                 />
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/icon-instagram.png"
                   style={{ height: '40px', width: '40px' }}
                 />
                 <img
-                  className="p-2"
+                  className="p-2 footer img"
                   src="../../img/Vector1.png"
                   style={{ height: '40px', width: '40px' }}
                 />
