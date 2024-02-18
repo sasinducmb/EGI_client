@@ -53,10 +53,13 @@ const CountdownTimer = ({ targetDate }) => {
             fontFamily: 'poppins',
             fontWeight: 400,
             fontSize: '14px',
+            width: '62px',
+            height: '62px',
+            borderRadius: '50%'
           }}
         >
           {timeUnit('Days', timeLeft.days)}
-          <span style={{ color: '#E07575' }}>:</span>
+          <span style={{color: '#E07575'}}> :</span>
           {timeUnit('Hours', timeLeft.hours)}
           <span style={{ color: '#E07575' }}>:</span>
           {timeUnit('Minutes', timeLeft.minutes)}
