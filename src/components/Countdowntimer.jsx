@@ -53,6 +53,7 @@ const CountdownTimer = ({ targetDate }) => {
             fontFamily: 'poppins',
             fontWeight: 400,
             fontSize: '14px',
+
             width: '62px',
             height: '62px',
             borderRadius: '50%'

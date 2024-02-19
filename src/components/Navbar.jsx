@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function Navbar() {
   return (
     <div class="container-fluid">
@@ -59,10 +60,12 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
+
                   <a class="nav-link mx-lg-3" href="/signup">
+
                     {' '}
                     Sign in{' '}
-                  </a>
+            
                 </li>
               </ul>
               <form class="d-flex mt-1" role="search">
