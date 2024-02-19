@@ -60,9 +60,9 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="/signup"/>
-                    
-              
+
+                  <a class="nav-link mx-lg-3" href="/signup">
+
                     {' '}
                     Sign in{' '}
             

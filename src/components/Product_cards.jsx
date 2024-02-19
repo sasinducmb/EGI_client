@@ -4,13 +4,10 @@ import ManualRating from './ManualRating';
 import { FaRegHeart } from 'react-icons/fa';
 import { FiEye } from 'react-icons/fi';
 
-
-const Cards = () => {
+const Product_cards = () => {
   return (
-    <div className=" custom-box pt-4 pb-3">
-      {/* <div className="card-box-inner  "> -40%</div> */}
+    <div className=" custom-box  pt-4">
       <div className="card-inner card-bgcolor">
-        <div className="card-box-inner">40%</div>
         <div className="card-heart">
           <div className="icon-heart d-flex justify-content-center align-items-center mb-1">
             <FaRegHeart size={20} />
@@ -19,7 +16,7 @@ const Cards = () => {
             <FiEye size={20} />
           </div>
         </div>
-        <img src="../../img/joystic.png" className=" card-outer" />
+        <img src="../../img/coat.png" className=" card-outer" />
       </div>
       <h6>HAVIT HV-G92 Gamepad</h6>
       <div className="d-flex">
@@ -28,10 +25,11 @@ const Cards = () => {
           $160
         </h6>
       </div>
-      <ManualRating />
-
+      <div>
+        <ManualRating />
+      </div>
     </div>
   );
 };
 
-export default Cards;
+export default Product_cards;

@@ -2,6 +2,21 @@ import React from 'react';
 
 const Account = () => {
   return (
+
+    <div className="container">
+      <div className=" row d-flex ">
+        <div className=" d-flex justify-content-between  ">
+          <div className="d-flex">
+            <h6 style={{ opacity: '50%' }}>Home /</h6>
+            <h6 className="ms-2 "> My Account </h6>
+          </div>
+          <div className="justify-content-end ">
+            <h6>Welcome!</h6>
+          </div>
+        </div>
+      </div>
+      <div className="container d-flex pt-2">
+
     <div>
       <div className="d-flex">
         <>
@@ -170,17 +185,19 @@ const Account = () => {
           <h4
             style={{
               fontFamily: 'Poppins',
-              fontWeight: 500,
+
               fontSize: '20px',
               color: '#DB4444',
             }}
-            className="m-3"
+
           >
             Edit Your Profile
           </h4>
           <div class="form-row">
-            <div class="d-flex pt-4">
-              <div class="form-group col-md-6">
+
+            <div class="row d-flex">
+              <div class="form-group col-md-6  col-sm-12">
+
                 <label for="inputFirst">First Name</label>
                 <input
                   type="first"
@@ -189,7 +206,10 @@ const Account = () => {
                   placeholder="Md"
                 />
               </div>
-              <div class="form-group col-md-6 ms-2">
+
+              <div class="form-group col-md-6  col-sm-12">
+
+
                 <label for="inputLast">Last Name</label>
                 <input
                   type="last"
@@ -198,9 +218,11 @@ const Account = () => {
                   placeholder="Rimel"
                 />
               </div>
-            </div>
-            <div class="d-flex">
-              <div class="form-group col-md-6">
+      </div>
+
+            <div class=" row d-flex">
+              <div class="form-group col-md-6 col-sm-12">
+
                 <label for="inputPassword4">Email</label>
                 <input
                   type="Email"
@@ -209,7 +231,9 @@ const Account = () => {
                   placeholder="rimel1111@gmail.com"
                 />
               </div>
-              <div class="form-group">
+
+              <div class="form-group col-md-6  col-sm-12">
+
                 <label for="inputAddress">Address</label>
                 <input
                   type="address"
@@ -221,7 +245,10 @@ const Account = () => {
             </div>
           </div>
 
-          <div className="pt-2">
+
+          <div className="col-md-12 ">
+
+
             <div class="form-group">
               <label for="inputAddress2">Password Changes</label>
               <input
@@ -248,13 +275,25 @@ const Account = () => {
               />
             </div>
           </div>
-          <button type="submit" class="custom-style">
-            <span>Cancle</span>
-          </button>
 
-          <button type="submit" class="custom-style row align-items-end ms-3">
-            Sign in
-          </button>
+          <div className=" d-flex justify-content-end">
+            <button
+              type="cancle"
+              style={{
+                border: '0',
+                backgroundColor: '#ffffff',
+                width: '140px',
+                height: '56px',
+              }}
+            >
+              <span>Cancle</span>
+            </button>
+
+            <button type="submit" class="custom-style ">
+              Save Changes
+            </button>
+          </div>
+
         </form>
       </div>
     </div>

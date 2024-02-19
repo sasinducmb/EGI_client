@@ -121,7 +121,7 @@ function Footer() {
                 <div className="pt-2">
                   <img src="../../img/Qrcode1.png" />
                 </div>
-                <div className="abc">
+                <div className="abc px-2">
                   <img src="../../img/GooglePlay.png" />
                   <img className="p-1" src="../../img/download-appstore.png" />
                 </div>

@@ -1,24 +1,200 @@
 :root {
   --black: #000000;
   --white: #ffffff;
+  --red: #db4444;
+  --lowwhite: #f5f5f5;
 }
-/* * {
-  font-family: 'Poppins';
-} */
+
 .header {
   height: 48px;
   background: var(--black);
   color: var(--white);
 }
-
+/* footer  */
 .footer {
   height: 440px;
   background-color: var(--black);
   color: var(--white);
 }
-.footer-row{
-  padding-top:80px;
+.footer-row {
+  padding-top: 80px;
 }
+
+.footer img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Account  */
+.custom-form {
+  width: 750px;
+  height: 500px;
+  border-radius: 4px;
+  background-color: var(--white);
+  box-shadow: 0px 1px 13px 0px #0000000d;
+}
+
+/* For tablets */
+@media (max-width: 768px) {
+  .custom-form {
+    width: 80%;
+    height: auto;
+    top: 10%;
+    left: 10%;
+    position: relative;
+  }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+  .custom-form {
+    width: 95%;
+    top: 5%;
+    left: 2.5%;
+    position: relative;
+  }
+}
+
+.custom-style {
+  width: 214px;
+  height: 56px;
+  border-radius: 4px;
+  background-color: var(--red);
+  border: none;
+  color: var(--white);
+}
+
+/* Cards */
+.custom-box {
+  width: 270px;
+  height: 350px;
+}
+.card-inner {
+  width: 270px;
+  height: 250px;
+  position: relative;
+  border-radius: 4px;
+}
+.card-bgcolor {
+  background-color: var(--lowwhite);
+}
+
+.card-box-inner {
+  width: 55px;
+  height: 26px;
+  border-radius: 4px;
+  background-color: var(--red);
+  padding: 4px 12px 10px 15px;
+  position: absolute;
+  top: 4%;
+  left: 4%;
+}
+
+.card-outer {
+  position: absolute;
+  top: 20%;
+  left: 23%;
+}
+
+.card-heart {
+  position: absolute;
+  top: 4%;
+  left: 85%;
+}
+
+/* category  */
+.cate-item {
+  width: 170px;
+  height: 145px;
+  border-radius: 4px;
+  border: 1px;
+}
+.cate-item:hover {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+/* Home */
+
+.red-box {
+  width: 20px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: var(--red);
+  color: var(--red);
+}
+
+.btn-product {
+  width: 234px;
+  height: 56px;
+  border-radius: 4px;
+  background-color: var(--red);
+  color: var(--lowwhite);
+  border: none;
+}
+
+.text-style {
+  font-family: 'poppins';
+  font-weight: 400;
+  font-size: 36px;
+}
+.product-style {
+  width: 159px;
+  height: 56px;
+  border-radius: 4px;
+  border: none;
+  color: var(--lowwhite);
+  background-color: var(--red);
+}
+.black-box {
+  width: 100%;
+  height: 500px;
+  background-color: var(--black);
+  position: relative;
+}
+.text-color {
+  color: var(--white);
+  font-size: 48px;
+}
+
+.timecount-align {
+  position: absolute;
+  top: 55%;
+  left: 14%;
+}
+
+.buy-now {
+  width: 171px;
+  height: 56px;
+  border-radius: 4px;
+  border: none;
+  color: var(--lowwhite);
+  background-color: #00ff66;
+}
+/* heart and eye  */
+.icon-heart {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--white);
+  cursor: pointer;
+}
+.icon-heart:hover {
+  background-color: var(--red);
+  color: var(--lowwhite);
+}
+
+/* arrowkeys style  */
+.arrow-keys{
+  cursor: pointer;
+   border-radius: 50%;
+   background-color: var(--white);
+}
+
+.arrow-keys:hover{
+  background-color: var(--red);
+  color: var(--lowwhite);
+
 
 .footer img {
   max-width: 100%;
@@ -94,4 +270,5 @@
   position: absolute;
   top: 4%;
   left: 85%
+
 }
