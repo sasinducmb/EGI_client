@@ -94,11 +94,13 @@ function Navbar() {
                   aria-label="Search"
                 />
               </form>
+              <a href="/wishlist">
               <img
                 className="p-2"
                 src="/img/Wishlist.png"
                 style={{ height: '40px', width: '40px' }}
               />
+              </a>
               <img
                 className="p-2"
                 src="/img/Cart1.png"

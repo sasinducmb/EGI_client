@@ -12,7 +12,9 @@ import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-
+import { CiDeliveryTruck } from "react-icons/ci";
+import { TfiHeadphoneAlt } from "react-icons/tfi";
+import { SiAdguard } from "react-icons/si";
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const carousel = useRef(null);
@@ -276,7 +278,7 @@ const Home = () => {
           className="col-lg-4 mx-5  about-footer d-flex justify-content-center align-items-center"
           style={{ flexDirection: 'column' }}
         >
-          <CiDeliveryTruck size={110} />
+          <CiDeliveryTruck size={80} />
           <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
             FREE AND FAST DELIVERY
           </p>
@@ -288,7 +290,7 @@ const Home = () => {
           className="col-lg-4 mx-5 about-footer d-flex justify-content-center align-items-center"
           style={{ flexDirection: 'column' }}
         >
-          <TfiHeadphoneAlt size={110} />
+          <TfiHeadphoneAlt size={80} />
           <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
             24/7 CUSTOMER SERVICE
           </p>
@@ -298,7 +300,7 @@ const Home = () => {
           className="col-lg-4  mx-5 about-footer d-flex justify-content-center align-items-center"
           style={{ flexDirection: 'column' }}
         >
-          <SiAdguard size={110} />
+          <SiAdguard size={80} />
           <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
             MONEY BACK GUARANTEE
           </p>
