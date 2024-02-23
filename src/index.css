@@ -69,6 +69,8 @@
   width: 270px;
   height: 350px;
 }
+
+
 .card-inner {
   width: 270px;
   height: 250px;
@@ -94,6 +96,11 @@
   position: absolute;
   top: 20%;
   left: 23%;
+}
+
+.pic{
+  max-height: 180px;
+  max-width: 150px;
 }
 
 .card-heart {
@@ -122,6 +129,7 @@
   border-radius: 4px;
   background-color: var(--red);
   color: var(--red);
+
 }
 
 .btn-product {

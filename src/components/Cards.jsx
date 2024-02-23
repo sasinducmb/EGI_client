@@ -5,9 +5,9 @@ import { FaRegHeart } from 'react-icons/fa';
 import { FiEye } from 'react-icons/fi';
 
 
-const Cards = () => {
+const Cards = ({name,price,pic}) => {
   return (
-    <div className=" custom-box pt-4 pb-3">
+    <div className=" custom-box pt-4 pb-3 mx-3">
       {/* <div className="card-box-inner  "> -40%</div> */}
       <div className="card-inner card-bgcolor">
         <div className="card-box-inner">40%</div>
@@ -19,11 +19,11 @@ const Cards = () => {
             <FiEye size={20} />
           </div>
         </div>
-        <img src="../../img/joystic.png" className=" card-outer" />
+        <img src={`http://localhost:5000/uploads/${pic.split("\\").pop()}`} className=" card-outer pic" />
       </div>
-      <h6>HAVIT HV-G92 Gamepad</h6>
+      <h6>{name}</h6>
       <div className="d-flex">
-        <h6 style={{ color: 'red' }}>$120</h6>
+        <h6 style={{ color: 'red' }}>${price}</h6>
         <h6 style={{ opacity: '50%' }} className="px-3">
           $160
         </h6>
