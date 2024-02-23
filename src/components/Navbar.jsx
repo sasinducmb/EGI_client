@@ -64,13 +64,13 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="#">
+                  <a class="nav-link mx-lg-3" href="/contact">
                     {' '}
                     Contact{' '}
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="#">
+                  <a class="nav-link mx-lg-3" href="/about">
                     {' '}
                     About{' '}
                   </a>
@@ -104,11 +104,6 @@ function Navbar() {
                 src="/img/Cart1.png"
                 style={{ height: '40px', width: '40px' }}
               />
-              {
-                user &&(
-                  <FaRegUserCircle size={20} className='mt-2' style={{cursor:'pointer'}} onClick={logout}/>
-                )
-              }
             </div>
           </div>
         </nav>

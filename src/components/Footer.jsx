@@ -1,4 +1,9 @@
 import React from 'react';
+import { FaFacebookSquare } from 'react-icons/fa';
+import { RxTwitterLogo } from 'react-icons/rx';
+import { IoLogoInstagram } from 'react-icons/io';
+import { RxLinkedinLogo } from 'react-icons/rx';
+import { IoIosArrowDropright } from 'react-icons/io';
 
 
 function Footer() {
@@ -23,7 +28,7 @@ function Footer() {
                 <div class="input-group mb-3">
                   <input
                     style={{
-                      width: '150px',
+                      width: '80px',
                       height: '48px',
                       background: 'black',
                       color: 'white',
@@ -34,18 +39,8 @@ function Footer() {
                     aria-label="Recipient's username"
                     aria-describedby="button-addon"
                   />
-                  <div class="input-group-append">
-                    <button
-                      style={{
-                        // width: '150px',
-                        height: '48px',
-                      }}
-                      class="btn btn-outline-secondary"
-                      type="button"
-                      id="button-addon"
-                    >
-                      Button
-                    </button>
+                  <div class="input-group-append d-flex align-items-center justify-content-center ">
+                    <IoIosArrowDropright className="footer-img-arrow mx-2" />
                   </div>
                 </div>
               </div>
@@ -126,27 +121,11 @@ function Footer() {
                   <img className="p-1" src="../../img/download-appstore.png" />
                 </div>
               </div>
-              <div className="d-flex pt-4">
-                <img
-                  className="p-2 footer img"
-                  src="../../img/fb.jpg"
-                  style={{ height: '40px', width: '40px' }}
-                />
-                <img
-                  className="p-2 footer img"
-                  src="../../img/Group.png"
-                  style={{ height: '40px', width: '40px' }}
-                />
-                <img
-                  className="p-2 footer img"
-                  src="../../img/icon-instagram.png"
-                  style={{ height: '40px', width: '40px' }}
-                />
-                <img
-                  className="p-2 footer img"
-                  src="../../img/Vector1.png"
-                  style={{ height: '40px', width: '40px' }}
-                />
+              <div className="d-flex pt-4 ">
+                <FaFacebookSquare className="footer-img mx-2" />
+                <RxTwitterLogo className="footer-img mx-2" />
+                <IoLogoInstagram className="footer-img mx-2" />
+                <RxLinkedinLogo className="footer-img mx-2" />
               </div>
             </div>
           </div>

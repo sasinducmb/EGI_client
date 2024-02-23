@@ -17,6 +17,16 @@ const Explore_cards = () => {
           </div>
         </div>
         <img src="../../img/set.png" className=" card-outer" />
+        <a href="#">
+          <div className="row add-cart">
+            <h5
+              className="d-flex justify-content-center align-items-end"
+              style={{ color: 'white' }}
+            >
+              Add To Cart
+            </h5>
+          </div>
+        </a>
       </div>
       <h6>Breed Dry Dog Food</h6>
       <div className="d-flex justify-content-start align-items-center ">

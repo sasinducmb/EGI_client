@@ -1,22 +1,21 @@
 import React from 'react';
 import StarRating from './StarRating';
 import ManualRating from './ManualRating';
-import { FaRegHeart } from 'react-icons/fa';
-import { FiEye } from 'react-icons/fi';
+import { RiDeleteBinLine } from 'react-icons/ri';
 
-const Product_cards = () => {
+const WishlistCard = () => {
   return (
-    <div className=" custom-box  pt-4">
-      <div className="card-inner card-bgcolor">
+    <div className=" custom-box pt-2 pb-3">
+      <div className="card-inner">
+        <div className="card-box-inner d-flex align-items-center justify-content-center">
+          40%
+        </div>
         <div className="card-heart">
-          <div className="icon-heart d-flex justify-content-center align-items-center mb-1">
-            <FaRegHeart size={20} />
-          </div>
-          <div className="icon-heart d-flex justify-content-center align-items-center">
-            <FiEye size={20} />
+          <div className="icon-heart d-flex justify-content-center align-items-center mb-1 ">
+            <RiDeleteBinLine size={20} />
           </div>
         </div>
-        <img src="../../img/coat.png" className=" card-outer" />
+        <img src="../../img/joystic.png" className=" card-outer" />
         <a href="#">
           <div className="row add-cart">
             <h5
@@ -35,11 +34,8 @@ const Product_cards = () => {
           $160
         </h6>
       </div>
-      <div>
-        <ManualRating />
-      </div>
     </div>
   );
 };
 
-export default Product_cards;
+export default WishlistCard;

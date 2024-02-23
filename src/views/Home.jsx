@@ -197,10 +197,117 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <Explore_cards />
+          <div>
+            <Explore_cards />
+            <div className="row justify-content-center">
+              <button className="btn-product">View All Products</button>
+            </div>
+          </div>
+          <div className="pt-5">
+            <div className="d-flex align-items-center red-box ">
+              <div>
+                <h6 className="pt-1 px-4">Featured</h6>
+              </div>
+            </div>
+            <div className="col-lg-6 pt-3">
+              <h4 className="text-style">New Arrival</h4>
+            </div>
+            <div className="row box-play">
+              <div className="col-lg-6 d-flex justify-content-center align-items-end box-play-0">
+                <img src="../../img/play.png" />
+                <div className="image-text-0">
+                  <h3>PlayStation 5</h3>
+                  <h6 className="pt-2 pb-2">
+                    Black and White version of the PS5 <br /> coming out on
+                    sale.
+                  </h6>
+                  <a href="#" className="a">
+                    Shop Now
+                  </a>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                <div className="row col-lg-11 mx-auto  d-flex justify-content-end align-items-end box-play-1 m-2">
+                  <img
+                    src="../../img/img2.png"
+                    style={{ width: '430px', height: '278px' }}
+                  />
+                  <div className="image-text-0">
+                    <h3>Women’s Collections</h3>
+                    <h6>
+                      Featured woman collections that <br /> give you another
+                      vibe.
+                    </h6>
+                    <a href="#" className="a">
+                      Shop Now
+                    </a>
+                  </div>
+                </div>
+                <div className="row d-flex justify-content-center align-items-center">
+                  <div className="col-lg-5 box-play-2 d-flex justify-content-center align-items-center m-1">
+                    <img src="../../img/img3.png" />
+                    <div className="image-text">
+                      <h3>Speakers</h3>
+                      <h6>Amazon wireless speakers</h6>
+                      <a href="#" className="a">
+                        Shop Now
+                      </a>
+                    </div>
+                  </div>
+                  <div className="col-lg-5 box-play-2 d-flex justify-content-center align-items-center m-1">
+                    <img src="../../img/img4.png" />
+                    <div className="image-text">
+                      <h3>Perfume</h3>
+                      <h6>GUCCI INTENSE OUD EDP</h6>
+                      <a href="#" className="a">
+                        Shop Now
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="row pt-5 justify-content-center">
+        <div
+          className="col-lg-4 mx-5  about-footer d-flex justify-content-center align-items-center"
+          style={{ flexDirection: 'column' }}
+        >
+          <CiDeliveryTruck size={110} />
+          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+            FREE AND FAST DELIVERY
+          </p>
+          <p style={{ fontSize: '12px' }}>
+            Free delivery for all orders over $140
+          </p>
+        </div>
+        <div
+          className="col-lg-4 mx-5 about-footer d-flex justify-content-center align-items-center"
+          style={{ flexDirection: 'column' }}
+        >
+          <TfiHeadphoneAlt size={110} />
+          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+            24/7 CUSTOMER SERVICE
+          </p>
+          <p style={{ fontSize: '12px' }}>Friendly 24/7 customer support</p>
+        </div>
+        <div
+          className="col-lg-4  mx-5 about-footer d-flex justify-content-center align-items-center"
+          style={{ flexDirection: 'column' }}
+        >
+          <SiAdguard size={110} />
+          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+            MONEY BACK GUARANTEE
+          </p>
+          <p style={{ fontSize: '12px' }}>We return money within 30 days</p>
         </div>
       </div>
     </div>
+
+  
   );
 };
 
