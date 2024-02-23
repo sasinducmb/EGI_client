@@ -194,7 +194,7 @@
 .arrow-keys:hover{
   background-color: var(--red);
   color: var(--lowwhite);
-
+}
 
 .footer img {
   max-width: 100%;

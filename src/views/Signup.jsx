@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Signup = () => {
+  const [message, setMessage] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [isValid, setIsValid] = useState(true);
   // validate the phone number and email
   const validateInput = (value) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -28,10 +31,6 @@ const Signup = () => {
     password: "",
   });
 
-  const [message, setMessage] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [isValid, setIsValid] = useState(true);
-
   // registration post rq
   const userRegistration = async (e) => {
     e.preventDefault();
@@ -39,8 +38,7 @@ const Signup = () => {
     const { name, username, password } = data;
     // console.log(username);
 
-    console.log(isValid);
-    if (isValid === true) {
+    if (isValid) {
       try {
         const response = await axios.post("/user/register", {
           name,
@@ -48,160 +46,23 @@ const Signup = () => {
           password,
         });
         if (response.data.message === "ok") {
-          setMessage("successfull registrtion");
-
-          // navigation('/Login')
-        } else if (response.data.err === 2) {
-          setErrMsg("Password contain at least 8 characters");
-        } else {
-          setErrMsg("User name already have!");
+          setMessage("Successful registration");
+          
         }
-      } catch (err) {
-        console.error(err.message);
+      } catch (error) {
+        if (error.response.data.message === "2") {
+            setErrMsg("Password must contain at least 8 characters")
+        } else if(error.response.data.message==="3"){
+          setErrMsg("Username already exists");
+        }
+        // console.error(err.message);
+        // You might also want to set an error message here for other kinds of errors
       }
     } else {
-      setErrMsg("valid email or phone number");
+      setErrMsg("Valid email or phone number required");
     }
   };
   return (
-
-    <div className="container pt-4 pb-5">
-      <div className="row">
-        <div className="col-12 col-md-6">
-          <img
-            src="../../img/SideImage.png"
-            className="img-fluid"
-            alt="Descriptive Alt Text"
-            style={{ height: 'auto', maxWidth: '100%' }}
-          />
-        </div>
-        <div className="col-12 col-md-6">
-          <div className="m-3">
-            <h2
-              style={{
-                fontWeight: 500,
-                fontSize: '36px',
-                fontFamily: 'Poppins',
-              }}
-            >
-              Create an account
-            </h2>
-            <h4
-              style={{
-                fontWeight: 400,
-                fontSize: '16px',
-                fontFamily: 'Poppins',
-              }}
-            >
-              Enter your details below
-            </h4>
-            <form>
-              <div class="form-group pt-4">
-                <input
-                  type="name"
-                  class="form-control"
-                  id="inputName"
-                  placeholder="Name"
-                  style={{
-                    border: 'none',
-                    borderBottom: '1px solid #000',
-                    outline: 'none',
-                    borderRadius: '0',
-                  }}
-                />
-              </div>
-              <div class="form-group pt-3">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="inputEmail"
-                  aria-describedby="emailHelp"
-                  placeholder="Email or Phone Number"
-                  style={{
-                    border: 'none',
-                    borderBottom: '1px solid #000',
-                    outline: 'none',
-                    borderRadius: '0',
-                  }}
-                />
-              </div>
-
-              <div class="form-group pt-3 pb-3">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="inputPassword"
-                  placeholder="Password"
-                  style={{
-                    border: 'none',
-                    borderBottom: '1px solid #000',
-                    outline: 'none',
-                    borderRadius: '0',
-                  }}
-                />
-              </div>
-
-              <button
-                style={{
-                  width: '371px',
-                  height: '56px',
-                  borderRadius: '4px',
-                  border: '0px',
-                  padding: '16px 86px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '10px',
-                  backgroundColor: '#DB4444', // Adjust background color as needed
-                  color: '#FAFAFA', // Adjust text color as needed
-                  cursor: 'pointer',
-                }}
-                className="mb-2 mt-2"
-              >
-                <span>Create Account</span>
-              </button>
-
-              <button
-                style={{
-                  width: '371px',
-                  height: '56px',
-                  borderRadius: '4px',
-                  border: '1px solid #000', // You can adjust the border color as needed
-                  padding: '16px 86px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '10px',
-                  backgroundColor: '#fff', // Adjust background color as needed
-                  color: '#000', // Adjust text color as needed
-                  cursor: 'pointer',
-                }}
-              >
-                {/* Replace this with your Google icon IconGoogle */}
-                <div style={{ width: '24px', height: '24px' }}>
-                  <img src="../../img/IconGoogle.png" />
-                </div>
-                <span
-                  style={{
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    fontFamily: 'Poppins',
-                  }}
-                >
-                  Sign up with Google
-                </span>
-              </button>
-
-              <p class="text-center text-muted mt-3 mb-0">
-                Have already an account?{' '}
-                <a href="/login" class="fw-bold text-body">
-                  <u>Login here</u>
-                </a>
-              </p>
-            </form>
-          </div>
-        </div>
-
     <div className="container pt-4 pb-5 d-flex">
       <img
         src="../../img/SideImage.png"
@@ -261,22 +122,22 @@ const Signup = () => {
             />
           </div>
 
-              <div class="form-group pt-3 pb-3">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="inputPassword"
-                  required
+          <div class="form-group pt-3 pb-3">
+            <input
+              type="password"
+              class="form-control"
+              id="inputPassword"
+              required
               placeholder="Password"
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #000",
-                    outline: "none",
-                    borderRadius: "0",
-                  }}
-                  onChange={(e) => SetData({ ...data, password: e.target.value })}
+              style={{
+                border: "none",
+                borderBottom: "1px solid #000",
+                outline: "none",
+                borderRadius: "0",
+              }}
+              onChange={(e) => SetData({ ...data, password: e.target.value })}
             />
-              </div>
+          </div>
 
           <button
             style={{
@@ -337,7 +198,6 @@ const Signup = () => {
             <u>Login here</u>
           </a>
         </p>
-
       </div>
     </div>
   );

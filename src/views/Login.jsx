@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
+import axios from 'axios';
+import { UserContext } from "../auth/userContext"
 
 const Login = () => {
   const [data, SetData] = useState({
@@ -6,10 +8,28 @@ const Login = () => {
     password: "",
   });
   const [errMsg, setErrMsg] = useState("");
+  const[message,setMessage]=useState("")
+
 
   const userLogin=async(e)=>{
       e.preventDefault();
       const {username, password } = data;
+      try{
+        const response = await axios.post("/user/login", {
+          username,
+          password,
+        });
+        const newUser = response.data.newUser;
+        const userRole = newUser.role;
+        if (userRole==="admin") {  
+          window.location.href="http://localhost:3001/" 
+        }else{
+          window.location.href="http://localhost:3000/" 
+          // console.log("user")
+        }
+      }catch(err){
+        setErrMsg(err.response.data.message)
+      }
   }
 
 
@@ -44,6 +64,7 @@ const Login = () => {
             >
               Enter your details below
             </h4>
+            {errMsg?( <p className="alert alert-danger">{errMsg}</p>):null}
             <form method="POST" onSubmit={userLogin}>
               <div class="form-group pt-3">
                 <input

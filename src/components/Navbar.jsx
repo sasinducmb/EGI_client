@@ -1,13 +1,29 @@
-import React from 'react';
-
+import React,{useContext} from 'react';
+import { UserContext } from "../auth/userContext"
+import { FaRegUserCircle } from "react-icons/fa";
+import axios from 'axios';
+const logout = async () => {
+  try {
+    const logOut = await axios.get("/user/logout");
+    if (logOut.data) {
+      // console.log(logOut.data.message);
+      window.location.href = "http://localhost:3000/"
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 
 function Navbar() {
+  const { user } = useContext(UserContext);
+  
+
   return (
     <div class="container-fluid">
       <div className="container pt-1">
         <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
           <a class="navbar-brand" href="/">
-            HOUSE OF CAMBRIDGE
+            HOUSE OF CAMBRIDGE 
           </a>
           <button
             class="navbar-toggler"
@@ -60,12 +76,14 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-
                   <a class="nav-link mx-lg-3" href="/signup">
-
-                    {' '}
                     Sign in{' '}
-            
+            </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-3" href="/login">
+                    Login{' '}
+            </a>
                 </li>
               </ul>
               <form class="d-flex mt-1" role="search">
@@ -86,6 +104,11 @@ function Navbar() {
                 src="/img/Cart1.png"
                 style={{ height: '40px', width: '40px' }}
               />
+              {
+                user &&(
+                  <FaRegUserCircle size={20} className='mt-2' style={{cursor:'pointer'}} onClick={logout}/>
+                )
+              }
             </div>
           </div>
         </nav>

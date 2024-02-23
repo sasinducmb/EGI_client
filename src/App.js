@@ -6,6 +6,8 @@ import Signup from "./views/Signup";
 import Home from "./views/Home";
 import DefaultLayout from "./components/DefaultLayout";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { UserProvider } from "./auth/userContext";
 
 axios.defaults.baseURL="http://localhost:5000";
 axios.defaults.withCredentials=true;
@@ -13,22 +15,24 @@ axios.defaults.withCredentials=true;
 function App() {
 	const [user, setUser] = useState(null);
 
-	const getUser = async () => {
-		try {
-			const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
-			const { data } = await axios.get(url, { withCredentials: true });
-			setUser(data.user._json);
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	// const getUser = async () => {
+	// 	try {
+	// 		const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
+	// 		const { data } = await axios.get(url, { withCredentials: true });
+	// 		setUser(data.user._json);
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// };
 
-	useEffect(() => {
-		getUser();
-	}, []);
+	// useEffect(() => {
+	// 	getUser();
+	// }, []);
 
 	return (
 		<div className="container">
+
+			 <UserProvider>
             <Navbar/>
 			<Routes>
 				<Route
@@ -46,6 +50,9 @@ function App() {
 					element={<Signup />}
                     />
 			</Routes>
+			<Footer/>
+			</UserProvider>
+
      
 		</div>
 	);
