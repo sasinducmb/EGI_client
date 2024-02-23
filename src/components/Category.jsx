@@ -8,7 +8,7 @@ const Category = () => {
       {categoryItem.map((items) => {
         return (
           <div
-            className="col-lg-2  col-4 border cate-item d-flex justify-content-center align-items-center"
+            className="col-lg-2  border cate-item d-flex justify-content-center align-items-center"
             style={{ flexDirection: 'column' }}
           >
             {' '}

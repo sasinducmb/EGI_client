@@ -4,8 +4,10 @@ import About from './views/About';
 import Signup from './views/Signup';
 import Login from './views/Login';
 import Account from './views/Account';
+import Contact from './views/Contact';
 import DefaultLayout from './components/DefaultLayout';
 import GuestLayout from './components/GuestLayout';
+import Wishlist from './views/Wishlist';
 
 const router = createBrowserRouter([
   // {
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
       { path: '/signup', element: <Signup /> },
       { path: '/login', element: <Login /> },
       { path: '/account', element: <Account /> },
+      { path: '/contact', element: <Contact /> },
+      { path: '/wishlist', element: <Wishlist /> },
     ],
   },
 ]);

@@ -17,6 +17,16 @@ const Product_cards = () => {
           </div>
         </div>
         <img src="../../img/coat.png" className=" card-outer" />
+        <a href="#">
+          <div className="row add-cart">
+            <h5
+              className="d-flex justify-content-center align-items-end"
+              style={{ color: 'white' }}
+            >
+              Add To Cart
+            </h5>
+          </div>
+        </a>
       </div>
       <h6>HAVIT HV-G92 Gamepad</h6>
       <div className="d-flex">

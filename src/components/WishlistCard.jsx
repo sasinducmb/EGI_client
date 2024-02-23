@@ -1,22 +1,18 @@
 import React from 'react';
 import StarRating from './StarRating';
 import ManualRating from './ManualRating';
-import { FaRegHeart } from 'react-icons/fa';
-import { FiEye } from 'react-icons/fi';
+import { RiDeleteBinLine } from 'react-icons/ri';
 
-
-const Cards = () => {
+const WishlistCard = () => {
   return (
     <div className=" custom-box pt-2 pb-3">
-      {/* <div className="card-box-inner  "> -40%</div> */}
       <div className="card-inner">
-        <div className="card-box-inner">40%</div>
+        <div className="card-box-inner d-flex align-items-center justify-content-center">
+          40%
+        </div>
         <div className="card-heart">
-          <div className="icon-heart d-flex justify-content-center align-items-center mb-1">
-            <FaRegHeart size={20} />
-          </div>
-          <div className="icon-heart d-flex justify-content-center align-items-center">
-            <FiEye size={20} />
+          <div className="icon-heart d-flex justify-content-center align-items-center mb-1 ">
+            <RiDeleteBinLine size={20} />
           </div>
         </div>
         <img src="../../img/joystic.png" className=" card-outer" />
@@ -38,9 +34,8 @@ const Cards = () => {
           $160
         </h6>
       </div>
-      <ManualRating />
     </div>
   );
 };
 
-export default Cards;
+export default WishlistCard;

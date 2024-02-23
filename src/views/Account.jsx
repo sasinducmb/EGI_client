@@ -3,7 +3,7 @@ import React from 'react';
 const Account = () => {
   return (
     <div className="container">
-      <div className=" row d-flex ">
+      <div className=" row d-flex pt-5 ">
         <div className=" d-flex justify-content-between  ">
           <div className="d-flex">
             <h6 style={{ opacity: '50%' }}>Home /</h6>
@@ -14,7 +14,7 @@ const Account = () => {
           </div>
         </div>
       </div>
-      <div className="container d-flex pt-2">
+      <div className="container d-flex pt-4">
         <div className="pt-3">
           <div
             className="flex-shrink-0 p-3 bg-white"
@@ -166,7 +166,7 @@ const Account = () => {
           </div>
         </div>
 
-        <form class="custom-form row ">
+        <form class="custom-form row mx-4 pt-4">
           <h4
             style={{
               fontFamily: 'Poppins',

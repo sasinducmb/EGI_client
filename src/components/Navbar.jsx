@@ -1,4 +1,7 @@
 import React from 'react';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import { IoCartOutline } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -47,13 +50,13 @@ function Navbar() {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="#">
+                  <a class="nav-link mx-lg-3" href="/contact">
                     {' '}
                     Contact{' '}
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mx-lg-3" href="#">
+                  <a class="nav-link mx-lg-3" href="/about">
                     {' '}
                     About{' '}
                   </a>
@@ -73,16 +76,14 @@ function Navbar() {
                   aria-label="Search"
                 />
               </form>
-              <img
-                className="p-2"
-                src="/img/Wishlist.png"
-                style={{ height: '40px', width: '40px' }}
-              />
-              <img
-                className="p-2"
-                src="/img/Cart1.png"
-                style={{ height: '40px', width: '40px' }}
-              />
+              <div className="p-2 footer-img-arrow">
+                <Link to={'/wishlist'}>
+                  <IoIosHeartEmpty size={24} />
+                </Link>
+              </div>
+              <div className="p-2 footer-img-arrow">
+                <IoCartOutline size={24} />
+              </div>
             </div>
           </div>
         </nav>
