@@ -39,6 +39,7 @@ const Cards = () => {
         </h6>
       </div>
       <ManualRating />
+
     </div>
   );
 };

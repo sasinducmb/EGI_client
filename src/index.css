@@ -282,33 +282,3 @@ position: relative;
   background-color: var(--red);
   color: var(--lowwhite);
 }
-.about-footer {
-  width: 280px;
-  height: 161px;
-  border-radius: 4px;
-}
-/* contact  */
-
-.contact-style {
-  width: 340px;
-  height: 457px;
-  border-radius: 4px;
-  background-color: var(--white);
-  box-shadow: 0px 1px 13px 0px #0000000d;
-}
-
-.icon-contact {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: var(--red);
-  color: #f5f5f5;
-}
-
-.contact-form-style {
-  height: 457px;
-  border-radius: 4px;
-  background-color: var(--white);
-  box-shadow: 0px 1px 13px 0px #0000000d;
-}
-

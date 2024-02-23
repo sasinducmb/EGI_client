@@ -1,15 +1,29 @@
-import React from 'react';
-import { IoIosHeartEmpty } from 'react-icons/io';
-import { IoCartOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import React,{useContext} from 'react';
+import { UserContext } from "../auth/userContext"
+import { FaRegUserCircle } from "react-icons/fa";
+import axios from 'axios';
+const logout = async () => {
+  try {
+    const logOut = await axios.get("/user/logout");
+    if (logOut.data) {
+      // console.log(logOut.data.message);
+      window.location.href = "http://localhost:3000/"
+    }
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 
 function Navbar() {
+  const { user } = useContext(UserContext);
+  
+
   return (
     <div class="container-fluid">
       <div className="container pt-1">
         <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
           <a class="navbar-brand" href="/">
-            HOUSE OF CAMBRIDGE
+            HOUSE OF CAMBRIDGE 
           </a>
           <button
             class="navbar-toggler"
@@ -63,9 +77,13 @@ function Navbar() {
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/signup">
-                    {' '}
                     Sign in{' '}
-                  </a>
+            </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-3" href="/login">
+                    Login{' '}
+            </a>
                 </li>
               </ul>
               <form class="d-flex mt-1" role="search">
@@ -76,14 +94,16 @@ function Navbar() {
                   aria-label="Search"
                 />
               </form>
-              <div className="p-2 footer-img-arrow">
-                <Link to={'/wishlist'}>
-                  <IoIosHeartEmpty size={24} />
-                </Link>
-              </div>
-              <div className="p-2 footer-img-arrow">
-                <IoCartOutline size={24} />
-              </div>
+              <img
+                className="p-2"
+                src="/img/Wishlist.png"
+                style={{ height: '40px', width: '40px' }}
+              />
+              <img
+                className="p-2"
+                src="/img/Cart1.png"
+                style={{ height: '40px', width: '40px' }}
+              />
             </div>
           </div>
         </nav>

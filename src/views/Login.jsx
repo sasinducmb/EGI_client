@@ -1,6 +1,39 @@
-import React from 'react';
+import React, { useState ,useContext} from 'react';
+import axios from 'axios';
+import { UserContext } from "../auth/userContext"
 
 const Login = () => {
+  const [data, SetData] = useState({
+    username: "",
+    password: "",
+  });
+  const [errMsg, setErrMsg] = useState("");
+  const[message,setMessage]=useState("")
+
+
+  const userLogin=async(e)=>{
+      e.preventDefault();
+      const {username, password } = data;
+      try{
+        const response = await axios.post("/user/login", {
+          username,
+          password,
+        });
+        const newUser = response.data.newUser;
+        const userRole = newUser.role;
+        if (userRole==="admin") {  
+          window.location.href="http://localhost:3001/" 
+        }else{
+          window.location.href="http://localhost:3000/" 
+          // console.log("user")
+        }
+      }catch(err){
+        setErrMsg(err.response.data.message)
+      }
+  }
+
+
+
   return (
     <div className="container pt-4 pb-5">
       <div className="row">
@@ -31,10 +64,11 @@ const Login = () => {
             >
               Enter your details below
             </h4>
-            <form>
+            {errMsg?( <p className="alert alert-danger">{errMsg}</p>):null}
+            <form method="POST" onSubmit={userLogin}>
               <div class="form-group pt-3">
                 <input
-                  type="email"
+                  type="text"
                   class="form-control"
                   id="inputEmail"
                   aria-describedby="emailHelp"
@@ -45,7 +79,8 @@ const Login = () => {
                     outline: 'none',
                     borderRadius: '0',
                   }}
-                />
+                  onChange={(e) => SetData({ ...data, username: e.target.value })}
+            />
               </div>
 
               <div class="form-group pt-3 pb-3">
@@ -60,6 +95,7 @@ const Login = () => {
                     outline: 'none',
                     borderRadius: '0',
                   }}
+              onChange={(e) => SetData({ ...data, password: e.target.value })}
                 />
               </div>
 

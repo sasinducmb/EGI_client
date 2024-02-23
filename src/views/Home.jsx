@@ -1,16 +1,14 @@
 import React from 'react';
 import Sidebarwithslider from '../components/Sidebarwithslider';
 import CountdownTimer from '../components/Countdowntimer';
-import Carousel from '../components/Carousel';
-import YourCarousel from '../components/CarouselItem';
+import Cards from '../components/Cards';
+
 import Category from '../components/Category';
 import Product_cards from '../components/Product_cards';
 import { FiArrowLeft } from 'react-icons/fi';
 import { FiArrowRight } from 'react-icons/fi';
 import Explore_cards from '../components/Explore_cards';
-import { CiDeliveryTruck } from 'react-icons/ci';
-import { TfiHeadphoneAlt } from 'react-icons/tfi';
-import { SiAdguard } from 'react-icons/si';
+
 
 const Home = () => {
   return (
@@ -18,11 +16,13 @@ const Home = () => {
       <div className="container">
         <Sidebarwithslider />
         <div>
+
           <div className="d-flex align-items-center red-box ">
             <div>
               <h6 className="pt-1 px-4"> Today's</h6>
             </div>
           </div>
+
         </div>
 
         <div className="row pt-4">
