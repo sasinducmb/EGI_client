@@ -14,7 +14,7 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="row pt-5 pb-5">
+      <div className="row d-flex pt-5 pb-5">
         <div className="col-lg-4 contact-style d flex ">
           <div className="pt-4 d-flex ">
             <div className="icon-contact d-flex justify-content-center align-items-center">
@@ -48,7 +48,7 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="col-lg-8 mx-4 contact-form-style ">
+        <div className="col-lg-8 mx-4 contact-form-style border border-primary ">
           <div class="form-row m-5 justify-content-center align-item- center">
             <div class="row d-flex">
               <div class="form-group col-md-4">

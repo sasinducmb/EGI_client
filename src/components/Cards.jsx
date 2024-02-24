@@ -19,7 +19,20 @@ const Cards = ({name,price,pic}) => {
             <FiEye size={20} />
           </div>
         </div>
-        <img src={`http://localhost:5000/uploads/${pic.split("\\").pop()}`} className=" card-outer pic" />
+        <img
+          src={`http://localhost:5000/uploads/${pic.split('\\').pop()}`}
+          className=" card-outer pic"
+        />
+        <a href="#">
+          <div className="row add-cart">
+            <h5
+              className="d-flex justify-content-center align-items-end"
+              style={{ color: 'white' }}
+            >
+              Add To Cart
+            </h5>
+          </div>
+        </a>
       </div>
       <h6>{name}</h6>
       <div className="d-flex">
@@ -29,7 +42,6 @@ const Cards = ({name,price,pic}) => {
         </h6>
       </div>
       <ManualRating />
-
     </div>
   );
 };
