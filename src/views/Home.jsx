@@ -24,7 +24,7 @@ const Home = () => {
       try {
         const response = await axios.get("/products/getAllDetails");
         const activeProduct = response.data.filter(
-          (product) => product.isActive === true && product.sellType === "flash"
+          (product) => product.isActive === true
         );
         setCategories(activeProduct);
       } catch (err) {
@@ -35,7 +35,7 @@ const Home = () => {
     fetchProduct();
   }, []);
 
-  console.log(categories);
+
 
   return (
     <div class="container-fluid">
@@ -60,33 +60,38 @@ const Home = () => {
             <div className="col-lg-4 d-flex align-items-center justify-content-end">
               <div className=" d-flex ">
                 <div className="arrow-keys">
-                  <FiArrowLeft size={40} onClick={() => carousel.current.prev()}/>
+                  <FiArrowLeft
+                    size={40}
+                    onClick={() => carousel.current.prev()}
+                  />
                 </div>
                 <div className="arrow-keys d-flex">
-                  <FiArrowRight size={40} onClick={() => carousel.current.next()}/>
+                  <FiArrowRight
+                    size={40}
+                    onClick={() => carousel.current.next()}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="d-flex cc">
-          <OwlCarousel className="owl-theme" ref={carousel} loop items={4} >
-             
-          {categories.map((category, index) => (
-            <div class="item" style={{height:'400px'}}>
-            <Cards
-              key={index}
-              name={category.productName}
-              // percentage={category.percentage}
-              price={category.price}
-              pic={category.mainImage}
-              // originalPrice={category.originalPrice}
-              // ... other props you need to pass
-            />
-            </div>
-          ))}
+        <div className="d-flex">
+          <OwlCarousel className="owl-theme" ref={carousel} loop items={4}>
+            {categories
+              .filter((category) => category.sellType === "flash")
+              .map((category, index) => (
+                <div className="item" style={{ height: "400px" }}>
+                  <Cards
+                    key={index}
+                    name={category.productName}
+                    price={category.price}
+                    pic={category.mainImage}
+                    discount={"50"}
+                    // other props
+                  />
+                </div>
+              ))}
           </OwlCarousel>
-          
         </div>
 
         <div className="row justify-content-center mt-3">
@@ -139,7 +144,22 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <Product_cards />
+          <OwlCarousel className="owl-theme" loop items={4}>
+            {categories
+              .filter((category) => category.sellType === "best")
+              .map((category, index) => (
+                <div className="item" style={{ height: "400px" }}>
+                  <Cards
+                    key={index}
+                    name={category.productName}
+                    price={category.price}
+                    pic={category.mainImage}
+
+                    // other props
+                  />
+                </div>
+              ))}
+          </OwlCarousel>
         </div>
         <div className="pt-5">
           <div className="container row black-box pt-5 ">
@@ -188,19 +208,32 @@ const Home = () => {
                 <h4 className="text-style">Explore Our Products</h4>
               </div>
               <div className="col-lg-4 d-flex align-items-center justify-content-end">
-                <div className=" d-flex ">
+                {/* <div className=" d-flex ">
                   <div className="arrow-keys">
                     <FiArrowLeft size={40} />
                   </div>
                   <div className="arrow-keys d-flex">
                     <FiArrowRight size={40} />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
-          <div>
-            <Explore_cards />
+          <div className="row">
+            {categories.slice(0, 8).map((category, index) => (
+              <div className="col-lg-3">
+                <div className="item" style={{ height: "400px" }}>
+                  <Cards
+                    key={index}
+                    name={category.productName}
+                    price={category.price}
+                    pic={category.mainImage}
+
+                    // other props
+                  />
+                </div>
+              </div>
+            ))}
             <div className="row justify-content-center">
               <button className="btn-product">View All Products</button>
             </div>
@@ -232,7 +265,7 @@ const Home = () => {
                 <div className="row col-lg-11 mx-auto  d-flex justify-content-end align-items-end box-play-1 m-2">
                   <img
                     src="../../img/img2.png"
-                    style={{ width: '430px', height: '278px' }}
+                    style={{ width: "430px", height: "278px" }}
                   />
                   <div className="image-text-0">
                     <h3>Women’s Collections</h3>
@@ -276,40 +309,38 @@ const Home = () => {
       <div className="row pt-5 justify-content-center">
         <div
           className="col-lg-4 mx-5  about-footer d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
+          style={{ flexDirection: "column" }}
         >
           <CiDeliveryTruck size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+          <p className="pt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
             FREE AND FAST DELIVERY
           </p>
-          <p style={{ fontSize: '12px' }}>
+          <p style={{ fontSize: "12px" }}>
             Free delivery for all orders over $140
           </p>
         </div>
         <div
           className="col-lg-4 mx-5 about-footer d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
+          style={{ flexDirection: "column" }}
         >
           <TfiHeadphoneAlt size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+          <p className="pt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
             24/7 CUSTOMER SERVICE
           </p>
-          <p style={{ fontSize: '12px' }}>Friendly 24/7 customer support</p>
+          <p style={{ fontSize: "12px" }}>Friendly 24/7 customer support</p>
         </div>
         <div
           className="col-lg-4  mx-5 about-footer d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
+          style={{ flexDirection: "column" }}
         >
           <SiAdguard size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
+          <p className="pt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
             MONEY BACK GUARANTEE
           </p>
-          <p style={{ fontSize: '12px' }}>We return money within 30 days</p>
+          <p style={{ fontSize: "12px" }}>We return money within 30 days</p>
         </div>
       </div>
     </div>
-
-  
   );
 };
 
