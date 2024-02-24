@@ -54,7 +54,7 @@ const Home = () => {
             <div className="col-lg-3">
               <h4 className="text-style">Flash Sales</h4>
             </div>
-            <div className="col-lg-5  d-flex align-items-center">
+            <div className="col-lg-5 px-4 d-flex align-items-center">
               <CountdownTimer targetDate="2024-12-31" />
             </div>
             <div className="col-lg-4 d-flex align-items-center justify-content-end">

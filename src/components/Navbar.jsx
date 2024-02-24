@@ -24,7 +24,7 @@ function Navbar() {
       <div className="container pt-1">
         <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
           <a class="navbar-brand" href="/">
-            HOUSE OF CAMBRIDGE 
+            HOUSE OF CAMBRIDGE
           </a>
           <button
             class="navbar-toggler"
@@ -79,12 +79,12 @@ function Navbar() {
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/signup">
                     Sign in{' '}
-            </a>
+                  </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/login">
                     Login{' '}
-            </a>
+                  </a>
                 </li>
               </ul>
               <form class="d-flex mt-1" role="search">
@@ -96,11 +96,18 @@ function Navbar() {
                 />
               </form>
               <a href="/wishlist">
-              <img
-                className="p-2"
-                src="/img/Wishlist.png"
-                style={{ height: '40px', width: '40px' }}
-              />
+                <img
+                  className="p-2"
+                  src="/img/Wishlist.png"
+                  style={{ height: '40px', width: '40px' }}
+                />
+              </a>
+              <a href="/cart">
+                <img
+                  className="p-2"
+                  src="/img/Cart1.png"
+                  style={{ height: '40px', width: '40px' }}
+                />
               </a>
               <img
                 className="p-2"
@@ -114,6 +121,7 @@ function Navbar() {
           </div>
         </nav>
       </div>
+      <hr/>
     </div>
   );
 }

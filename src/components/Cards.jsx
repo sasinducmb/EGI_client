@@ -26,14 +26,14 @@ const Cards = ({ name, price, pic, discount }) => {
           </div>
         </div>
         <img
-          src={`http://localhost:5000/uploads/${pic.split("\\").pop()}`}
+          src={`http://localhost:5000/uploads/${pic.split('\\').pop()}`}
           className=" card-outer pic"
         />
         <a href="#">
           <div className="row add-cart">
             <h5
               className="d-flex justify-content-center align-items-end"
-              style={{ color: "white" }}
+              style={{ color: 'white' }}
             >
               Add To Cart
             </h5>
