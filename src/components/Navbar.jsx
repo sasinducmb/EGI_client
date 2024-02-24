@@ -109,11 +109,7 @@ function Navbar() {
                   style={{ height: '40px', width: '40px' }}
                 />
               </a>
-              <img
-                className="p-2"
-                src="/img/Cart1.png"
-                style={{ height: '40px', width: '40px' }}
-              />
+           
               {
                 user && (<BsPersonCircle className='mt-2' size={20} onClick={logout} style={{cursor:"pointer"}}/>)
               }

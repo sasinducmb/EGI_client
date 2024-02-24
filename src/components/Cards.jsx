@@ -4,14 +4,25 @@ import ManualRating from "./ManualRating";
 import { FaRegHeart } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
 import {WishlistContext} from "../context/WishlistContext"
+import {CartContext } from "../context/CartContext"
 
-const Cards = ({ name, price, pic, discount }) => {
+const Cards = ({ name, price, pic, discount}) => {
+
   const {addToWishlist}=useContext(WishlistContext)
-  const { wishlist } = useContext(WishlistContext);
+  const {addToCart} =useContext(CartContext);
+  const {cart} =useContext(CartContext);
+
+
+  // const { wishlist } = useContext(WishlistContext);
+
   const handleWishlistClick = () => {
     addToWishlist({ name, price, pic, discount });
 };
 
+const handelCart=()=>{
+  addToCart({ name, price, pic, discount})
+}
+console.log(cart)
   return (
     <div className=" custom-box pt-4 pb-3 mx-3">
       {/* <div className="card-box-inner  "> -40%</div> */}
@@ -29,8 +40,8 @@ const Cards = ({ name, price, pic, discount }) => {
           src={`http://localhost:5000/uploads/${pic.split('\\').pop()}`}
           className=" card-outer pic"
         />
-        <a href="#">
-          <div className="row add-cart">
+      
+          <div className="row add-cart" onClick={handelCart}>
             <h5
               className="d-flex justify-content-center align-items-end"
               style={{ color: 'white' }}
@@ -38,7 +49,7 @@ const Cards = ({ name, price, pic, discount }) => {
               Add To Cart
             </h5>
           </div>
-        </a>
+      
       </div>
       <h6>{name}</h6>
       <div className="d-flex">

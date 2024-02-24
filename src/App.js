@@ -12,6 +12,7 @@ import { UserProvider } from "./auth/userContext";
 import About from "./views/About";
 import Contact from "./views/Contact";
 import { WishlistProvider } from "./context/WishlistContext";
+import { CartProvider } from "./context/CartContext";
 import Account from "./views/Account";
 import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
@@ -24,7 +25,9 @@ function App() {
     <div>
       <UserProvider>
         <WishlistProvider>
+          <CartProvider>
           <Navbar />
+        
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Login" element={<Login />} />
@@ -37,8 +40,10 @@ function App() {
             <Route path="/cart" element={<Cart />} />
           </Routes>
           <Footer />
+          </CartProvider>
         </WishlistProvider>
       </UserProvider>
+
     </div>
   );
 }

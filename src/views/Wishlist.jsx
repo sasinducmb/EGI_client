@@ -9,7 +9,6 @@ const Wishlist = () => {
   const [categories, setCategories] = useState([]);
   const carousel = useRef(null);
   const { wishlist } = useContext(WishlistContext);
-  console.log(wishlist);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
