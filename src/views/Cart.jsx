@@ -4,9 +4,8 @@ import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, updateQuantity,removeFromCart} = useContext(CartContext);
+  const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
   console.log(cart);
-
 
   const increment = (itemName) => {
     const currentItem = cart.find((item) => item.name === itemName);
@@ -22,7 +21,7 @@ const Cart = () => {
     }
   };
   const handelDelete = (itemName) => {
-    removeFromCart(itemName)
+    removeFromCart(itemName);
   };
   const total = cart
     .reduce((acc, item) => acc + item.price * item.quantity, 0)
@@ -48,12 +47,16 @@ const Cart = () => {
         </div>
         {cart.map((cartItem, index) => (
           <div className="cart-row" key={index}>
-            <img
-              src={`http://localhost:5000/uploads/${cartItem.pic
-                .split("\\")
-                .pop()}`}
-              className="image-cart"
-            />
+            {cartItem.pic ? (
+              <img
+                src={`http://localhost:5000/uploads/${cartItem.pic
+                  .split("\\")
+                  .pop()}`}
+                className="image-cart"
+              />
+            ) : (
+              <div>No image available</div> // Placeholder in case there's no image
+            )}
             <h5>{cartItem.price}</h5>
             <h5>
               <div className="d-flex align-items-center">
@@ -74,7 +77,12 @@ const Cart = () => {
             </h5>
             <h5>
               {(cartItem.price * cartItem.quantity).toFixed(2)}
-              <MdDelete size={25} className="mx-2" onClick={()=>handelDelete(cartItem.name)} style={{cursor:'pointer'}}/>
+              <MdDelete
+                size={25}
+                className="mx-2"
+                onClick={() => handelDelete(cartItem.name)}
+                style={{ cursor: "pointer" }}
+              />
             </h5>
           </div>
         ))}

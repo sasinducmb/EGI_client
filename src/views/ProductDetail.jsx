@@ -1,18 +1,66 @@
-import React from 'react';
-import ManualRating from '../components/ManualRating';
-import { FaRegHeart } from 'react-icons/fa';
-import { CiDeliveryTruck } from 'react-icons/ci';
-import { BsArrowRepeat } from 'react-icons/bs';
-import Product_cards from '../components/Product_cards';
+import React, { useEffect, useState, useContext } from "react";
+import ManualRating from "../components/ManualRating";
+import { FaRegHeart } from "react-icons/fa";
+import { CiDeliveryTruck } from "react-icons/ci";
+import { BsArrowRepeat } from "react-icons/bs";
+import Product_cards from "../components/Product_cards";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { CartContext } from "../context/CartContext";
+import { WishlistContext } from "../context/WishlistContext";
 
 const ProductDetail = () => {
+  const { id } = useParams();
+  const [productDetails, setProductDetails] = useState("");
+  const { addToCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
+  const { addToWishlist } = useContext(WishlistContext);
+
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await axios.get(`/products/oneProductDetails/${id}`);
+        setProductDetails(response.data); // Assuming the details are in response.data
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+        // Handle error appropriately
+      }
+    };
+
+    if (id) {
+      fetchProductDetails();
+    }
+  }, [id]);
+
+  const handelCart = () => {
+    addToCart({
+      id: productDetails._id,
+      name: productDetails.productName,
+      price: productDetails.price,
+      pic: productDetails.mainImage,
+    });
+  };
+
+  const handleWishlistClick = () => {
+    addToWishlist({
+      id: productDetails._id,
+      name: productDetails.productName,
+      price: productDetails.price,
+      pic: productDetails.mainImage,
+    });
+  };
+
+  // console.log(productDetails);
+  console.log(cart);
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">
         <div className=" d-flex justify-content-between  ">
           <div className="d-flex">
-            <h6 style={{ opacity: '50%' }}>account / gaming /</h6>
-            <h6 className="ms-2 "> Havic HV G-92 Gamepad</h6>
+            <h6 style={{ opacity: "50%" }}>
+              account /{productDetails?.brandId?.category?.categoryName}/
+            </h6>
+            <h6 className="ms-2 ">{productDetails.productName}</h6>
           </div>
         </div>
       </div>
@@ -20,39 +68,50 @@ const ProductDetail = () => {
       <div className="row pt-5">
         <div className="col-lg-7 ">
           <div className="row">
-            <div className="col-lg-4">
-              <div className="detail-product-small ">
-                <img src="../../img/11.png" />
-              </div>
-              <div className="detail-product-small ">
-                <img src="../../img/22.png" />
-              </div>
-              <div className="detail-product-small ">
-                <img src="../../img/33.png" />
-              </div>
-              <div className="detail-product-small ">
-                <img src="../../img/44.png" />
-              </div>
+            <div
+              className="col-lg-4 d-flex justify-content-between"
+              style={{ flexDirection: "column" }}
+            >
+              {productDetails.additionalImages &&
+                productDetails.additionalImages.length > 0 &&
+                productDetails.additionalImages.map((image, index) => (
+                  <div key={index} className="detail-product-small ">
+                    <img
+                      src={`http://localhost:5000/uploads/${image
+                        .split("\\")
+                        .pop()}`}
+                      alt={`Additional Image ${index}`}
+                    />
+                  </div>
+                ))}
             </div>
             <div className="col-lg-8 detail-product-large ">
-              <img src="../../img/55.png" />
+              {productDetails && productDetails.mainImage ? (
+                <img
+                  src={`http://localhost:5000/uploads/${productDetails.mainImage
+                    .split("\\")
+                    .pop()}`}
+                />
+              ) : (
+                <div>Loading image or image not available...</div>
+              )}
             </div>
           </div>
         </div>
         <div className="col-lg-5 ">
           <div className="d-flex justify-content-center align-items-center">
             <div>
-              <h4>Havic HV G-92 Gamepad</h4>
+              <h4>{productDetails.productName}</h4>
               <div className="d-flex align-items-center">
                 <ManualRating />
-                <p className="m-2" style={{ opacity: '50%' }}>
+                <p className="m-2" style={{ opacity: "50%" }}>
                   (150 Reviews) |
                 </p>
-                <p className="m-2" style={{ color: '#00FF66' }}>
+                <p className="m-2" style={{ color: "#00FF66" }}>
                   In Stock
                 </p>
               </div>
-              <h5 className="p-1">$192.00</h5>
+              <h5 className="p-1">${productDetails.price}</h5>
               <p className="p-1 pb-2">
                 PlayStation 5 Controller Skin High quality vinyl with air
                 <br />
@@ -74,9 +133,23 @@ const ProductDetail = () => {
                 <div className="product-size">XL</div>
               </div>
               <div className="d-flex pt-3">
-                <div className="product-buynow"> Buy Now</div>
+                <Link to={"/cart"} style={{ textDecoration: "none" }}>
+                  <button
+                    className="product-buynow"
+                    style={{ border: "none" }}
+                    onClick={handelCart}
+                  >
+                    Buy Now
+                  </button>
+                </Link>
                 <div className="product-heart ">
-                  <FaRegHeart size={23} />
+                  <Link to={"/wishlist"} style={{color:'black'}}>
+                    <FaRegHeart
+                      size={23}
+                      style={{ cursor: "pointer" }}
+                      onClick={handleWishlistClick}
+                    />
+                  </Link>
                 </div>
               </div>
               <div className="pt-2">
@@ -87,7 +160,7 @@ const ProductDetail = () => {
                         <CiDeliveryTruck size={40} className="mt-" />
                         <div className="mx-2">
                           <h6>Free Delivery</h6>
-                          <a href="#" style={{ color: '#000000' }}>
+                          <a href="#" style={{ color: "#000000" }}>
                             <p>
                               Enter your postal code for Delivery Availability
                             </p>
@@ -121,7 +194,7 @@ const ProductDetail = () => {
         </div>
       </div>
       <div className="pt-5 pb-5">
-        <Product_cards/>
+        <Product_cards />
       </div>
     </div>
   );

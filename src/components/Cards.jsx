@@ -5,8 +5,9 @@ import { FaRegHeart } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";
 import {WishlistContext} from "../context/WishlistContext"
 import {CartContext } from "../context/CartContext"
+import { Link } from "react-router-dom";
 
-const Cards = ({ name, price, pic, discount}) => {
+const Cards = ({id,name, price, pic, discount,subpic}) => {
 
   const {addToWishlist}=useContext(WishlistContext)
   const {addToCart} =useContext(CartContext);
@@ -16,11 +17,12 @@ const Cards = ({ name, price, pic, discount}) => {
   // const { wishlist } = useContext(WishlistContext);
 
   const handleWishlistClick = () => {
-    addToWishlist({ name, price, pic, discount });
+    addToWishlist({id,name, price, pic, discount,subpic});
 };
 
+
 const handelCart=()=>{
-  addToCart({ name, price, pic, discount})
+  addToCart({id,name, price, pic, discount,subpic})
 }
 console.log(cart)
   return (
@@ -33,7 +35,7 @@ console.log(cart)
             <FaRegHeart size={20}  onClick={handleWishlistClick}/>
           </div>
           <div className="icon-heart d-flex justify-content-center align-items-center">
-            <FiEye size={20} />
+           <Link to={`/productDetails/${id}`}><FiEye size={20} style={{color:'black'}}/></Link> 
           </div>
         </div>
         <img

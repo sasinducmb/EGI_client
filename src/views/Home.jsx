@@ -35,7 +35,7 @@ const Home = () => {
     fetchProduct();
   }, []);
 
-
+console.log(categories)
 
   return (
     <div class="container-fluid">
@@ -82,11 +82,13 @@ const Home = () => {
               .map((category, index) => (
                 <div className="item" style={{ height: "400px" }}>
                   <Cards
+                    id={category._id}
                     key={index}
                     name={category.productName}
                     price={category.price}
                     pic={category.mainImage}
                     discount={"50"}
+                    subpic={category.additionalImages}
                     // other props
                   />
                 </div>
@@ -150,10 +152,13 @@ const Home = () => {
               .map((category, index) => (
                 <div className="item" style={{ height: "400px" }}>
                   <Cards
+                    id={category._id}
                     key={index}
                     name={category.productName}
                     price={category.price}
                     pic={category.mainImage}
+                    subpic={category.additionalImages}
+
 
                     // other props
                   />
@@ -220,14 +225,16 @@ const Home = () => {
             </div>
           </div>
           <div className="row">
-            {categories.slice(0, 8).map((category, index) => (
+            {categories.slice(0, 10).map((category, index) => (
               <div className="col-lg-3">
                 <div className="item" style={{ height: "400px" }}>
                   <Cards
+                    id={category._id}
                     key={index}
                     name={category.productName}
                     price={category.price}
                     pic={category.mainImage}
+                    subpic={category.additionalImages}
 
                     // other props
                   />
