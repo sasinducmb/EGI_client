@@ -421,3 +421,27 @@
   display: flex;
   justify-content: space-between;
 }
+
+/* checkout  */
+.checkout-input {
+  margin-bottom: 20px;
+}
+
+#flexCheckDefault {
+  width: 25px; /* Width of the checkbox */
+  height: 25px; /* Height of the checkbox */
+  cursor: pointer;
+}
+
+#flexRadioDefault {
+  width: 25px; /* Width of the checkbox */
+  height: 25px; /* Height of the checkbox */
+  cursor: pointer;
+}
+.image-visa {
+  width: 42px;
+  height: 28px;
+}
+.padding-style {
+  padding-top: 95px;
+}

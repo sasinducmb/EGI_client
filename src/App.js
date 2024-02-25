@@ -5,6 +5,7 @@ import Login from "./views/Login";
 import Signup from "./views/Signup";
 import Home from "./views/Home";
 import Wishlist from "./views/Wishlist"
+import Header from "./components/Header"
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -14,16 +15,16 @@ import Contact from "./views/Contact";
 import Account from "./views/Account";
 import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
+import Checkout from "./views/Checkout";
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
   return (
-
-    
     <div>
       <UserProvider>
+        <Header/>
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -35,6 +36,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/product-details" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
       </UserProvider>
