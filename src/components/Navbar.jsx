@@ -2,6 +2,7 @@ import React,{useContext} from 'react';
 import { UserContext } from "../auth/userContext"
 import { FaRegUserCircle } from "react-icons/fa";
 import axios from 'axios';
+import {BsPersonCircle} from 'react-icons/bs';
 const logout = async () => {
   try {
     const logOut = await axios.get("/user/logout");
@@ -108,6 +109,10 @@ function Navbar() {
                   style={{ height: '40px', width: '40px' }}
                 />
               </a>
+           
+              {
+                user && (<BsPersonCircle className='mt-2' size={20} onClick={logout} style={{cursor:"pointer"}}/>)
+              }
             </div>
           </div>
         </nav>
