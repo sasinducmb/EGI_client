@@ -22,13 +22,15 @@ export const WishlistProvider = ({ children }) => {
         setWishlist((prevWishlist) => prevWishlist.filter(item => item.name !== itemName));
     };
 
+    const totalItemWishList = wishlist.reduce((total, item) => total + 1, 0);
+
     // Effect hook to update local storage when the wishlist state changes
     useEffect(() => {
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }, [wishlist]);
 
     return (
-        <WishlistContext.Provider value={{ wishlist, addToWishlist,removeFromWishlist}}>
+        <WishlistContext.Provider value={{ wishlist, addToWishlist,removeFromWishlist,totalItemWishList}}>
             {children}
         </WishlistContext.Provider>
     );

@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WishlistCard from "../components/WishlistCard";
-import Product_cards from "../components/Product_cards";
 import Cards from "../components/Cards";
 import axios from "axios";
 import { WishlistContext } from "../context/WishlistContext";
 
 const Wishlist = () => {
   const [categories, setCategories] = useState([]);
-  const carousel = useRef(null);
-  const { wishlist } = useContext(WishlistContext);
+  const { wishlist,totalItemWishList } = useContext(WishlistContext);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -30,7 +28,7 @@ const Wishlist = () => {
       <div className="row pt-4 ">
         <div className="d-flex justify-content-between">
           <div className="col-lg-5">
-            <h4>Wishlist (4)</h4>
+            <h4>Wishlist ({totalItemWishList})</h4>
           </div>
           <div
             className="col-lg-4 d-flex justify-content-center wishlist-style align-items-center"

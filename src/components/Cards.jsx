@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import StarRating from "./StarRating";
 import ManualRating from "./ManualRating";
 import { FaRegHeart } from "react-icons/fa";
 import { FiEye } from "react-icons/fi";

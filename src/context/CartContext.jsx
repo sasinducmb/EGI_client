@@ -54,6 +54,7 @@ export const CartProvider = ({ children }) => {
     );
   };
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+  const totalItems = cart.reduce((total, item) => total + 1, 0);
   // Effect hook to update local storage when the cart state changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -61,7 +62,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity ,total}}
+      value={{ cart, addToCart, removeFromCart, updateQuantity ,total,totalItems}}
     >
       {children}
     </CartContext.Provider>

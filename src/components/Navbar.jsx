@@ -1,17 +1,18 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../auth/userContext';
-import { FaRegUserCircle } from 'react-icons/fa';
-import axios from 'axios';
-import { BsPersonCircle } from 'react-icons/bs';
-import { IoIosHeartEmpty } from 'react-icons/io';
-import { BsCart4 } from 'react-icons/bs';
+import React, { useContext } from "react";
+import { UserContext } from "../auth/userContext";
+import axios from "axios";
+import { BsPersonCircle } from "react-icons/bs";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { BsCart4 } from "react-icons/bs";
+import { CartContext } from "../context/CartContext";
+import { WishlistContext } from "../context/WishlistContext";
 
 const logout = async () => {
   try {
-    const logOut = await axios.get('/user/logout');
+    const logOut = await axios.get("/user/logout");
     if (logOut.data) {
       // console.log(logOut.data.message);
-      window.location.href = 'http://localhost:3000/';
+      window.location.href = "http://localhost:3000/";
     }
   } catch (err) {
     console.log(err.message);
@@ -19,12 +20,14 @@ const logout = async () => {
 };
 
 function Navbar() {
+  const { totalItems } = useContext(CartContext);
   const { user } = useContext(UserContext);
+  const { totalItemWishList } = useContext(WishlistContext);
 
   return (
     <div class="container-fluid">
       <div className="container pt-1">
-        <nav class="navbar navbar-expand-lg" style={{ fontFamily: 'Poppins' }}>
+        <nav class="navbar navbar-expand-lg" style={{ fontFamily: "Poppins" }}>
           <a class="navbar-brand" href="/">
             HOUSE OF CAMBRIDGE
           </a>
@@ -68,24 +71,24 @@ function Navbar() {
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/contact">
-                    {' '}
-                    Contact{' '}
+                    {" "}
+                    Contact{" "}
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/about">
-                    {' '}
-                    About{' '}
+                    {" "}
+                    About{" "}
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/signup">
-                    Sign in{' '}
+                    Sign in{" "}
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link mx-lg-3" href="/login">
-                    Login{' '}
+                    Login{" "}
                   </a>
                 </li>
               </ul>
@@ -101,9 +104,9 @@ function Navbar() {
                 <a href="/wishlist">
                   <div className="nav-heart">
                     <button type="button" className="btn btn-light btn-notify">
-                      <IoIosHeartEmpty size={23} style={{ color: 'black' }} />
+                      <IoIosHeartEmpty size={23} style={{ color: "black" }} />
                       <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
-                        5
+                        {totalItemWishList}
                       </span>
                     </button>
                   </div>
@@ -111,9 +114,9 @@ function Navbar() {
                 <a href="/cart">
                   <div className="nav-heart">
                     <button type="button" className="btn btn-light btn-notify">
-                      <BsCart4 size={23} style={{ color: 'black' }} />
+                      <BsCart4 size={23} style={{ color: "black" }} />
                       <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
-                        5
+                        {totalItems}
                       </span>
                     </button>
                   </div>

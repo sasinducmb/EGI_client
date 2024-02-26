@@ -1,7 +1,5 @@
-import React, { useState ,useContext} from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-import { UserContext } from "../auth/userContext"
-
 
 const Login = () => {
 
@@ -11,10 +9,6 @@ const Login = () => {
     password: "",
   });
   const [errMsg, setErrMsg] = useState("");
-  const[message,setMessage]=useState("")
-
-
-
   const userLogin=async(e)=>{
       e.preventDefault();
       const {username, password } = data;
