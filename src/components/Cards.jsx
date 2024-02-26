@@ -31,11 +31,11 @@ console.log(cart)
       <div className="card-inner">
         {discount && <div className="card-box-inner">{discount}%</div>}
         <div className="card-heart">
-          <div className="icon-heart d-flex justify-content-center align-items-center mb-1">
+          <div className="icon-heart mb-1">
             <FaRegHeart size={20}  onClick={handleWishlistClick}/>
           </div>
-          <div className="icon-heart d-flex justify-content-center align-items-center">
-           <Link to={`/productDetails/${id}`}><FiEye size={20} style={{color:'black'}}/></Link> 
+          <div>
+           <Link className="icon-heart" to={`/productDetails/${id}`}><FiEye size={20} /></Link> 
           </div>
         </div>
         <img

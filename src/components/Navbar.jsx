@@ -1,14 +1,17 @@
-import React,{useContext} from 'react';
-import { UserContext } from "../auth/userContext"
-import { FaRegUserCircle } from "react-icons/fa";
+import React, { useContext } from 'react';
+import { UserContext } from '../auth/userContext';
+import { FaRegUserCircle } from 'react-icons/fa';
 import axios from 'axios';
-import {BsPersonCircle} from 'react-icons/bs';
+import { BsPersonCircle } from 'react-icons/bs';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import { BsCart4 } from 'react-icons/bs';
+
 const logout = async () => {
   try {
-    const logOut = await axios.get("/user/logout");
+    const logOut = await axios.get('/user/logout');
     if (logOut.data) {
       // console.log(logOut.data.message);
-      window.location.href = "http://localhost:3000/"
+      window.location.href = 'http://localhost:3000/';
     }
   } catch (err) {
     console.log(err.message);
@@ -17,7 +20,6 @@ const logout = async () => {
 
 function Navbar() {
   const { user } = useContext(UserContext);
-  
 
   return (
     <div class="container-fluid">
@@ -95,29 +97,39 @@ function Navbar() {
                   aria-label="Search"
                 />
               </form>
-              <a href="/wishlist">
-                <img
-                  className="p-2"
-                  src="/img/Wishlist.png"
-                  style={{ height: '40px', width: '40px' }}
-                />
-              </a>
-              <a href="/cart">
-                <img
-                  className="p-2"
-                  src="/img/Cart1.png"
-                  style={{ height: '40px', width: '40px' }}
-                />
-              </a>
-           
-              {
-                user && (<BsPersonCircle className='mt-2' size={20} onClick={logout} style={{cursor:"pointer"}}/>)
-              }
+              <div className="position-relative d-flex align-items-center justify-content-center">
+                <a href="/wishlist">
+                  <div className="nav-heart">
+                    <button type="button" className="btn btn-light btn-notify">
+                      <IoIosHeartEmpty size={23} style={{ color: 'black' }} />
+                      <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
+                        5
+                      </span>
+                    </button>
+                  </div>
+                </a>
+                <a href="/cart">
+                  <div className="nav-heart">
+                    <button type="button" className="btn btn-light btn-notify">
+                      <BsCart4 size={23} style={{ color: 'black' }} />
+                      <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
+                        5
+                      </span>
+                    </button>
+                  </div>
+                </a>
+
+                {user && (
+                  <div className="nav-heart">
+                    <BsPersonCircle size={23} onClick={logout} />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </nav>
       </div>
-      <hr/>
+      <hr />
     </div>
   );
 }
