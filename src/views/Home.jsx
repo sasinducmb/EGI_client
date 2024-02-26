@@ -225,7 +225,7 @@ console.log(categories)
             </div>
           </div>
           <div className="row">
-            {categories.slice(0, 10).map((category, index) => (
+            {categories.map((category, index) => (
               <div className="col-lg-3">
                 <div className="item" style={{ height: "400px" }}>
                   <Cards
