@@ -4,7 +4,7 @@ import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cart, updateQuantity, removeFromCart } = useContext(CartContext);
+  const { cart, updateQuantity, removeFromCart,addToCart,total} = useContext(CartContext);
   console.log(cart);
 
   const increment = (itemName) => {
@@ -23,10 +23,14 @@ const Cart = () => {
   const handelDelete = (itemName) => {
     removeFromCart(itemName);
   };
-  const total = cart
-    .reduce((acc, item) => acc + item.price * item.quantity, 0)
-    .toFixed(2);
-  console.log(total);
+  // const total = cart
+  //   .reduce((acc, item) => acc + item.price * item.quantity, 0)
+  //   .toFixed(2);
+
+  // const handelCart=()=>{
+  //   addToCart()
+  // }
+
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">
@@ -76,7 +80,8 @@ const Cart = () => {
               </div>
             </h5>
             <h5>
-              {(cartItem.price * cartItem.quantity).toFixed(2)}
+              {/* {cartItem.subtotal?cartItem.subtotal:(cartItem.quantity*cartItem.price)} */}
+              {cartItem.subtotal}
               <MdDelete
                 size={25}
                 className="mx-2"
@@ -141,9 +146,11 @@ const Cart = () => {
             <h6>${total}</h6>
           </div>
           <div className="d-flex justify-content-center">
-            <button type="submit" class="cart-style mt-3">
-              Procees to checkout
-            </button>
+            <Link to={"/checkout"}>
+              <button type="submit" class="cart-style mt-3">
+                Procees to checkout
+              </button>
+            </Link>
           </div>
         </div>
       </div>

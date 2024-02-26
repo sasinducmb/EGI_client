@@ -18,6 +18,7 @@ import Account from "./views/Account";
 import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
+import { ProtectedRoute } from "./auth/protectRouter";
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -38,9 +39,11 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/account" element={<Account />} />
-              <Route path="/product-details" element={<ProductDetail />} />
+              <Route path="/productDetails/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
+             
+              <Route path="/checkout" element={ <ProtectedRoute><Checkout />  </ProtectedRoute>} />
+            
             </Routes>
             <Footer />
           </CartProvider>

@@ -12,23 +12,27 @@ export const CartProvider = ({ children }) => {
   // Function to add an item to the cart
   const addToCart = (item) => {
     setCart((prevCart) => {
-      // Check if the item is already in the cart
-      const existingItem = prevCart.find(
-        (cartItem) => cartItem.name === item.name
-      );
+      const existingItem = prevCart.find((cartItem) => cartItem.name === item.name);
+  
       if (existingItem) {
-        // If item exists, update the quantity or other properties as needed
-        return prevCart.map((cartItem) =>
-          cartItem.name === item.name
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
+        // If the item already exists in the cart, update the quantity
+        return prevCart.map((cartItem) => {
+          if (cartItem.name === item.name) {
+            const updatedQuantity = cartItem.quantity + 1;
+            const updatedSubtotal = (updatedQuantity * cartItem.price).toFixed(2);
+            return { ...cartItem, quantity: updatedQuantity, subtotal: updatedSubtotal };
+          } else {
+            return cartItem;
+          }
+        });
       } else {
-        // If item does not exist, add it to the cart
-        return [...prevCart, { ...item, quantity: 1 }];
+        // If the item is new, add it with quantity 1 and its initial subtotal
+        const initialSubtotal = (item.price).toFixed(2);
+        return [...prevCart, { ...item, quantity: 1, subtotal: initialSubtotal }];
       }
     });
   };
+  
 
   // Function to remove an item from the cart
   const removeFromCart = (itemName) => {
@@ -36,14 +40,20 @@ export const CartProvider = ({ children }) => {
   };
 
   // Function to update quantity of an item in the cart
-  const updateQuantity = (itemName, quantity) => {
+  const updateQuantity = (itemName, newQuantity) => {
     setCart((prevCart) =>
-      prevCart.map((item) =>
-        item.name === itemName ? { ...item, quantity } : item
-      )
+      prevCart.map((item) => {
+        if (item.name === itemName) {
+          // Calculate the new subtotal based on the new quantity
+          const newSubtotal = (newQuantity * item.price).toFixed(2);
+          return { ...item, quantity: newQuantity, subtotal: newSubtotal };
+        } else {
+          return item;
+        }
+      })
     );
   };
-
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
   // Effect hook to update local storage when the cart state changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -51,7 +61,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity }}
+      value={{ cart, addToCart, removeFromCart, updateQuantity ,total}}
     >
       {children}
     </CartContext.Provider>

@@ -1,13 +1,23 @@
-import React from 'react';
-import { MdDelete } from 'react-icons/md';
+import React, { useContext } from "react";
+import { MdDelete } from "react-icons/md";
+import { CartContext } from "../context/CartContext";
+import { UserContext } from  "../auth/userContext";
 
 const Checkout = () => {
+  const { cart, total, removeFromCart } = useContext(CartContext);
+  const { user, isLoading, error } = useContext(UserContext);
+
+const  handelDelete=(itemName)=>{
+  removeFromCart(itemName);
+}
+
+console.log(user)
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">
         <div className=" d-flex justify-content-between  ">
           <div className="d-flex">
-            <h6 style={{ opacity: '50%' }}>
+            <h6 style={{ opacity: "50%" }}>
               Account /My Account / Product / Cart /
             </h6>
             <h6 className="ms-2 "> Checkout </h6>
@@ -20,78 +30,78 @@ const Checkout = () => {
           <h2>Billing Details</h2>
           <div className="pt-3 pb-3">
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>
-                First Name<span style={{ color: 'red' }}>*</span>
+              <h5 style={{ opacity: "50%" }}>
+                First Name<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="first"
                 class="form-control"
                 id="inputFirst"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>Company Name</h5>
+              <h5 style={{ opacity: "50%" }}>Company Name</h5>
               <input
                 type="Company"
                 class="form-control"
                 id="inputCompany"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>
-                Street Address<span style={{ color: 'red' }}>*</span>
+              <h5 style={{ opacity: "50%" }}>
+                Street Address<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="Street"
                 class="form-control"
                 id="inputStreet"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>
+              <h5 style={{ opacity: "50%" }}>
                 Apartment, floor, etc. (optional)
               </h5>
               <input
                 type="Apartment"
                 class="form-control"
                 id="inputApartment"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>
-                Town/City<span style={{ color: 'red' }}>*</span>
+              <h5 style={{ opacity: "50%" }}>
+                Town/City<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="Town"
                 class="form-control"
                 id="inputTown"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>
-                Phone Number<span style={{ color: 'red' }}>*</span>
+              <h5 style={{ opacity: "50%" }}>
+                Phone Number<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="Phone"
                 class="form-control"
                 id="inputPhone"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="checkout-input">
-              <h5 style={{ opacity: '50%' }}>
-                Email Address<span style={{ color: 'red' }}>*</span>
+              <h5 style={{ opacity: "50%" }}>
+                Email Address<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="Email"
                 class="form-control"
                 id="inputEmail"
-                style={{ width: '470px', height: '50px' }}
+                style={{ width: "470px", height: "50px" }}
               />
             </div>
             <div className="d-flex align-items-center">
@@ -112,23 +122,34 @@ const Checkout = () => {
 
         <div className="col-lg-6 padding-style">
           <div>
-            <div className="cart-row">
-              <img src="../../img/coat.png" className="image-cart" />
-              <h5>
-                500$ <MdDelete size={25} />
-              </h5>
-            </div>
-            <div className="cart-row">
-              <img src="../../img/jbl.png" className="image-cart" />
-              <h5>
-                $1200 <MdDelete size={25} />
-              </h5>
-            </div>
+            {cart.map((cartItem, index) => (
+              <div className="cart-row" key={index}>
+                {cartItem.pic ? (
+                  <img
+                    src={`http://localhost:5000/uploads/${cartItem.pic
+                      .split("\\")
+                      .pop()}`}
+                    className="image-cart"
+                  />
+                ) : (
+                  <div>No image available</div> // Placeholder in case there's no image
+                )}
+                <h5>{cartItem.name}</h5>
+                <h5>
+                  ${cartItem.subtotal}{" "}
+                  <MdDelete
+                    size={25}
+                    onClick={() => handelDelete(cartItem.name)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </h5>
+              </div>
+            ))}
           </div>
           <div>
             <div className="process-box-row">
               <h6>Subtotal:</h6>
-              <h6>$1500</h6>
+              <h6>${total}</h6>
             </div>
             <hr />
             <div className="process-box-row">
@@ -138,7 +159,7 @@ const Checkout = () => {
             <hr />
             <div className="process-box-row">
               <h6>Total:</h6>
-              <h6>$1500</h6>
+              <h6>${total}</h6>
             </div>
             <div class="form-check d-flex justify-content-between pt-4 ">
               <div>
@@ -178,7 +199,7 @@ const Checkout = () => {
                   class="form-control"
                   id="inputFirst"
                   placeholder="Coupon Code"
-                  style={{ width: '300px', height: '56px' }}
+                  style={{ width: "300px", height: "56px" }}
                 />
               </div>
               <div>
