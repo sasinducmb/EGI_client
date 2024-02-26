@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
+import Cards from "../components/Cards";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -15,6 +16,7 @@ const ProductDetail = () => {
   const { addToCart } = useContext(CartContext);
   const { cart } = useContext(CartContext);
   const { addToWishlist } = useContext(WishlistContext);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -31,6 +33,22 @@ const ProductDetail = () => {
       fetchProductDetails();
     }
   }, [id]);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get("/products/getAllDetails");
+        const activeProduct = response.data.filter(
+          (product) => product.isActive === true
+        );
+        setCategories(activeProduct);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+
+    fetchProduct();
+  }, []);
 
   const handelCart = () => {
     addToCart({
@@ -193,9 +211,22 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <div className="pt-5 pb-5">
-        <Product_cards />
-      </div>
+      <div className="row">
+          {categories.slice(0, 4).map((category, index) => (
+            <div className="col-lg-3">
+              <div className="item" style={{ height: "400px" }}>
+                <Cards
+                  key={index}
+                  name={category.productName}
+                  price={category.price}
+                  pic={category.mainImage}
+
+                  // other props
+                />
+              </div>
+            </div>
+          ))}
+        </div>
     </div>
   );
 };
