@@ -1,17 +1,60 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { CartContext } from "../context/CartContext";
-import { UserContext } from  "../auth/userContext";
+import { UserContext } from "../auth/userContext";
+import axios from "axios";
 
 const Checkout = () => {
   const { cart, total, removeFromCart } = useContext(CartContext);
   const { user, isLoading, error } = useContext(UserContext);
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [apartment, setApartment] = useState("");
+  const [town, setTown] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [email, setEmail] = useState("");
 
-const  handelDelete=(itemName)=>{
-  removeFromCart(itemName);
-}
+  const handelDelete = (itemName) => {
+    removeFromCart(itemName);
+  };
 
-console.log(user)
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    const billDetails = [
+      {
+        name,
+        address,
+        apartment,
+        town,
+        phoneNo,
+        email,
+      },
+    ];
+
+    const orderData = {
+      user: user._id,
+      items: cart.map((item) => ({
+        product: item.id, // Assuming 'id' is the product ID
+        quantity: item.quantity,
+        subtotal: item.subtotal,
+      })),
+      billDetails,
+      total
+    };
+
+    try {
+      const response = await axios.post("/order/addOrder", orderData);
+    } catch (error) {
+      console.log("err"); // console.error(err.message);
+      // You might also want to set an error message here for other kinds of errors
+    }
+
+    console.log(orderData);
+    console.log(billDetails);
+  };
+
+  console.log(user);
+
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">
@@ -31,24 +74,18 @@ console.log(user)
           <div className="pt-3 pb-3">
             <div className="checkout-input">
               <h5 style={{ opacity: "50%" }}>
-                First Name<span style={{ color: "red" }}>*</span>
+                Name<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="first"
                 class="form-control"
                 id="inputFirst"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 style={{ width: "470px", height: "50px" }}
               />
             </div>
-            <div className="checkout-input">
-              <h5 style={{ opacity: "50%" }}>Company Name</h5>
-              <input
-                type="Company"
-                class="form-control"
-                id="inputCompany"
-                style={{ width: "470px", height: "50px" }}
-              />
-            </div>
+
             <div className="checkout-input">
               <h5 style={{ opacity: "50%" }}>
                 Street Address<span style={{ color: "red" }}>*</span>
@@ -56,6 +93,8 @@ console.log(user)
               <input
                 type="Street"
                 class="form-control"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 id="inputStreet"
                 style={{ width: "470px", height: "50px" }}
               />
@@ -67,6 +106,8 @@ console.log(user)
               <input
                 type="Apartment"
                 class="form-control"
+                value={apartment}
+                onChange={(e) => setApartment(e.target.value)}
                 id="inputApartment"
                 style={{ width: "470px", height: "50px" }}
               />
@@ -79,6 +120,8 @@ console.log(user)
                 type="Town"
                 class="form-control"
                 id="inputTown"
+                value={town}
+                onChange={(e) => setTown(e.target.value)}
                 style={{ width: "470px", height: "50px" }}
               />
             </div>
@@ -90,6 +133,8 @@ console.log(user)
                 type="Phone"
                 class="form-control"
                 id="inputPhone"
+                value={phoneNo}
+                onChange={(e) => setPhoneNo(e.target.value)}
                 style={{ width: "470px", height: "50px" }}
               />
             </div>
@@ -99,6 +144,8 @@ console.log(user)
               </h5>
               <input
                 type="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 class="form-control"
                 id="inputEmail"
                 style={{ width: "470px", height: "50px" }}
@@ -209,7 +256,11 @@ console.log(user)
               </div>
             </div>
             <div>
-              <button type="submit" class="cart-style mt-3">
+              <button
+                type="submit"
+                onClick={handelSubmit}
+                class="cart-style mt-3"
+              >
                 Place Order
               </button>
             </div>
