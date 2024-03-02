@@ -12,7 +12,7 @@ function Footer() {
       <div className="container-fluid footer">
         <div class="container text-left pt-5">
           <div class="row">
-            <div class="col-12 col-md-6 col-lg">
+            <div class="col-12 col-md-3 col-lg-3">
               <h6
                 style={{
                   fontFamily: 'poppins',
@@ -24,17 +24,17 @@ function Footer() {
               </h6>
               <p className="pt-4">Subscribe</p>
               <p className="pt-2">Get 10% off your first order</p>
-              <div class="custom-box">
+              <div class=" ">
                 <div class="input-group mb-3">
                   <input
                     style={{
-                      width: '80px',
+                      width: '100px',
                       height: '48px',
                       background: 'black',
                       color: 'white',
                     }}
                     type="text"
-                    class="form-control"
+                    class="form-control d-none d-md-block"
                     placeholder="Your text here"
                     aria-label="Recipient's username"
                     aria-describedby="button-addon"
@@ -45,7 +45,7 @@ function Footer() {
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-lg">
+            <div class="col-12 col-md-3 col-lg-2">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -61,7 +61,7 @@ function Footer() {
               <p className="pt-2">exclusive@gmail.com</p>
               <p className="pt-2">+88015-88888-9999</p>
             </div>
-            <div class="col">
+            <div class="col-12 col-md-3 col-lg-2">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -77,7 +77,7 @@ function Footer() {
               <p className="pt-2">Wishlist</p>
               <p className="pt-2">Shop</p>
             </div>
-            <div class="col-12 col-md-6 col-lg">
+            <div class="col-12 col-md-2 col-lg-2">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -92,7 +92,7 @@ function Footer() {
               <p className="pt-2">FAQ</p>
               <p className="pt-2">Contact</p>
             </div>
-            <div class="col-12 col-md-6 col-lg">
+            <div class="col-12 col-md-2 col-lg-3">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -121,8 +121,8 @@ function Footer() {
                   <img className="p-1" src="../../img/download-appstore.png" />
                 </div>
               </div>
-              <div className="d-flex pt-4 ">
-                <FaFacebookSquare className="footer-img mx-2" />
+              <div className="col-12 col-md-2 col-lg-9 mt-3 d-flex">
+                <FaFacebookSquare className="footer-img mx-2"/>
                 <RxTwitterLogo className="footer-img mx-2" />
                 <IoLogoInstagram className="footer-img mx-2" />
                 <RxLinkedinLogo className="footer-img mx-2" />

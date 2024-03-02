@@ -35,12 +35,31 @@ const Home = () => {
     fetchProduct();
   }, []);
 
-console.log(categories)
+  const options = {
+    responsive: {
+      0: {
+        items: 1,
+      },
+
+      600: {
+        items: 2,
+      },
+
+      1000: {
+        items: 4,
+      },
+    },
+  };
+
+  console.log(categories);
 
   return (
     <div class="container-fluid">
       <div className="container">
+      
         <Sidebarwithslider />
+
+      
         <div>
           <div className="d-flex align-items-center red-box ">
             <div>
@@ -50,33 +69,31 @@ console.log(categories)
         </div>
 
         <div className="row pt-4">
-          <div className=" d-flex">
-            <div className="col-lg-3">
-              <h4 className="text-style">Flash Sales</h4>
-            </div>
-            <div className="col-lg-5 px-4 d-flex align-items-center">
-              <CountdownTimer targetDate="2024-12-31" />
-            </div>
-            <div className="col-lg-4 d-flex align-items-center justify-content-end">
-              <div className=" d-flex ">
-                <div className="arrow-keys">
-                  <FiArrowLeft
-                    size={40}
-                    onClick={() => carousel.current.prev()}
-                  />
-                </div>
-                <div className="arrow-keys d-flex">
-                  <FiArrowRight
-                    size={40}
-                    onClick={() => carousel.current.next()}
-                  />
-                </div>
+          <div className="col-12 col-md-4 col-lg-3">
+            <h4 className="text-style">Flash Sales</h4>
+          </div>
+          <div className="col-12 col-md-8 col-lg-5 px-4 d-flex align-items-center ">
+            <CountdownTimer targetDate="2024-12-31" />
+          </div>
+          <div className="col-12 col-lg-4 d-flex align-items-center justify-content-end">
+            <div className="d-flex">
+              <div className="arrow-keys">
+                <FiArrowLeft
+                  size={40}
+                  onClick={() => carousel.current.prev()}
+                />
+              </div>
+              <div className="arrow-keys d-flex">
+                <FiArrowRight
+                  size={40}
+                  onClick={() => carousel.current.next()}
+                />
               </div>
             </div>
           </div>
         </div>
         <div className="d-flex">
-          <OwlCarousel className="owl-theme" ref={carousel} loop items={4}>
+          <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
             {categories
               .filter((category) => category.sellType === "flash")
               .map((category, index) => (
@@ -112,14 +129,14 @@ console.log(categories)
               <h4 className="text-style">Browse By Category</h4>
             </div>
             <div className="col-lg-4 d-flex align-items-center justify-content-end">
-              <div className=" d-flex ">
+              {/* <div className=" d-flex ">
                 <div className="arrow-keys">
                   <FiArrowLeft size={40} />
                 </div>
                 <div className="arrow-keys d-flex">
                   <FiArrowRight size={40} />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -146,7 +163,7 @@ console.log(categories)
               </div>
             </div>
           </div>
-          <OwlCarousel className="owl-theme" loop items={4}>
+          <OwlCarousel className="owl-theme" loop {...options}>
             {categories
               .filter((category) => category.sellType === "best")
               .map((category, index) => (
@@ -159,7 +176,6 @@ console.log(categories)
                     pic={category.mainImage}
                     subpic={category.additionalImages}
 
-
                     // other props
                   />
                 </div>
@@ -167,8 +183,8 @@ console.log(categories)
           </OwlCarousel>
         </div>
         <div className="pt-5">
-          <div className="container row black-box pt-5 ">
-            <div className="px-5 col-lg-5   ">
+          <div className="container row black-box pt-5">
+            <div className="px-5 col-lg-5 col-md-6 col-sm-12">
               <h6 style={{ color: "#00FF66" }} className="pt-5">
                 Categories
               </h6>
@@ -176,31 +192,28 @@ console.log(categories)
                 Enhance Your
                 <br /> Music Experience
               </h2>
-              <div
-                className="timecount-align"
-                style={{
-                  color: "#ffffff",
-                }}
-              >
+              <div className="timecount-align" style={{ color: "#ffffff" }}>
                 <CountdownTimer targetDate="2024-2-29" />
               </div>
-              <div
-                className="d-flex align-items-end "
-                style={{ height: "200px" }}
-              >
+              <div className="d-flex mt-5" style={{ height: "200px" }}>
                 <div
-                  className="buy-now  d-flex justify-content-center align-items-center"
+                  className="buy-now d-flex justify-content-center align-items-center"
                   style={{ cursor: "pointer" }}
                 >
                   <h6>Buy Now!</h6>
                 </div>
               </div>
             </div>
-            <div className="col-lg-7 d-flex justify-content-center align-items-center">
-              <img src="../../img/jbl.png" />
+            <div className="col-lg-7 col-md-5 col-sm-12 d-flex justify-content-center align-items-center">
+              <img
+                src="../../img/jbl.png"
+                alt="JBL"
+                className="responsive-img"
+              />
             </div>
           </div>
         </div>
+
         <div className="pt-5">
           <div className="d-flex align-items-center red-box ">
             <div>
@@ -226,7 +239,7 @@ console.log(categories)
           </div>
           <div className="row">
             {categories.map((category, index) => (
-              <div className="col-lg-3">
+              <div className="col-lg-3 col-sm-6">
                 <div className="item" style={{ height: "400px" }}>
                   <Cards
                     id={category._id}
@@ -251,7 +264,7 @@ console.log(categories)
                 <h6 className="pt-1 px-4">Featured</h6>
               </div>
             </div>
-            <div className="col-lg-6 pt-3">
+            <div className=" col-lg-6 col-md-6 col-sm-12 pt-3">
               <h4 className="text-style">New Arrival</h4>
             </div>
             <div className="row box-play">
@@ -268,11 +281,11 @@ console.log(categories)
                   </a>
                 </div>
               </div>
-              <div className="col-lg-6">
-                <div className="row col-lg-11 mx-auto  d-flex justify-content-end align-items-end box-play-1 m-2">
+              <div className=" col-lg-6 col-md-12 col-sm-12">
+                <div className=" row col-lg-11  mx-auto  d-flex justify-content-end align-items-end box-play-1 m-2">
                   <img
                     src="../../img/img2.png"
-                    style={{ width: "430px", height: "278px" }}
+                    style={{ maxWidth: "100%", height: "auto" }} className=""
                   />
                   <div className="image-text-0">
                     <h3>Women’s Collections</h3>
@@ -286,7 +299,7 @@ console.log(categories)
                   </div>
                 </div>
                 <div className="row d-flex justify-content-center align-items-center">
-                  <div className="col-lg-5 box-play-2 d-flex justify-content-center align-items-center m-1">
+                  <div className="col-lg-5  box-play-2 d-flex justify-content-center align-items-center m-1">
                     <img src="../../img/img3.png" />
                     <div className="image-text">
                       <h3>Speakers</h3>
