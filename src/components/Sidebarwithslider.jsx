@@ -1,50 +1,51 @@
-import React from "react";
-import "./sidebar.css";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import React from 'react';
+import './sidebar.css';
+import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 
 const Sidebarwithslider = () => {
   return (
     <>
       <div className="row">
         <div className="col-lg-3">
-          {" "}
           <div className="row">
             <div className="col-12">
-              <div className="d-flex flex-row flex-wrap  flex-lg-column align-items-start justify-content-center" style={{ height: 'auto' }}>
-
-              <button type="button" class="btn" data-bs-toggle="button">
-                Woman’s Fashion <MdOutlineKeyboardArrowRight size={25} />
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Men’s Fashion <MdOutlineKeyboardArrowRight size={25} />
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Electronics
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Home & Lifestyle
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Medicine
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Sports & Outdoor
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Baby’s & Toys
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Groceries & Pets
-              </button>
-              <button type="button" class="btn" data-bs-toggle="button">
-                Health & Beauty
-              </button>
+              <div
+                className="d-flex flex-row flex-wrap  flex-lg-column align-items-start justify-content-center"
+                style={{ height: 'auto' }}
+              >
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Woman’s Fashion <MdOutlineKeyboardArrowRight size={25} />
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Men’s Fashion <MdOutlineKeyboardArrowRight size={25} />
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Electronics
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Home & Lifestyle
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Medicine
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Sports & Outdoor
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Baby’s & Toys
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Groceries & Pets
+                </button>
+                <button type="button" class="btn" data-bs-toggle="button">
+                  Health & Beauty
+                </button>
               </div>
             </div>
           </div>
         </div>
         <div className="col-lg-9 mt-3">
-          <div className="mx-5">
+          <div className="mx-2">
             <div
               id="carouselExampleIndicators"
               class="carousel slide"

@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+
+
 :root {
   --black: #000000;
   --white: #ffffff;
@@ -40,17 +44,15 @@
     height: 800px;
   
   } */
-  .footer h6, .footer p {
+  .footer h6,
+  .footer p {
     font-size: smaller; /* Adjust font size */
   }
   .footer .footer-img {
     width: 20px; /* Adjust icon size */
     height: 20px;
   }
-
-
 }
-
 
 /* navbar  */
 
@@ -84,7 +86,7 @@
   border: none;
 }
 
-/* Account  */nav
+/* Account  */
 .custom-form {
   width: 750px;
   height: 500px;
@@ -231,15 +233,12 @@
   border-radius: 4px;
   border: 1px;
   margin: 0 auto;
-  transition: background-color 0.3s;  /* Centers the item in the Bootstrap column */
+  transition: background-color 0.3s; /* Centers the item in the Bootstrap column */
 }
 .cate-item:hover {
-
   background-color: var(--red);
   color: var(--white);
 }
-
-
 
 /* Home */
 
@@ -314,8 +313,6 @@
   }
 }
 
-
-
 /* heart and eye  */
 .icon-heart {
   width: 34px;
@@ -350,12 +347,15 @@
   margin: 2px;
 }
 
-.box-play-0, .box-play-1, .box-play-2 {
+.box-play-0,
+.box-play-1,
+.box-play-2 {
   background-color: var(--black);
   position: relative;
 }
 
-.image-text, .image-text-0 {
+.image-text,
+.image-text-0 {
   position: absolute;
   bottom: 7%;
   left: 9%;
@@ -368,26 +368,25 @@
     height: auto; /* Adjust height for smaller screens */
   }
 
-  .box-play-1, .box-play-2 {
+  .box-play-1,
+  .box-play-2 {
     height: auto;
   }
 
-  .image-text, .image-text-0 {
+  .image-text,
+  .image-text-0 {
     bottom: 10%; /* Adjust text position for smaller screens */
     left: 5%;
   }
-
- 
 }
 
 /* Further adjustments for extra small screens */
 @media (max-width: 576px) {
-  .image-text, .image-text-0 {
+  .image-text,
+  .image-text-0 {
     bottom: 15%;
     left: 10%;
   }
-  
-
 }
 
 .play-position {

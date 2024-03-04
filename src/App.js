@@ -19,6 +19,7 @@ import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 import { ProtectedRoute } from "./auth/protectRouter";
+import Orders from "./views/Orders";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -44,9 +45,16 @@ function App() {
               <Route path="/account" element={<Account />} />
               <Route path="/productDetails/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
-             
-              <Route path="/checkout" element={ <ProtectedRoute><Checkout />  </ProtectedRoute>} />
-            
+              <Route path="/orders" element={<Orders />} />
+
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <Checkout />{' '}
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
             <Footer />
           </CartProvider>

@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { UserContext } from "../auth/userContext";
-import axios from "axios";
-import { BsPersonCircle } from "react-icons/bs";
-import { IoIosHeartEmpty } from "react-icons/io";
-import { BsCart4 } from "react-icons/bs";
-import { CartContext } from "../context/CartContext";
-import { WishlistContext } from "../context/WishlistContext";
+import React, { useContext } from 'react';
+import { UserContext } from '../auth/userContext';
+import axios from 'axios';
+import { BsPersonCircle } from 'react-icons/bs';
+import { IoIosHeartEmpty } from 'react-icons/io';
+import { BsCart4 } from 'react-icons/bs';
+import { CartContext } from '../context/CartContext';
+import { WishlistContext } from '../context/WishlistContext';
 
 
 function Navbar() {
@@ -15,27 +15,28 @@ function Navbar() {
 
   return (
     <div className="container-fluid">
-    <div className="container pt-1">
-      <nav className="navbar navbar-expand-lg" style={{ fontFamily: "Poppins" }}>
-      <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-          aria-label="Toggle navigation"
+      <div className="container pt-1">
+        <nav
+          className="navbar navbar-expand-lg"
+          style={{ fontFamily: 'Poppins' }}
         >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <a className="navbar-brand" href="/">
-          HOUSE OF CAMBRIDGE
-        </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <a className="navbar-brand" href="/">
+            HOUSE OF CAMBRIDGE
+          </a>
 
-        {/* Wishlist and Cart Icons for Small Screens */}
-      
+          {/* Wishlist and Cart Icons for Small Screens */}
 
-        {/* Hamburger Icon */}
-       
+          {/* Hamburger Icon */}
 
         <div
           className="offcanvas offcanvas-start"
