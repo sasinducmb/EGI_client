@@ -84,39 +84,59 @@ const ProductDetail = () => {
       </div>
 
       <div className="row pt-5">
-        <div className="col-lg-7 ">
+        <div className="col-lg-7 col-md-12">
           <div className="row">
             <div
-              className="col-lg-4 d-flex justify-content-between"
+              className="col-lg-4 col-md-12 d-lg-flex d-md-none d-sm-none justify-content-between"
               style={{ flexDirection: "column" }}
             >
               {productDetails.additionalImages &&
                 productDetails.additionalImages.length > 0 &&
                 productDetails.additionalImages.map((image, index) => (
-                  <div key={index} className="detail-product-small ">
+                  <div key={index} className="detail-product-small mb-3">
                     <img
                       src={`http://localhost:5000/uploads/${image
                         .split("\\")
                         .pop()}`}
                       alt={`Additional Image ${index}`}
+                      className="img-fluid"
                     />
                   </div>
                 ))}
             </div>
-            <div className="col-lg-8 detail-product-large ">
+            <div className="col-lg-8 col-md-12 detail-product-large">
               {productDetails && productDetails.mainImage ? (
                 <img
                   src={`http://localhost:5000/uploads/${productDetails.mainImage
                     .split("\\")
                     .pop()}`}
+                  className="img-fluid"
                 />
               ) : (
                 <div>Loading image or image not available...</div>
               )}
             </div>
+            <div
+              className="col-md-12 d-lg-none d-md-flex d-sm-flex justify-content-between mt-3"
+          
+            >
+              {productDetails.additionalImages &&
+                productDetails.additionalImages.length > 0 &&
+                productDetails.additionalImages.map((image, index) => (
+                  <div key={index} className="detail-product-small mb-3">
+                    <img
+                      src={`http://localhost:5000/uploads/${image
+                        .split("\\")
+                        .pop()}`}
+                      alt={`Additional Image ${index}`}
+                      className="img-fluid"
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
-        <div className="col-lg-5 ">
+        <div className="col-lg-5 mt-3 ">
           <div className="d-flex justify-content-center align-items-center">
             <div>
               <h4>{productDetails.productName}</h4>
@@ -153,7 +173,7 @@ const ProductDetail = () => {
               <div className="d-flex pt-3">
                 <Link to={"/cart"} style={{ textDecoration: "none" }}>
                   <button
-                    className="product-buynow"
+                    className="product-buynow mb-3"
                     style={{ border: "none" }}
                     onClick={handelCart}
                   >
@@ -161,7 +181,7 @@ const ProductDetail = () => {
                   </button>
                 </Link>
                 <div className="product-heart ">
-                  <Link to={"/wishlist"} style={{color:'black'}}>
+                  <Link to={"/wishlist"} style={{ color: "black" }}>
                     <FaRegHeart
                       size={23}
                       style={{ cursor: "pointer" }}
@@ -212,21 +232,22 @@ const ProductDetail = () => {
         </div>
       </div>
       <div className="row">
-          {categories.slice(0, 4).map((category, index) => (
-            <div className="col-lg-3">
-              <div className="item" style={{ height: "400px" }}>
-                <Cards
-                  key={index}
-                  name={category.productName}
-                  price={category.price}
-                  pic={category.mainImage}
+        
+        {categories.slice(0, 4).map((category, index) => (
+          <div className="col-lg-3 col-md-6">
+            <div className="item" style={{ height: "400px" }}>
+              <Cards
+                key={index}
+                name={category.productName}
+                price={category.price}
+                pic={category.mainImage}
 
-                  // other props
-                />
-              </div>
+                // other props
+              />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -19,6 +19,8 @@ import ProductDetail from "./views/ProductDetail";
 import Cart from "./views/Cart";
 import Checkout from "./views/Checkout";
 import { ProtectedRoute } from "./auth/protectRouter";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -26,6 +28,7 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <div>
+      <ToastContainer />
       <UserProvider>
         <WishlistProvider>
           <CartProvider>

@@ -35,14 +35,14 @@ const Login = () => {
   return (
     <div className="container pt-4 pb-5">
       <div className="row">
-        <div className="col-12 col-md-6">
+        <div className="col-lg-6 col-md-12 ">
           <img
             src="../../img/SideImage.png"
             className="img-fluid"
             alt="Descriptive Alt Text"
           />
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-lg-6 col-md-12 d-flex align-items-center ">
           <div className="m-3">
             <h2
               style={{

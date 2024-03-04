@@ -7,17 +7,6 @@ import { BsCart4 } from "react-icons/bs";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
 
-const logout = async () => {
-  try {
-    const logOut = await axios.get("/user/logout");
-    if (logOut.data) {
-      // console.log(logOut.data.message);
-      window.location.href = "http://localhost:3000/";
-    }
-  } catch (err) {
-    console.log(err.message);
-  }
-};
 
 function Navbar() {
   const { totalItems } = useContext(CartContext);
@@ -106,7 +95,7 @@ function Navbar() {
             {/* User Icon */}
             {user && (
               <div className="nav-heart">
-                <BsPersonCircle size={23} onClick={logout} />
+                <BsPersonCircle size={23}/>
               </div>
             )}
           </div>
@@ -116,7 +105,7 @@ function Navbar() {
           {/* Wishlist Icon */}
           <a href="/wishlist" className="me-2">
             <IoIosHeartEmpty size={23} style={{ color: "black" }} />
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <span className="position-absolute top-0 start-70 translate-middle badge rounded-pill bg-danger">
               {totalItemWishList}
             </span>
           </a>

@@ -10,9 +10,11 @@
   background: var(--black);
   color: var(--white);
 }
+
 /* footer  */
 .footer {
   height: auto;
+  /* width: auto; */
   background-color: var(--black);
   color: var(--white);
 }
@@ -32,6 +34,8 @@
 }
 
 @media (max-width: 768px) {
+
+  
   /* .footer {
     height: 800px;
   
@@ -122,11 +126,19 @@
 /* contact  */
 
 .contact-style {
-  width: 340px;
+  
   height: 457px;
   background-color: var(--white);
   box-shadow: 0px 1px 13px 0px #0000000d;
 }
+
+.my-custom-container .g,.b{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+
 
 .icon-contact {
   width: 40px;
@@ -276,7 +288,7 @@
   .text-color {
     font-size: 36px; /* Smaller font size for smaller screens */
   }
-
+     
   .timecount-align {
     position: relative;
     top: auto;
@@ -555,3 +567,4 @@
 .padding-style {
   padding-top: 95px;
 }
+

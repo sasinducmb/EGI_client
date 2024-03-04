@@ -61,7 +61,7 @@ const Home = () => {
 
       
         <div>
-          <div className="d-flex align-items-center red-box ">
+          <div className="d-flex align-items-center red-box mt-3">
             <div>
               <h6 className="pt-1 px-4"> Today's</h6>
             </div>
@@ -69,10 +69,10 @@ const Home = () => {
         </div>
 
         <div className="row pt-4">
-          <div className="col-12 col-md-4 col-lg-3">
+          <div className="col-12 col-md-4 col-lg-3 ">
             <h4 className="text-style">Flash Sales</h4>
           </div>
-          <div className="col-12 col-md-8 col-lg-5 px-4 d-flex align-items-center ">
+          <div className="col-12 col-md-8 col-lg-4 px-4 d-flex align-items-center ">
             <CountdownTimer targetDate="2024-12-31" />
           </div>
           <div className="col-12 col-lg-4 d-flex align-items-center justify-content-end">
