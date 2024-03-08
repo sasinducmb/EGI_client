@@ -45,17 +45,17 @@ console.log(cart)
           <div className="row add-cart" onClick={handelCart}>
             <h5
               className="d-flex justify-content-center align-items-end"
-              style={{ color: 'white' }}
+              style={{ fontFamily:'Poppins',color: 'white' }}
             >
               Add To Cart
             </h5>
           </div>
       
       </div>
-      <h6>{name}</h6>
+      <h6 style={{fontFamily:'Poppins'}}>{name}</h6>
       <div className="d-flex">
-        <h6 style={{ color: "red" }}>${price}</h6>
-        <h6 style={{ opacity: "50%" }} className="px-3">
+        <h6 style={{ fontFamily:'Poppins',color: "red" }}>${price}</h6>
+        <h6 style={{ fontFamily:'Poppins',opacity: "50%" }} className="px-3">
           $160
         </h6>
       </div>

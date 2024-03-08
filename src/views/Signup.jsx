@@ -175,7 +175,7 @@ const Signup = () => {
                 <span>Create Account</span>
               </button>
             </form>
-            <button
+            {/* <button
               style={{
                 width: "371px",
                 height: "56px",
@@ -190,10 +190,10 @@ const Signup = () => {
                 color: "#000", // Adjust text color as needed
                 cursor: "pointer",
               }}
-              onClick={googleAuth}
-            >
+              onClick={googleAuth} */}
+            {/* > */}
               {/* Replace this with your Google icon IconGoogle */}
-              <div style={{ width: "24px", height: "24px" }}>
+              {/* <div style={{ width: "24px", height: "24px" }}>
                 <img src="../../img/IconGoogle.png" />
               </div>
               <span
@@ -205,7 +205,7 @@ const Signup = () => {
               >
                 Sign up with Google
               </span>
-            </button>
+            </button> */}
 
             <p class="text-center text-muted mt-3 mb-0">
               Have already an account?{" "}
