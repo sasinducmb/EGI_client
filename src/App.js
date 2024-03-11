@@ -22,6 +22,7 @@ import { ProtectedRoute } from "./auth/protectRouter";
 import Orders from "./views/Orders";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Verify from "./views/Verify";
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -46,6 +47,7 @@ function App() {
               <Route path="/productDetails/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/orders" element={<Orders />} />
+              <Route path="/user/:id/verify/:token" element={<Verify/>}/>
 
               <Route
                 path="/checkout"

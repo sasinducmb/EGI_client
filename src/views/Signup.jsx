@@ -46,7 +46,7 @@ const Signup = () => {
           password,
         });
         if (response.data.message === "ok") {
-          setMessage("Successful registration");
+          setMessage("Verification Link sent to the email");
         }
       } catch (error) {
         if (error.response.data.message === "2") {

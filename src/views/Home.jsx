@@ -102,6 +102,7 @@ const Home = () => {
                     id={category._id}
                     key={index}
                     name={category.productName}
+                    ct={category.item_count}
                     price={category.price}
                     pic={category.mainImage}
                     discount={"50"}
@@ -175,6 +176,7 @@ const Home = () => {
                     price={category.price}
                     pic={category.mainImage}
                     subpic={category.additionalImages}
+                    ct={category.item_count}
 
                     // other props
                   />
@@ -248,6 +250,7 @@ const Home = () => {
                     price={category.price}
                     pic={category.mainImage}
                     subpic={category.additionalImages}
+                    ct={category.item_count}
 
                     // other props
                   />

@@ -1,7 +1,7 @@
-import React from 'react';
-import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
-import Orders from './Orders';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import Orders from "./Orders";
+import { Link } from "react-router-dom";
 
 const Account = () => {
   return (
@@ -9,7 +9,7 @@ const Account = () => {
       <div className=" row d-flex pt-5 ">
         <div className=" d-flex justify-content-between  ">
           <div className="d-flex">
-            <h6 style={{ opacity: '50%' }}>Home /</h6>
+            <h6 style={{ opacity: "50%" }}>Home /</h6>
             <h6 className="ms-2 "> My Account </h6>
           </div>
           <div className="justify-content-end ">
@@ -23,7 +23,7 @@ const Account = () => {
             <div className="col-12">
               <div
                 className="d-flex flex-row flex-wrap  flex-lg-column align-items-start justify-content-center"
-                style={{ height: 'auto' }}
+                style={{ height: "auto" }}
               >
                 <button type="button" class="btn" data-bs-toggle="button">
                   Manage My Account <MdOutlineKeyboardArrowRight size={25} />
@@ -39,11 +39,9 @@ const Account = () => {
                     My Payment Options
                   </button>
                 </div>
-                <Link to="/orders">
-                  {' '}
-                  <button type="button" class="btn" data-bs-toggle="button">
-                    My Orders <MdOutlineKeyboardArrowRight size={25} />
-                  </button>
+                <Link to={"/orders"} style={{textDecoration:'none',color:'black',paddingLeft:'12px'}}>
+                  {" "}
+                  My Orders <MdOutlineKeyboardArrowRight size={25} />
                 </Link>
                 <div className="mx-4">
                   <button type="button" class="btn" data-bs-toggle="button">
@@ -64,10 +62,10 @@ const Account = () => {
         <form class="custom-form row mx-4 pt-4">
           <h4
             style={{
-              fontFamily: 'Poppins',
+              fontFamily: "Poppins",
 
-              fontSize: '20px',
-              color: '#DB4444',
+              fontSize: "20px",
+              color: "#DB4444",
             }}
           >
             Edit Your Profile
@@ -150,10 +148,10 @@ const Account = () => {
             <button
               type="cancle"
               style={{
-                border: '0',
-                backgroundColor: '#ffffff',
-                width: '140px',
-                height: '56px',
+                border: "0",
+                backgroundColor: "#ffffff",
+                width: "140px",
+                height: "56px",
               }}
             >
               <span>Cancle</span>

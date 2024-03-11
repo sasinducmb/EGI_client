@@ -6,7 +6,7 @@ import {WishlistContext} from "../context/WishlistContext"
 import {CartContext } from "../context/CartContext"
 import { Link } from "react-router-dom";
 
-const Cards = ({id,name, price, pic, discount,subpic}) => {
+const Cards = ({id,name, ct,price, pic, discount,subpic }) => {
 
   const {addToWishlist}=useContext(WishlistContext)
   const {addToCart} =useContext(CartContext);
@@ -16,12 +16,12 @@ const Cards = ({id,name, price, pic, discount,subpic}) => {
   // const { wishlist } = useContext(WishlistContext);
 
   const handleWishlistClick = () => {
-    addToWishlist({id,name, price, pic, discount,subpic});
+    addToWishlist({id,name, ct,price, pic, discount,subpic });
 };
 
 
 const handelCart=()=>{
-  addToCart({id,name, price, pic, discount,subpic})
+  addToCart({id,name, ct,price, pic, discount,subpic, })
 }
 console.log(cart)
   return (
