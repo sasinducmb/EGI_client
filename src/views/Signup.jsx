@@ -1,21 +1,42 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
 
 const Signup = () => {
   const [message, setMessage] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [isValid, setIsValid] = useState(true);
-  // validate the phone number and email
-  const validateInput = (value) => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    const phoneRegex = /^[0-9]{10}$/; // Adjust regex based on your phone number format
+  const [showPassword, setShowPassword] = useState(false);
+  const [showconfirmPassword,setConfirmPassword]=useState(false);
+  const [confirmPass, setConfirmPass] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(true);
+const [isValidPhone, setIsValidPhone] = useState(true);
 
-    if (emailRegex.test(value) || phoneRegex.test(value)) {
-      setIsValid(true);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility=()=>{
+    setConfirmPassword(!showconfirmPassword)
+  }
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (emailRegex.test(email)) {
+      setIsValidEmail(true);
     } else {
-      setIsValid(false);
+      setIsValidEmail(false);
     }
   };
+  
+  const validatePhone = (phoneNo) => {
+    const phoneRegex = /^[0-9]{10}$/; // Adjust regex based on your phone number format
+    if (phoneRegex.test(phoneNo)) {
+      setIsValidPhone(true);
+    } else {
+      setIsValidPhone(false);
+    }
+  };
+
 
   // google auth setting
   const googleAuth = () => {
@@ -28,6 +49,7 @@ const Signup = () => {
   const [data, SetData] = useState({
     name: "",
     username: "",
+    phoneNo:"",
     password: "",
   });
 
@@ -35,27 +57,43 @@ const Signup = () => {
   const userRegistration = async (e) => {
     e.preventDefault();
 
-    const { name, username, password } = data;
+    const { name, username, phoneNo,password } = data;
     // console.log(username);
+    if (data.password !== confirmPass) {
+      // Handle the mismatch case
+      setErrMsg("Password Not Match");
+      return;
+    }
 
-    if (isValid) {
+    if (isValidEmail && isValidPhone) {
       try {
         const response = await axios.post("/user/register", {
           name,
           username,
+          phoneNo,
           password,
         });
         if (response.data.message === "ok") {
           setMessage("Verification Link sent to the email");
+          SetData({
+            name: "",
+            username: "",
+            phoneNo: "",
+            password: "",
+          });
         }
       } catch (error) {
-        if (error.response.data.message === "2") {
-          setErrMsg("Password must contain at least 8 characters");
-        } else if (error.response.data.message === "3") {
-          setErrMsg("Username already exists");
+        if (error.response && error.response.data) {
+          const message = error.response.data.message;
+          if (message === "2") {
+            setErrMsg("Password must contain at least 8 characters");
+          } else if (message === "3") {
+            setErrMsg("Username already exists");
+          }
+        } else {
+          // Handle the case where error.response is undefined
+          setErrMsg("An unexpected error occurred");
         }
-        // console.error(err.message);
-        // You might also want to set an error message here for other kinds of errors
       }
     } else {
       setErrMsg("Valid email or phone number required");
@@ -122,36 +160,124 @@ const Signup = () => {
                   id="inputEmail"
                   required
                   aria-describedby="emailHelp"
-                  placeholder="Email or Phone Number"
+                  placeholder="Email"
                   style={{
                     border: "none",
                     borderBottom: "1px solid #000",
                     outline: "none",
                     borderRadius: "0",
                   }}
-                  onChange={(e) =>
-                    SetData({ ...data, username: e.target.value })
-                  }
+                  onChange={(e) => {
+                    SetData({ ...data, username: e.target.value });
+                    validateEmail(e.target.value);
+                  }}
+                />
+              </div>
+                 <div class="form-group pt-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputphonr"
+                  required
+                 
+                  aria-describedby="emailHelp"
+                  placeholder="Phone Number"
+                  style={{
+                    border: "none",
+                    borderBottom: "1px solid #000",
+                    outline: "none",
+                    borderRadius: "0",
+                  }}
+                  onChange={(e) => {
+                    SetData({ ...data, phoneNo: e.target.value });
+                    validatePhone(e.target.value);
+                  }} 
                 />
               </div>
 
-              <div class="form-group pt-3 pb-3">
+            
+              <div style={{ position: "relative" }}>
                 <input
-                  type="password"
-                  class="form-control"
+                  type={showPassword ? "text" : "password"}
+                  className="form-control mt-3"
                   id="inputPassword"
-                  required
                   placeholder="Password"
                   style={{
                     border: "none",
                     borderBottom: "1px solid #000",
                     outline: "none",
                     borderRadius: "0",
+                    paddingRight: "30px", // Make room for the icon
                   }}
                   onChange={(e) =>
                     SetData({ ...data, password: e.target.value })
                   }
                 />
+                {showPassword ? (
+                  <FaRegEye
+                    onClick={togglePasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px", // Adjust as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    onClick={togglePasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px", // Adjust as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                )}
+              </div>
+              <div
+                className="form-group pt-3 pb-3"
+                style={{ position: "relative" }}
+              >
+                <input
+                 type={showconfirmPassword ? "text" : "password"}
+                  className="form-control"
+                  id="inputPassword"
+                  placeholder="Confirm password"
+                  style={{
+                    border: "none",
+                    borderBottom: "1px solid #000",
+                    outline: "none",
+                    borderRadius: "0",
+                    paddingRight: "30px", // Make room for the icon
+                  }}
+                  onChange={(e) => setConfirmPass(e.target.value)}
+                />
+               {showconfirmPassword ? (
+                  <FaRegEye
+                    onClick={toggleConfirmPasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px", // Adjust as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    onClick={toggleConfirmPasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px", // Adjust as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                )}
               </div>
 
               <button
@@ -170,7 +296,7 @@ const Signup = () => {
                   cursor: "pointer",
                 }}
                 className="mb-2 mt-2"
-                onClick={() => validateInput(data.username)}
+                
               >
                 <span>Create Account</span>
               </button>

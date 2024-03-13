@@ -6,7 +6,7 @@ import { WishlistContext } from "../context/WishlistContext";
 
 const Wishlist = () => {
   const [categories, setCategories] = useState([]);
-  const { wishlist,totalItemWishList } = useContext(WishlistContext);
+  const { wishlist, totalItemWishList } = useContext(WishlistContext);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -41,18 +41,17 @@ const Wishlist = () => {
       <div className="row ">
         {wishlist.map((item, index) => (
           <div className="col-lg-3">
-
-          <div key={index}>
-            {/* Display the wishlist item */}
-            <h6>{item.name}</h6>
-            <WishlistCard 
-            key={index}
-            name={item.name}
-            price={item.price}
-            pic={item.pic}
-            discount={"50"}
-            />
-          </div>
+            <div key={index}>
+              {/* Display the wishlist item */}
+              <h6>{item.name}</h6>
+              <WishlistCard
+                key={index}
+                name={item.name}
+                price={item.price}
+                pic={item.pic}
+                discount={"50"}
+              />
+            </div>
 
             {/* other item details */}
           </div>
@@ -80,14 +79,12 @@ const Wishlist = () => {
         </div>
         <div className="row">
           {categories.slice(0, 4).map((category, index) => (
-            <div className="col-lg-3">
+            <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
               <div className="item" style={{ height: "400px" }}>
                 <Cards
-                  key={index}
                   name={category.productName}
                   price={category.price}
                   pic={category.mainImage}
-
                   // other props
                 />
               </div>

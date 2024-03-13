@@ -1,8 +1,12 @@
 import React, { useState} from 'react';
 import axios from 'axios';
+import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
 
 const Login = () => {
-
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const [data, SetData] = useState({
     username: "",
@@ -70,7 +74,7 @@ const Login = () => {
                   class="form-control"
                   id="inputEmail"
                   aria-describedby="emailHelp"
-                  placeholder="Email or Phone Number"
+                  placeholder="Email"
                   style={{
                     border: 'none',
                     borderBottom: '1px solid #000',
@@ -80,21 +84,47 @@ const Login = () => {
                   onChange={(e) => SetData({ ...data, username: e.target.value })}
             />
               </div>
-
-              <div class="form-group pt-3 pb-3">
+ 
+              <div style={{ position: "relative" }}>
                 <input
-                  type="password"
-                  class="form-control"
+                  type={showPassword ? "text" : "password"}
+                  className="form-control mt-3"
                   id="inputPassword"
                   placeholder="Password"
                   style={{
-                    border: 'none',
-                    borderBottom: '1px solid #000',
-                    outline: 'none',
-                    borderRadius: '0',
+                    border: "none",
+                    borderBottom: "1px solid #000",
+                    outline: "none",
+                    borderRadius: "0",
+                    paddingRight: "30px", // Make room for the icon
                   }}
-              onChange={(e) => SetData({ ...data, password: e.target.value })}
+                  onChange={(e) =>
+                    SetData({ ...data, password: e.target.value })
+                  }
                 />
+                {showPassword ? (
+                  <FaRegEye
+                    onClick={togglePasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px", // Adjust as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    onClick={togglePasswordVisibility}
+                    style={{
+                      position: "absolute",
+                      right: "10px", // Adjust as needed
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                    }}
+                  />
+                )}
               </div>
 
               <button
