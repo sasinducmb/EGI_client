@@ -125,7 +125,7 @@ const ProductDetail = () => {
                 productDetails.additionalImages.map((image, index) => (
                   <div key={index} className="detail-product-small mb-3">
                     <img
-                      src={`http://localhost:5000/uploads/${image
+                      src={`${process.env.REACT_APP_API_URL}/uploads/${image
                         .split("\\")
                         .pop()}`}
                       alt={`Additional Image ${index}`}

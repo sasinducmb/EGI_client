@@ -100,13 +100,14 @@ const Home = () => {
                 <div className="item" style={{ height: "400px" }}>
                   <Cards
                     id={category._id}
-                    key={index}
+                    key={category._id}
                     name={category.productName}
                     ct={category.item_count}
                     price={category.price}
                     pic={category.mainImage}
                     discount={"50"}
                     subpic={category.additionalImages}
+                  
                     // other props
                   />
                 </div>
