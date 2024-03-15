@@ -26,7 +26,7 @@ const Login = () => {
         if (userRole==="admin") {  
           window.location.href="http://localhost:3001/" 
         }else{
-          window.location.href=process.env.MAIN_URL 
+          window.location.href=process.env.REACT_APP_MAIN_URL 
           // console.log("user")
         }
       }catch(err){
