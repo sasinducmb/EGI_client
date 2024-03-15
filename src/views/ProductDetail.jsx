@@ -95,7 +95,7 @@ const ProductDetail = () => {
                 productDetails.additionalImages.map((image, index) => (
                   <div key={index} className="detail-product-small mb-3">
                     <img
-                      src={`http://localhost:5000/uploads/${image
+                      src={`${process.env.REACT_APP_API_URL}/uploads/${image
                         .split("\\")
                         .pop()}`}
                       alt={`Additional Image ${index}`}
@@ -107,7 +107,7 @@ const ProductDetail = () => {
             <div className="col-lg-8 col-md-12 detail-product-large">
               {productDetails && productDetails.mainImage ? (
                 <img
-                  src={`http://localhost:5000/uploads/${productDetails.mainImage
+                  src={`${process.env.REACT_APP_API_URL}/uploads/${productDetails.mainImage
                     .split("\\")
                     .pop()}`}
                   className="img-fluid"

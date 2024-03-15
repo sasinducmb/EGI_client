@@ -229,7 +229,7 @@ const Checkout = () => {
               <div className="cart-row" key={index}>
                 {cartItem.pic ? (
                   <img
-                    src={`http://localhost:5000/uploads/${cartItem.pic
+                    src={`${process.env.REACT_APP_API_URL}/uploads/${cartItem.pic
                       .split("\\")
                       .pop()}`}
                     className="image-cart"

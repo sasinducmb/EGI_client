@@ -66,14 +66,15 @@ const Cart = () => {
             {cartItem.pic ? (
               <div>
                 <img
-                  src={`http://localhost:5000/uploads/${cartItem.pic
-                    .split("\\")
-                    .pop()}`}
+                  src={`${process.env.REACT_APP_API_URL}
+                  /uploads/${cartItem.pic.split("\\").pop()}`}
                   className="image-cart"
                 />
 
                 {cartItem.quantity != cartItem.ct ? (
-                  <p className="text-success"><b>In Stock</b></p>
+                  <p className="text-success">
+                    <b>In Stock</b>
+                  </p>
                 ) : (
                   <p className="text-danger">
                     <b>Max limit reached</b>
