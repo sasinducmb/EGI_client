@@ -37,7 +37,7 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
           </div>
         </div>
         <img
-          src={`${process.env.REACT_APP_API_URL}/uploads/${pic
+          src={`${process.env.REACT_APP_API_URL}/${pic
             .split("\\")
             .pop()}`}
           className="card-outer pic"
