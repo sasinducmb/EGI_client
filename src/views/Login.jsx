@@ -24,7 +24,7 @@ const Login = () => {
         const newUser = response.data.newUser;
         const userRole = newUser.role;
         if (userRole==="admin") {  
-          window.location.href="http://localhost:3001/" 
+          window.location.href=process.env.REACT_APP_DASH_URL 
         }else{
           // console.log("user")
           console.log('Redirecting to:', process.env.REACT_APP_MAIN_URL);
