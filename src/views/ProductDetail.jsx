@@ -75,7 +75,7 @@ const ProductDetail = () => {
   };
 
   // console.log(productDetails);
-  const imagePath = getPath(pic);
+
   console.log(cart);
   return (
     <div className="container">
@@ -111,10 +111,11 @@ const ProductDetail = () => {
             </div>
             <div className="col-lg-8 col-md-12 detail-product-large">
               {productDetails && productDetails.mainImage ? (
-                <img
-                  src={imagePath}
-                  className="img-fluid"
-                />
+               <img
+               src={`${process.env.REACT_APP_API_URL}/uploads/${productDetails.mainImage.split(productDetails.mainImage.includes("\\") ? "\\" : "/").pop()}`}
+               className="img-fluid"
+             />
+             
               ) : (
                 <div>Loading image or image not available...</div>
               )}
