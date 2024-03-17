@@ -10,6 +10,7 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
   const { addToWishlist } = useContext(WishlistContext);
   const { addToCart } = useContext(CartContext);
   const { cart } = useContext(CartContext);
+  const normalizedPath = pic.replace(/\\/g, "/");
 
   // const { wishlist } = useContext(WishlistContext);
 
@@ -37,9 +38,7 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
           </div>
         </div>
         <img
-          src={`${process.env.REACT_APP_API_URL}/${pic
-            .split("\\")
-            .pop()}`}
+          src={`${process.env.REACT_APP_API_URL}/${pic.replace(/\\/g, "/")}`}
           className="card-outer pic"
         />
 
