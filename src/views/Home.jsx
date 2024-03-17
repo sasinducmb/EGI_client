@@ -56,10 +56,8 @@ const Home = () => {
   return (
     <div class="container-fluid">
       <div className="container">
-      
         <Sidebarwithslider />
 
-      
         <div>
           <div className="d-flex align-items-center red-box mt-3">
             <div>
@@ -94,7 +92,7 @@ const Home = () => {
         </div>
         <div className="d-flex">
           <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
-            {categories
+            {/* {categories
               .filter((category) => category.sellType === "flash")
               .map((category, index) => (
                 <div className="item" style={{ height: "400px" }}>
@@ -111,7 +109,43 @@ const Home = () => {
                     // other props
                   />
                 </div>
-              ))}
+              ))} */}
+            <div class="item">
+              <h4>1</h4>
+            </div>
+            <div class="item">
+              <h4>2</h4>
+            </div>
+            <div class="item">
+              <h4>3</h4>
+            </div>
+            <div class="item">
+              <h4>4</h4>
+            </div>
+            <div class="item">
+              <h4>5</h4>
+            </div>
+            <div class="item">
+              <h4>6</h4>
+            </div>
+            <div class="item">
+              <h4>7</h4>
+            </div>
+            <div class="item">
+              <h4>8</h4>
+            </div>
+            <div class="item">
+              <h4>9</h4>
+            </div>
+            <div class="item">
+              <h4>10</h4>
+            </div>
+            <div class="item">
+              <h4>11</h4>
+            </div>
+            <div class="item">
+              <h4>12</h4>
+            </div>
           </OwlCarousel>
         </div>
 
@@ -289,7 +323,8 @@ const Home = () => {
                 <div className=" row col-lg-11  mx-auto  d-flex justify-content-end align-items-end box-play-1 m-2">
                   <img
                     src="../../img/img2.png"
-                    style={{ maxWidth: "100%", height: "auto" }} className=""
+                    style={{ maxWidth: "100%", height: "auto" }}
+                    className=""
                   />
                   <div className="image-text-0">
                     <h3>Women’s Collections</h3>
