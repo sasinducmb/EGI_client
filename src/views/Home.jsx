@@ -91,62 +91,28 @@ const Home = () => {
           </div>
         </div>
         <div className="d-flex">
-          <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
-            {/* {categories
-              .filter((category) => category.sellType === "flash")
-              .map((category, index) => (
-                <div className="item" style={{ height: "400px" }}>
-                  <Cards
-                    id={category._id}
-                    key={category._id}
-                    name={category.productName}
-                    ct={category.item_count}
-                    price={category.price}
-                    pic={category.mainImage}
-                    discount={"50"}
-                    subpic={category.additionalImages}
-                  
-                    // other props
-                  />
-                </div>
-              ))} */}
-            <div class="item">
-              <h4>1</h4>
-            </div>
-            <div class="item">
-              <h4>2</h4>
-            </div>
-            <div class="item">
-              <h4>3</h4>
-            </div>
-            <div class="item">
-              <h4>4</h4>
-            </div>
-            <div class="item">
-              <h4>5</h4>
-            </div>
-            <div class="item">
-              <h4>6</h4>
-            </div>
-            <div class="item">
-              <h4>7</h4>
-            </div>
-            <div class="item">
-              <h4>8</h4>
-            </div>
-            <div class="item">
-              <h4>9</h4>
-            </div>
-            <div class="item">
-              <h4>10</h4>
-            </div>
-            <div class="item">
-              <h4>11</h4>
-            </div>
-            <div class="item">
-              <h4>12</h4>
-            </div>
-          </OwlCarousel>
+          <div class="item">
+            <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
+              {categories
+                .filter((category) => category.sellType === "flash")
+                .map((category, index) => (
+                  <div className="item" style={{ height: "400px" }}>
+                    <Cards
+                      id={category._id}
+                      key={category._id}
+                      name={category.productName}
+                      ct={category.item_count}
+                      price={category.price}
+                      pic={category.mainImage}
+                      discount={"50"}
+                      subpic={category.additionalImages}
+
+                      // other props
+                    />
+                  </div>
+                ))}
+            </OwlCarousel>
+          </div>
         </div>
 
         <div className="row justify-content-center mt-3">
