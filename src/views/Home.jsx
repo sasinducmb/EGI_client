@@ -90,29 +90,29 @@ const Home = () => {
             </div>
           </div>
         </div>
-       
-          <div class="item">
-            <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
-              {categories
-                .filter((category) => category.sellType === "flash")
-                .map((category, index) => (
-                  <div className="item" style={{ height: "400px" }}>
-                    <Cards
-                      id={category._id}
-                      key={category._id}
-                      name={category.productName}
-                      ct={category.item_count}
-                      price={category.price}
-                      pic={category.mainImage}
-                      discount={"50"}
-                      subpic={category.additionalImages}
 
-                      // other props
-                    />
-                  </div>
-                ))}
-            </OwlCarousel>
+        <div class="item">
+          <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
+            {categories
+              .filter((category) => category.sellType === "flash")
+              .map((category, index) => (
+                <div className="item" style={{ height: "400px" }}>
+                  <Cards
+                    id={category._id}
+                    key={category._id}
+                    name={category.productName}
+                    ct={category.item_count}
+                    price={category.price}
+                    pic={category.mainImage}
+                    discount={"50"}
+                    subpic={category.additionalImages}
 
+                    // other props
+                  />
+                </div>
+              ))}
+          </OwlCarousel>
+        </div>
 
         <div className="row justify-content-center mt-3">
           <button className="btn-product mt-3">View All Products</button>
