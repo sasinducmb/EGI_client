@@ -67,6 +67,12 @@ const ProductDetail = () => {
       pic: productDetails.mainImage,
     });
   };
+  const getPath = (pic) => {
+    const separator = pic.includes("\\") ? "\\" : "/";
+    return `${process.env.REACT_APP_API_URL}/uploads/${pic
+      .split(separator)
+      .pop()}`;
+  };
 
   // console.log(productDetails);
   console.log(cart);
@@ -95,9 +101,7 @@ const ProductDetail = () => {
                 productDetails.additionalImages.map((image, index) => (
                   <div key={index} className="detail-product-small mb-3">
                     <img
-                      src={`${process.env.REACT_APP_API_URL}/uploads/${image
-                        .split("\\")
-                        .pop()}`}
+                      src={getPath(image)}
                       alt={`Additional Image ${index}`}
                       className="img-fluid"
                     />
@@ -107,27 +111,22 @@ const ProductDetail = () => {
             <div className="col-lg-8 col-md-12 detail-product-large">
               {productDetails && productDetails.mainImage ? (
                 <img
-                  src={`${process.env.REACT_APP_API_URL}/uploads/${productDetails.mainImage
-                    .split("\\")
-                    .pop()}`}
+                  src={`${
+                    process.env.REACT_APP_API_URL
+                  }/uploads/${productDetails.mainImage.split("\\").pop()}`}
                   className="img-fluid"
                 />
               ) : (
                 <div>Loading image or image not available...</div>
               )}
             </div>
-            <div
-              className="col-md-12 d-lg-none d-md-flex d-sm-flex justify-content-between mt-3"
-          
-            >
+            <div className="col-md-12 d-lg-none d-md-flex d-sm-flex justify-content-between mt-3">
               {productDetails.additionalImages &&
                 productDetails.additionalImages.length > 0 &&
                 productDetails.additionalImages.map((image, index) => (
                   <div key={index} className="detail-product-small mb-3">
-                    <img
-                      src={`${process.env.REACT_APP_API_URL}/uploads/${image
-                        .split("\\")
-                        .pop()}`}
+                   <img
+                      src={getPath(image)}
                       alt={`Additional Image ${index}`}
                       className="img-fluid"
                     />
@@ -232,7 +231,6 @@ const ProductDetail = () => {
         </div>
       </div>
       <div className="row">
-        
         {categories.slice(0, 4).map((category, index) => (
           <div className="col-lg-3 col-md-6">
             <div className="item" style={{ height: "400px" }}>
