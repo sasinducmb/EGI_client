@@ -10,7 +10,6 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
   const { addToWishlist } = useContext(WishlistContext);
   const { addToCart } = useContext(CartContext);
   const { cart } = useContext(CartContext);
-  const normalizedPath = pic.replace(/\\/g, "/");
 
   // const { wishlist } = useContext(WishlistContext);
 
@@ -21,6 +20,12 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
   const handelCart = () => {
     addToCart({ id, name, ct, price, pic, discount, subpic });
   };
+
+  const getPath = (pic) => {
+    const separator = pic.includes("\\") ? "\\" : "/";
+    return `${process.env.REACT_APP_API_URL}/uploads/${pic.split(separator).pop()}`;
+};
+const imagePath = getPath(pic);
   console.log(cart);
   return (
     <div className=" custom-box pt-4 pb-3 mx-3">
@@ -37,10 +42,7 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
             </Link>
           </div>
         </div>
-        <img
-          src={`${process.env.REACT_APP_API_URL}/${pic.replace(/\\/g, "/")}`}
-          className="card-outer pic"
-        />
+        <img src={imagePath} className="card-outer pic" />
 
         <div className="row add-cart" onClick={handelCart}>
           <h5
