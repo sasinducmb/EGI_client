@@ -90,7 +90,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="d-flex">
+       
           <div class="item">
             <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
               {categories
@@ -112,8 +112,7 @@ const Home = () => {
                   </div>
                 ))}
             </OwlCarousel>
-          </div>
-        </div>
+
 
         <div className="row justify-content-center mt-3">
           <button className="btn-product mt-3">View All Products</button>
