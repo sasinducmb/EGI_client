@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Sidebarwithslider from "../components/Sidebarwithslider";
 import CountdownTimer from "../components/Countdowntimer";
 import Cards from "../components/Cards";
-
+import { FiEye } from "react-icons/fi";
 import Category from "../components/Category";
 import Product_cards from "../components/Product_cards";
 import { FiArrowLeft } from "react-icons/fi";
@@ -15,9 +15,14 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { SiAdguard } from "react-icons/si";
+import { WishlistContext } from "../context/WishlistContext";
+import { FaRegHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const carousel = useRef(null);
+  const { addToWishlist } = useContext(WishlistContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,6 +39,17 @@ const Home = () => {
 
     fetchProduct();
   }, []);
+  const handleWishlistClick = () => {
+    addToWishlist({});
+  };
+
+  // const getPath = () => {
+  //   const separator = pic.includes("\\") ? "\\" : "/";
+  //   return `${process.env.REACT_APP_API_URL}/uploads/${pic
+  //     .split(separator)
+  //     .pop()}`;
+  // };
+  // const imagePath = getPath();
 
   const options = {
     responsive: {
@@ -97,18 +113,45 @@ const Home = () => {
               .filter((category) => category.sellType === "flash")
               .map((category, index) => (
                 <div className="item" style={{ height: "400px" }}>
-                  <Cards
-                    id={category._id}
-                    key={category._id}
-                    name={category.productName}
-                    ct={category.item_count}
-                    price={category.price}
-                    pic={category.mainImage}
-                    discount={"50"}
-                    subpic={category.additionalImages}
+                  <div className=" custom-box pt-4 pb-3 mx-3">
+                    {/* <div className="card-box-inner  "> -40%</div> */}
+                    <div className="card-inner">
+                      <div className="card-box-inner">discount%</div>
+                      <div className="card-heart">
+                        <div className="icon-heart mb-1">
+                          <FaRegHeart size={20} onClick={handleWishlistClick} />
+                        </div>
+                        <div>
+                          <Link className="icon-heart" to={`/productDetails/`}>
+                            <FiEye size={20} />
+                          </Link>
+                        </div>
+                      </div>
+                      {/* <img src={imagePath} className="card-outer pic" /> */}
 
-                    // other props
-                  />
+                      <div className="row add-cart">
+                        <h5
+                          className="d-flex justify-content-center align-items-end"
+                          style={{ fontFamily: "Poppins", color: "white" }}
+                        >
+                          Add To Cart
+                        </h5>
+                      </div>
+                    </div>
+                    <h6 style={{ fontFamily: "Poppins" }}>10</h6>
+                    <div className="d-flex">
+                      <h6 style={{ fontFamily: "Poppins", color: "red" }}>
+                        price
+                      </h6>
+                      <h6
+                        style={{ fontFamily: "Poppins", opacity: "50%" }}
+                        className="px-3"
+                      >
+                        $160
+                      </h6>
+                    </div>
+                    {/* <ManualRating /> */}
+                  </div>
                 </div>
               ))}
           </OwlCarousel>
