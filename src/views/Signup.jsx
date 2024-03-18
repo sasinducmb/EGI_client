@@ -74,7 +74,7 @@ const [isValidPhone, setIsValidPhone] = useState(true);
           password,
         });
         if (response.data.message === "ok") {
-          setMessage("Verification Link sent to the email");
+          setMessage("Registrtion success...!");
           SetData({
             name: "",
             username: "",
