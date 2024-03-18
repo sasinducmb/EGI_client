@@ -65,11 +65,11 @@ const Cart = () => {
           <div className="cart-row" key={index}>
             {cartItem.pic ? (
               <div>
-                <img
-                  src={`${process.env.REACT_APP_API_URL}
-                  /uploads/${cartItem.pic.split("\\").pop()}`}
-                  className="image-cart"
-                />
+              
+                 <img
+                src={`${process.env.REACT_APP_API_URL}/uploads/${cartItem.pic.split(cartItem.pic.includes("\\") ? "\\" : "/").pop()}`}
+                alt={cartItem.pic}
+                style={{ height: "50px" }}/>
 
                 {cartItem.quantity != cartItem.ct ? (
                   <p className="text-success">
