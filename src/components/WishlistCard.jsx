@@ -30,10 +30,11 @@ const WishlistCard = ({ name, price, pic, discount }) => {
             <RiDeleteBinLine size={20} onClick={handleDelete} />
           </div>
         </div>
-        <img
-          src={`http://localhost:5000/uploads/${pic.split("\\").pop()}`}
-          className=" card-outer"
-        />
+    
+             <img
+                src={`${process.env.REACT_APP_API_URL}/uploads/${pic.split(pic.includes("\\") ? "\\" : "/").pop()}`}
+                alt={pic}
+                className=" card-outer"/>
         <a href="#">
           <div className="row add-cart" onClick={handelCart}>
             <h5
