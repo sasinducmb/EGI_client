@@ -9,9 +9,9 @@ import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import Explore_cards from "../components/Explore_cards";
 import axios from "axios";
-import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import OwlCarousel from "react-owl-carousel";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { SiAdguard } from "react-icons/si";
@@ -106,56 +106,53 @@ const Home = () => {
             </div>
           </div>
         </div>
-
-        <div class="item">
-          <OwlCarousel className="owl-theme" ref={carousel} loop {...options}>
-            {categories
-              .filter((category) => category.sellType === "flash")
-              .map((category, index) => (
-                <div className="item" style={{ height: "400px" }}>
-                  <div className=" custom-box pt-4 pb-3 mx-3">
-                    {/* <div className="card-box-inner  "> -40%</div> */}
-                    <div className="card-inner">
-                      <div className="card-box-inner">discount%</div>
-                      <div className="card-heart">
-                        <div className="icon-heart mb-1">
-                          <FaRegHeart size={20} onClick={handleWishlistClick} />
-                        </div>
-                        <div>
-                          <Link className="icon-heart" to={`/productDetails/`}>
-                            <FiEye size={20} />
-                          </Link>
-                        </div>
-                      </div>
-                      {/* <img src={imagePath} className="card-outer pic" /> */}
-
-                      <div className="row add-cart">
-                        <h5
-                          className="d-flex justify-content-center align-items-end"
-                          style={{ fontFamily: "Poppins", color: "white" }}
-                        >
-                          Add To Cart
-                        </h5>
-                      </div>
+        <OwlCarousel ref={carousel} options={options} loop>
+          {categories
+            .filter((category) => category.sellType === "flash")
+            .map((category, index) => (
+              <div className="item" style={{ height: "400px" }}>
+              <div className=" custom-box pt-4 pb-3 mx-3">
+                {/* <div className="card-box-inner  "> -40%</div> */}
+                <div className="card-inner">
+                  <div className="card-box-inner">discount%</div>
+                  <div className="card-heart">
+                    <div className="icon-heart mb-1">
+                      <FaRegHeart size={20} onClick={handleWishlistClick} />
                     </div>
-                    <h6 style={{ fontFamily: "Poppins" }}>10</h6>
-                    <div className="d-flex">
-                      <h6 style={{ fontFamily: "Poppins", color: "red" }}>
-                        price
-                      </h6>
-                      <h6
-                        style={{ fontFamily: "Poppins", opacity: "50%" }}
-                        className="px-3"
-                      >
-                        $160
-                      </h6>
+                    <div>
+                      <Link className="icon-heart" to={`/productDetails/`}>
+                        <FiEye size={20} />
+                      </Link>
                     </div>
-                    {/* <ManualRating /> */}
+                  </div>
+                  {/* <img src={imagePath} className="card-outer pic" /> */}
+
+                  <div className="row add-cart">
+                    <h5
+                      className="d-flex justify-content-center align-items-end"
+                      style={{ fontFamily: "Poppins", color: "white" }}
+                    >
+                      Add To Cart
+                    </h5>
                   </div>
                 </div>
-              ))}
-          </OwlCarousel>
-        </div>
+                <h6 style={{ fontFamily: "Poppins" }}>10</h6>
+                <div className="d-flex">
+                  <h6 style={{ fontFamily: "Poppins", color: "red" }}>
+                    price
+                  </h6>
+                  <h6
+                    style={{ fontFamily: "Poppins", opacity: "50%" }}
+                    className="px-3"
+                  >
+                    $160
+                  </h6>
+                </div>
+                {/* <ManualRating /> */}
+              </div>
+            </div>
+            ))}
+        </OwlCarousel>
 
         <div className="row justify-content-center mt-3">
           <button className="btn-product mt-3">View All Products</button>
