@@ -106,7 +106,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <OwlCarousel ref={carousel} options={options} loop>
+        <OwlCarousel ref={carousel}  loop>
           {categories
             .filter((category) => category.sellType === "flash")
             .map((category, index) => (
