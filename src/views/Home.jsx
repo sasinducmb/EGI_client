@@ -2,27 +2,42 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import Sidebarwithslider from "../components/Sidebarwithslider";
 import CountdownTimer from "../components/Countdowntimer";
 import Cards from "../components/Cards";
-import { FiEye } from "react-icons/fi";
 import Category from "../components/Category";
-import Product_cards from "../components/Product_cards";
 import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
-import Explore_cards from "../components/Explore_cards";
 import axios from "axios";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { SiAdguard } from "react-icons/si";
 import { WishlistContext } from "../context/WishlistContext";
-import { FaRegHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
-  const carousel = useRef(null);
-  const { addToWishlist } = useContext(WishlistContext);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [centerSlidePercentage, setCenterSlidePercentage] = useState(100);
+
+  const updateCenterSlidePercentage = () => {
+    const screenWidth = window.innerWidth;
+    if (screenWidth > 1000) {
+      // Large screens
+      setCenterSlidePercentage(25);
+    } else if (screenWidth > 600) {
+      // Medium screens
+      setCenterSlidePercentage(50);
+    } else {
+      // Small screens
+      setCenterSlidePercentage(100);
+    }
+  };
+
+  useEffect(() => {
+    updateCenterSlidePercentage();
+    window.addEventListener("resize", updateCenterSlidePercentage);
+    return () =>
+      window.removeEventListener("resize", updateCenterSlidePercentage);
+  }, []);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -39,25 +54,12 @@ const Home = () => {
 
     fetchProduct();
   }, []);
-  const handleWishlistClick = () => {
-    addToWishlist({});
-  };
-
-  // const getPath = () => {
-  //   const separator = pic.includes("\\") ? "\\" : "/";
-  //   return `${process.env.REACT_APP_API_URL}/uploads/${pic
-  //     .split(separator)
-  //     .pop()}`;
-  // };
-  // const imagePath = getPath();
 
   const updateCurrentSlide = (index) => {
     if (currentIndex !== index) {
       setCurrentIndex(index);
     }
   };
-  console.log(categories);
-
   return (
     <div class="container-fluid">
       <div className="container">
@@ -102,12 +104,12 @@ const Home = () => {
           useKeyboardArrows
           autoPlay
           centerMode
-          centerSlidePercentage={33.33}
+          centerSlidePercentage={centerSlidePercentage}
         >
           {categories
             .filter((category) => category.sellType === "flash")
             .map((category, index) => (
-              <div key={index} className="item" style={{ height: "400px" }}>
+              <div key={index} className="item-c" style={{ height: "400px" }}>
                 <Cards
                   id={category._id}
                   key={index}
@@ -138,16 +140,7 @@ const Home = () => {
             <div className="col-lg-5">
               <h4 className="text-style">Browse By Category</h4>
             </div>
-            <div className="col-lg-4 d-flex align-items-center justify-content-end">
-              {/* <div className=" d-flex ">
-                <div className="arrow-keys">
-                  <FiArrowLeft size={40} />
-                </div>
-                <div className="arrow-keys d-flex">
-                  <FiArrowRight size={40} />
-                </div>
-              </div> */}
-            </div>
+            <div className="col-lg-4 d-flex align-items-center justify-content-end"></div>
           </div>
         </div>
         <div className="pb-4">
@@ -172,6 +165,34 @@ const Home = () => {
                 <h6>View All</h6>
               </div>
             </div>
+
+            <Carousel
+              selectedItem={currentIndex}
+              onChange={updateCurrentSlide}
+              infiniteLoop
+              useKeyboardArrows
+              autoPlay
+              centerMode
+              centerSlidePercentage={centerSlidePercentage}
+            >
+              {categories
+                .filter((category) => category.sellType === "best")
+                .map((category, index) => (
+                  <div key={index} className="item" style={{ height: "400px" }}>
+                    <Cards
+                      id={category._id}
+                      key={index}
+                      name={category.productName}
+                      price={category.price}
+                      pic={category.mainImage}
+                      subpic={category.additionalImages}
+                      ct={category.item_count}
+
+                      // other props
+                    />
+                  </div>
+                ))}
+            </Carousel>
           </div>
         </div>
         <div className="pt-5">
@@ -216,16 +237,6 @@ const Home = () => {
             <div className="d-flex justify-content-between">
               <div className="col-lg-5">
                 <h4 className="text-style">Explore Our Products</h4>
-              </div>
-              <div className="col-lg-4 d-flex align-items-center justify-content-end">
-                {/* <div className=" d-flex ">
-                  <div className="arrow-keys">
-                    <FiArrowLeft size={40} />
-                  </div>
-                  <div className="arrow-keys d-flex">
-                    <FiArrowRight size={40} />
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>

@@ -570,3 +570,21 @@
   padding-top: 95px;
 }
 
+/* Small screens */
+.item-c {
+  width: 100%;
+}
+
+/* Medium screens */
+@media (min-width: 600px) {
+  .item-c {
+      width: 50%; /* Show 2 items */
+  }
+}
+
+/* Large screens */
+@media (min-width: 1000px) {
+  .item-c {
+      width: 33.33%; /* Show 3 items */
+  }
+}
