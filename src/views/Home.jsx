@@ -9,20 +9,20 @@ import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowRight } from "react-icons/fi";
 import Explore_cards from "../components/Explore_cards";
 import axios from "axios";
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import OwlCarousel from "react-owl-carousel";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { SiAdguard } from "react-icons/si";
 import { WishlistContext } from "../context/WishlistContext";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const carousel = useRef(null);
   const { addToWishlist } = useContext(WishlistContext);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -51,22 +51,11 @@ const Home = () => {
   // };
   // const imagePath = getPath();
 
-  const options = {
-    responsive: {
-      0: {
-        items: 1,
-      },
-
-      600: {
-        items: 2,
-      },
-
-      1000: {
-        items: 4,
-      },
-    },
+  const updateCurrentSlide = (index) => {
+    if (currentIndex !== index) {
+      setCurrentIndex(index);
+    }
   };
-
   console.log(categories);
 
   return (
@@ -91,68 +80,48 @@ const Home = () => {
           </div>
           <div className="col-12 col-lg-4 d-flex align-items-center justify-content-end">
             <div className="d-flex">
-              <div className="arrow-keys">
-                <FiArrowLeft
-                  size={40}
-                  onClick={() => carousel.current.prev()}
-                />
+              <div
+                className="arrow-keys"
+                onClick={() => setCurrentIndex(currentIndex - 1)}
+              >
+                <FiArrowLeft size={40} />
               </div>
-              <div className="arrow-keys d-flex">
-                <FiArrowRight
-                  size={40}
-                  onClick={() => carousel.current.next()}
-                />
+              <div
+                className="arrow-keys"
+                onClick={() => setCurrentIndex(currentIndex + 1)}
+              >
+                <FiArrowRight size={40} />
               </div>
             </div>
           </div>
         </div>
-        <OwlCarousel ref={carousel}  loop>
+        <Carousel
+          selectedItem={currentIndex}
+          onChange={updateCurrentSlide}
+          infiniteLoop
+          useKeyboardArrows
+          autoPlay
+          centerMode
+          centerSlidePercentage={33.33}
+        >
           {categories
             .filter((category) => category.sellType === "flash")
             .map((category, index) => (
-              <div className="item" style={{ height: "400px" }}>
-              <div className=" custom-box pt-4 pb-3 mx-3">
-                {/* <div className="card-box-inner  "> -40%</div> */}
-                <div className="card-inner">
-                  <div className="card-box-inner">discount%</div>
-                  <div className="card-heart">
-                    <div className="icon-heart mb-1">
-                      <FaRegHeart size={20} onClick={handleWishlistClick} />
-                    </div>
-                    <div>
-                      <Link className="icon-heart" to={`/productDetails/`}>
-                        <FiEye size={20} />
-                      </Link>
-                    </div>
-                  </div>
-                  {/* <img src={imagePath} className="card-outer pic" /> */}
+              <div key={index} className="item" style={{ height: "400px" }}>
+                <Cards
+                  id={category._id}
+                  key={index}
+                  name={category.productName}
+                  price={category.price}
+                  pic={category.mainImage}
+                  subpic={category.additionalImages}
+                  ct={category.item_count}
 
-                  <div className="row add-cart">
-                    <h5
-                      className="d-flex justify-content-center align-items-end"
-                      style={{ fontFamily: "Poppins", color: "white" }}
-                    >
-                      Add To Cart
-                    </h5>
-                  </div>
-                </div>
-                <h6 style={{ fontFamily: "Poppins" }}>10</h6>
-                <div className="d-flex">
-                  <h6 style={{ fontFamily: "Poppins", color: "red" }}>
-                    price
-                  </h6>
-                  <h6
-                    style={{ fontFamily: "Poppins", opacity: "50%" }}
-                    className="px-3"
-                  >
-                    $160
-                  </h6>
-                </div>
-                {/* <ManualRating /> */}
+                  // other props
+                />
               </div>
-            </div>
             ))}
-        </OwlCarousel>
+        </Carousel>
 
         <div className="row justify-content-center mt-3">
           <button className="btn-product mt-3">View All Products</button>
@@ -204,25 +173,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <OwlCarousel className="owl-theme" loop {...options}>
-            {categories
-              .filter((category) => category.sellType === "best")
-              .map((category, index) => (
-                <div className="item" style={{ height: "400px" }}>
-                  <Cards
-                    id={category._id}
-                    key={index}
-                    name={category.productName}
-                    price={category.price}
-                    pic={category.mainImage}
-                    subpic={category.additionalImages}
-                    ct={category.item_count}
-
-                    // other props
-                  />
-                </div>
-              ))}
-          </OwlCarousel>
         </div>
         <div className="pt-5">
           <div className="container row black-box pt-5">
