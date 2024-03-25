@@ -4,7 +4,8 @@ import { CartContext } from "../context/CartContext";
 import { UserContext } from "../auth/userContext";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = () => {
   const { cart, total, removeFromCart } = useContext(CartContext);
@@ -23,7 +24,7 @@ const Checkout = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  
+
   const isValidPhoneNumber = (phoneNo) => {
     const phoneRegex = /^[0-9]{10}$/; // Adjust regex as per your phone number format
     return phoneRegex.test(phoneNo);
@@ -31,11 +32,12 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!isValidEmail(email)) {
       toast.error("Invalid email format.");
       return;
     }
-  
+
     if (!isValidPhoneNumber(phoneNo)) {
       toast.error("Invalid phone number format.");
       return;
@@ -63,51 +65,64 @@ const Checkout = () => {
       total,
     };
 
-    // SweetAlert2 confirmation dialog
-    Swal.fire({
-      title: "Confirm Order",
-      text: "Are you sure you want to place this order?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, place order!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // User confirmed the order
-        processOrder(orderData);
-      }
-    });
-  };
-
-  // Function to process the order
-  const processOrder = async (orderData) => {
+    console.log(orderData);
     try {
       const response = await axios.post("/order/addOrder", orderData);
       if (response.status === 201) {
-        Swal.fire({
-          title: "Order Placed!",
-          text: "Your order has been placed successfully.",
-          icon: "success",
-          confirmButtonText: 'OK'
-        }).then((result) => {
-          if (result.value) {
-            localStorage.removeItem('cart'); // Replace 'cart' with your cart's key in local storage
-            window.location.href = '/'; // Redirect to the index page
-          }
+        const stripe = await loadStripe(
+         process.env.REACT_APP_SECRET_STRIPE
+        );
+
+        const response = await axios.post("/order/payment", {
+          total: orderData.total,
         });
+
+        const session = response.data;
+
+        stripe
+          .redirectToCheckout({
+            sessionId: session.id,
+          })
+
+        
+          localStorage.removeItem("cart"); // Replace 'cart' with your cart's key in local storage
+          
+        
       }
     } catch (error) {
       console.log("err");
       // Handle error
-      Swal.fire({
-        title: "Error!",
-        text: "There was an error placing your order.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
     }
   };
+
+  // // Function to process the order
+  // const processOrder = async (orderData) => {
+  //   try {
+  //     const response = await axios.post("/order/addOrder", orderData);
+  //     if (response.status === 201) {
+  //       Swal.fire({
+  //         title: "Order Placed!",
+  //         text: "Your order has been placed successfully.",
+  //         icon: "success",
+  //         confirmButtonText: "OK",
+  //       }).then((result) => {
+  //         if (result.value) {
+  //           localStorage.removeItem("cart"); // Replace 'cart' with your cart's key in local storage
+  //           window.location.href = "/"; // Redirect to the index page
+  //         }
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log("err");
+  //     // Handle error
+  //     Swal.fire({
+  //       title: "Error!",
+  //       text: "There was an error placing your order.",
+  //       icon: "error",
+  //       confirmButtonText: "OK",
+  //     });
+  //   }
+  // };
 
   console.log(user);
 
@@ -229,9 +244,9 @@ const Checkout = () => {
               <div className="cart-row" key={index}>
                 {cartItem.pic ? (
                   <img
-                    src={`${process.env.REACT_APP_API_URL}/uploads/${cartItem.pic
-                      .split("\\")
-                      .pop()}`}
+                    src={`${
+                      process.env.REACT_APP_API_URL
+                    }/uploads/${cartItem.pic.split("\\").pop()}`}
                     className="image-cart"
                   />
                 ) : (
@@ -305,12 +320,67 @@ const Checkout = () => {
                   style={{ width: "300px", height: "56px" }}
                 />
               </div>
+
               <div>
                 <button type="submit" class="cart-style mx-3">
                   Apply Coupon
                 </button>
               </div>
             </div>
+            {/* <div>
+                <h2 class="mt-4">Payment Details</h2>
+                <form>
+                  <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cardNumber"
+                      placeholder="1234 1234 1234 1234"
+                      maxlength="19"
+                    />
+                  </div>
+
+                  <div class="form-row">
+                    <div class="col">
+                      <label for="expiryMonth">Expiry Month</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="expiryMonth"
+                        placeholder="MM"
+                        maxlength="2"
+                      />
+                    </div>
+                    <div class="col">
+                      <label for="expiryYear">Expiry Year</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="expiryYear"
+                        placeholder="YY"
+                        maxlength="2"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3">
+                    <label for="cvv">CVV</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="cvv"
+                      placeholder="123"
+                      maxlength="4"
+                    />
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Submit Payment
+                  </button>
+                </form>
+              </div> */}
+
             <div>
               <button
                 type="submit"

@@ -23,6 +23,7 @@ import Orders from "./views/Orders";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Verify from "./views/Verify";
+import PayementSuccess from "./views/PayementSuccess";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -57,6 +58,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/success" element={<PayementSuccess/>}/>
             </Routes>
             <Footer />
           </CartProvider>
