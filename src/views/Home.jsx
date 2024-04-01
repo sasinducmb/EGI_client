@@ -118,6 +118,9 @@ const Home = () => {
                   pic={category.mainImage}
                   subpic={category.additionalImages}
                   ct={category.item_count}
+                  weight={category.weight}
+                  description={category.description}
+
 
                   // other props
                 />
@@ -187,6 +190,8 @@ const Home = () => {
                       pic={category.mainImage}
                       subpic={category.additionalImages}
                       ct={category.item_count}
+                      weight={category.weight}
+                      description={category.description}
 
                       // other props
                     />
@@ -252,6 +257,8 @@ const Home = () => {
                     pic={category.mainImage}
                     subpic={category.additionalImages}
                     ct={category.item_count}
+                    weight={category.weight}
+                    description={category.description}
 
                     // other props
                   />

@@ -6,7 +6,7 @@ import { WishlistContext } from "../context/WishlistContext";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
-const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
+const Cards = ({ id, name, ct, price, pic, discount, subpic, weight,description }) => {
   const { addToWishlist } = useContext(WishlistContext);
   const { addToCart } = useContext(CartContext);
   const { cart } = useContext(CartContext);
@@ -14,11 +14,11 @@ const Cards = ({ id, name, ct, price, pic, discount, subpic }) => {
   // const { wishlist } = useContext(WishlistContext);
 
   const handleWishlistClick = () => {
-    addToWishlist({ id, name, ct, price, pic, discount, subpic });
+    addToWishlist({ id, name, ct, price, pic, discount, subpic,weight,description });
   };
 
   const handelCart = () => {
-    addToCart({ id, name, ct, price, pic, discount, subpic });
+    addToCart({ id, name, ct, price, pic, discount, subpic,weight,description });
   };
 
   const getPath = (pic) => {
@@ -53,7 +53,9 @@ const imagePath = getPath(pic);
           </h5>
         </div>
       </div>
-      <h6 style={{ fontFamily: "Poppins" }}>{name}</h6>
+      <h6 style={{ fontFamily: "Poppins" }}>{name} ({weight}g)</h6>
+   
+      <p style={{ fontFamily: "Poppins", opacity: "50%" }}>{description}</p>
       <div className="d-flex">
         <h6 style={{ fontFamily: "Poppins", color: "red" }}>${price}</h6>
         <h6 style={{ fontFamily: "Poppins", opacity: "50%" }} className="px-3">

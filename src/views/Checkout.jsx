@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../auth/userContext";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = () => {
-  const { cart, total, removeFromCart } = useContext(CartContext);
+  const { cart, total,formattedTotalWeight, removeFromCart } = useContext(CartContext);
   const { user, isLoading, error } = useContext(UserContext);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -30,6 +30,33 @@ const Checkout = () => {
     return phoneRegex.test(phoneNo);
   };
 
+  const calculateDeliveryCost = (town, formattedTotalWeight) => {
+    let baseCost = town.toLowerCase() === "colombo" ? 400 : 500;
+    
+    // Extracting kilograms and grams from the formatted weight
+    let [kilograms, grams] = formattedTotalWeight.split('kg').map(part => parseFloat(part) || 0);
+    let totalWeightInKg = kilograms + (grams / 1000); // Convert grams to kg and add to kilograms
+  
+    // Calculate additional weight cost
+    let additionalWeightCost = 0;
+    if (totalWeightInKg > 1) {
+      // Subtracting 1 because the first kg is covered in the base cost
+      let additionalKg = Math.ceil(totalWeightInKg - 1);
+      additionalWeightCost = additionalKg * 100;
+    }
+  
+    return baseCost + additionalWeightCost;
+  };
+
+  const [shippingCost, setShippingCost] = useState(0);
+  useEffect(() => {
+    if (town !== '') {
+      setShippingCost(calculateDeliveryCost(town, formattedTotalWeight));
+    }
+  }, [town, formattedTotalWeight]);
+
+  const finalTotal = parseFloat(total) + (parseFloat(shippingCost) || 0);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -54,6 +81,8 @@ const Checkout = () => {
       },
     ];
 
+
+  
     const orderData = {
       user: user._id,
       items: cart.map((item) => ({
@@ -65,7 +94,7 @@ const Checkout = () => {
       total,
     };
 
-    console.log(orderData);
+    console.log(cart);
     try {
       const response = await axios.post("/order/addOrder", orderData);
       if (response.status === 201) {
@@ -185,15 +214,16 @@ const Checkout = () => {
             </div>
             <div className="checkout-input">
               <h5 style={{ opacity: "50%" }}>
-                Town/City<span style={{ color: "red" }}>*</span>
+                Town (District)<span style={{ color: "red" }}>*</span>
               </h5>
               <input
                 type="Town"
                 class="form-control"
                 id="inputTown"
                 value={town}
-                onChange={(e) => setTown(e.target.value)}
+                onChange={(e) => setTown(e.target.value.toLowerCase())}
                 style={{ width: "470px", height: "50px" }}
+                required
               />
             </div>
             <div className="checkout-input">
@@ -271,13 +301,18 @@ const Checkout = () => {
             </div>
             <hr />
             <div className="process-box-row">
+              <h6>Total-Weight:</h6>
+              <h6>{formattedTotalWeight}</h6>
+            </div>
+            <hr />
+            <div className="process-box-row">
               <h6>Shipping:</h6>
-              <h6>Free</h6>
+              <h6>{shippingCost !== null ? `${shippingCost} LKR` : 'Enter town to calculate shipping'}</h6>
             </div>
             <hr />
             <div className="process-box-row">
               <h6>Total:</h6>
-              <h6>${total}</h6>
+              <h6>${finalTotal.toFixed(2)}</h6>
             </div>
             <div class="form-check d-flex justify-content-between pt-4 ">
               <div>
