@@ -56,7 +56,7 @@ const Checkout = () => {
   }, [town, formattedTotalWeight]);
 
   const finalTotal = parseFloat(total) + (parseFloat(shippingCost) || 0);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -273,12 +273,10 @@ const Checkout = () => {
             {cart.map((cartItem, index) => (
               <div className="cart-row" key={index}>
                 {cartItem.pic ? (
-                  <img
-                    src={`${
-                      process.env.REACT_APP_API_URL
-                    }/uploads/${cartItem.pic.split("\\").pop()}`}
-                    className="image-cart"
-                  />
+                 <img
+                src={`${process.env.REACT_APP_API_URL}/uploads/${cartItem.pic.split(cartItem.pic.includes("\\") ? "\\" : "/").pop()}`}
+                alt={cartItem.pic}
+                style={{ height: "50px" }}/>
                 ) : (
                   <div>No image available</div> // Placeholder in case there's no image
                 )}
