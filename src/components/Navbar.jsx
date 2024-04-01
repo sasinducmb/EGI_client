@@ -77,6 +77,7 @@ function Navbar() {
                     About
                   </a>
                 </li>
+              
                 <li className="nav-item">
                   <a className="nav-link mx-lg-3" href="/signup">
                     Sign in

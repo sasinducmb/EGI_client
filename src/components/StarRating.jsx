@@ -15,7 +15,7 @@ const StarRating = ({ rating }) => {
     }
 
     return (
-      <span key={star} style={{ color, fontSize: '30px', cursor: 'default' }}>
+      <span key={star} style={{ color, fontSize: '30px', cursor: 'pointer' }}>
         ★
       </span>
     );

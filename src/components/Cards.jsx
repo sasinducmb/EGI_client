@@ -62,7 +62,10 @@ const imagePath = getPath(pic);
           $160
         </h6>
       </div>
-      <ManualRating />
+      <Link to={`/feedback/${id}/${name}`} style={{textDecoration:'none',cursor:'pointer'}}>
+
+      <ManualRating/>
+      </Link>
     </div>
   );
 };
