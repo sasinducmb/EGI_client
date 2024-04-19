@@ -3,7 +3,6 @@ import ManualRating from "../components/ManualRating";
 import { FaRegHeart } from "react-icons/fa";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { BsArrowRepeat } from "react-icons/bs";
-import Product_cards from "../components/Product_cards";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../context/CartContext";
@@ -192,7 +191,7 @@ const ProductDetail = () => {
               <div className="pt-2">
                 <table className="product-table">
                   <div>
-                    <tr className="">
+                    <tr className="pt-2">
                       <div className="d-flex align-items-center justify-content-center">
                         <CiDeliveryTruck size={40} className="mt-" />
                         <div className="mx-2">
