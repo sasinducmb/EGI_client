@@ -12,11 +12,12 @@ import { SiAdguard } from "react-icons/si";
 import { WishlistContext } from "../context/WishlistContext";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import { TailSpin } from "react-loader-spinner";
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [centerSlidePercentage, setCenterSlidePercentage] = useState(100);
+  const [loader, setLoader] = useState(true);
 
   const updateCenterSlidePercentage = () => {
     const screenWidth = window.innerWidth;
@@ -47,6 +48,7 @@ const Home = () => {
           (product) => product.isActive === true
         );
         setCategories(activeProduct);
+        setLoader(false);
       } catch (err) {
         console.log(err.message);
       }
@@ -60,6 +62,23 @@ const Home = () => {
       setCurrentIndex(index);
     }
   };
+
+  if (loader) {
+    return (
+      <div className="spinner-container">
+        <TailSpin
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    );
+  }
   return (
     <div class="container-fluid">
       <div className="container">
@@ -120,7 +139,6 @@ const Home = () => {
                   ct={category.item_count}
                   weight={category.weight}
                   description={category.description}
-
 
                   // other props
                 />
