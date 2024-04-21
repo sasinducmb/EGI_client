@@ -187,14 +187,15 @@
 }
 
 .card-outer {
-  position: absolute;
-  top: 20%;
-  left: 23%;
+  position: absolute; 
+  top: 5%;
+  left: 4%;
 }
 
 .pic {
-  max-height: 180px;
-  max-width: 150px;
+  max-height: 100%;
+  max-width: 80%;
+ 
 }
 
 .card-heart {
