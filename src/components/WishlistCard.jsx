@@ -34,7 +34,7 @@ const WishlistCard = ({ name, price, pic, discount }) => {
              <img
                 src={`${process.env.REACT_APP_API_URL}/uploads/${pic.split(pic.includes("\\") ? "\\" : "/").pop()}`}
                 alt={pic}
-                className=" card-outer"/>
+                className="card-outer pic"/>
         <a href="#">
           <div className="row add-cart" onClick={handelCart}>
             <h5
