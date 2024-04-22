@@ -81,7 +81,7 @@ const Cards = ({
         <div className="row add-cart" onClick={handelCart}>
           <h5
             className="d-flex justify-content-center align-items-end"
-            style={{ fontFamily: 'Poppins', color: 'white' }}
+            style={{ fontFamily: 'Poppins', color: 'white', zIndex: 2 }}
           >
             Add To Cart
           </h5>
