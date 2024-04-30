@@ -83,7 +83,7 @@ const Sidebarwithslider = () => {
                 </div>
                 <div class="carousel-item">
                   <img
-                    src="../../img/Frame560.png"
+                    src="../../img/Frame561.png"
                     class="d-block img-fluid"
                     alt="..."
                   />
