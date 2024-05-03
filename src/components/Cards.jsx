@@ -58,12 +58,12 @@ const Cards = ({
       .pop()}`;
   };
   const imagePath = getPath(pic);
-  console.log(cart);
+  // console.log(cart);
   return (
     <div className=" custom-box pt-4 pb-3 mx-3">
       {/* <div className="card-box-inner  "> -40%</div> */}
       <div className="card-inner">
-        {discount && <div className="card-box-inner">{discount}%</div>}
+        {/* {discount && <div className="card-box-inner">{discount}%</div>} */}
         <div className="card-heart">
           <div className="icon-heart mb-1">
             <FaRegHeart size={20} onClick={handleWishlistClick} />
@@ -88,15 +88,17 @@ const Cards = ({
         </div>
       </div>
       <h6 style={{ fontFamily: 'Poppins' }}>
-        {name} ({weight}g)
+        {/* {name} ({weight}g) */}
+        {name} 
+
       </h6>
 
-      <p style={{ fontFamily: 'Poppins', opacity: '50%' }}>{description}</p>
+      {/* <p style={{ fontFamily: 'Poppins', opacity: '50%' }}>{description}</p> */}
       <div className="d-flex">
-        <h6 style={{ fontFamily: 'Poppins', color: 'red' }}>${price}</h6>
-        <h6 style={{ fontFamily: 'Poppins', opacity: '50%' }} className="px-3">
+        <h6 style={{ fontFamily: 'Poppins', color: 'red' }}>Rs {price}</h6>
+        {/* <h6 style={{ fontFamily: 'Poppins', opacity: '50%' }} className="px-3">
           $160
-        </h6>
+        </h6> */}
       </div>
       <Link
         to={`/feedback/${id}/${name}`}

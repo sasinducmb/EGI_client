@@ -56,11 +56,11 @@ function Footer() {
               >
                 Support
               </h6>
-              <p className="pt-4">
+              {/* <p className="pt-4">
                 111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.
               </p>
               <p className="pt-2">exclusive@gmail.com</p>
-              <p className="pt-2">+88015-88888-9999</p>
+              <p className="pt-2">+88015-88888-9999</p> */}
             </div>
             <div class="col-12 col-md-3 col-lg-2">
               <h6
@@ -94,7 +94,7 @@ function Footer() {
               <p className="pt-2">Contact</p>
             </div>
             <div class="col-12 col-md-2 col-lg-3">
-              <h6
+              {/* <h6
                 style={{
                   fontFamily: 'Poppins',
                   fontWeight: 300,
@@ -102,8 +102,8 @@ function Footer() {
                 }}
               >
                 Download App
-              </h6>
-              <p
+              </h6> */}
+              {/* <p
                 className="pt-5"
                 style={{
                   fontWeight: 500,
@@ -127,7 +127,7 @@ function Footer() {
                 <RxTwitterLogo className="footer-img mx-2" />
                 <IoLogoInstagram className="footer-img mx-2" />
                 <RxLinkedinLogo className="footer-img mx-2" />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

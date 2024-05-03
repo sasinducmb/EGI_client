@@ -75,7 +75,7 @@ const ProductDetail = () => {
 
   // console.log(productDetails);
 
-  console.log(cart);
+  // console.log(cart);
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">
@@ -147,12 +147,12 @@ const ProductDetail = () => {
                   In Stock
                 </p>
               </div>
-              <h5 className="p-1">${productDetails.price}</h5>
-              <p className="p-1 pb-2">
-                PlayStation 5 Controller Skin High quality vinyl with air
-                <br />
-                channel adhesive for easy bubble free install & mess
-                <br /> free removal Pressure sensitive.
+              <h5 className="p-1">Rs:{productDetails.price}</h5>
+              <p className="p-1 pb-2 text-align-justify" style={{textAlign:'justify'}}>
+               {
+
+                  productDetails.description
+               }
               </p>
               <hr />
               <div className="d-flex">
@@ -234,10 +234,15 @@ const ProductDetail = () => {
           <div className="col-lg-3 col-md-6">
             <div className="item" style={{ height: "400px" }}>
               <Cards
-                key={index}
-                name={category.productName}
-                price={category.price}
-                pic={category.mainImage}
+                 id={category._id}
+                 key={index}
+                 name={category.productName}
+                 price={category.price}
+                 pic={category.mainImage}
+                 subpic={category.additionalImages}
+                 ct={category.item_count}
+                 weight={category.weight}
+                 description={category.description}
 
                 // other props
               />

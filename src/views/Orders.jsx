@@ -18,7 +18,7 @@ const Orders = () => {
         });
     }
   }, [user]);
-  console.log(orders);
+  // console.log(orders);
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">

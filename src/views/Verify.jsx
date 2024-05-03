@@ -14,7 +14,7 @@ function Verify() {
       try {
         const url = `/user/${param.id}/verify/${param.token}`;
         const { data } = await axios.get(url);
-        console.log(data);
+        // console.log(data);
         setVerificationStatus({
           verified: true,
           message: "Email successfully verified.",

@@ -42,8 +42,6 @@ function Header() {
               <option selected style={{ color: "black" }}>
                 English
               </option>
-              <option style={{ color: "black" }}>English</option>
-              <option style={{ color: "black" }}>English</option>
             </select>
             <MdOutlineLogout
               style={{ color: "white",cursor:'pointer'}}

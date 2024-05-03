@@ -7,7 +7,7 @@ const Cart = () => {
   const { cart, updateQuantity, removeFromCart, addToCart, total } =
     useContext(CartContext);
   const [inStacok, setInStock] = useState(true);
-  console.log(cart);
+  // console.log(cart);
 
   const increment = (itemName) => {
     const currentItem = cart.find((item) => item.name === itemName);
@@ -57,8 +57,8 @@ const Cart = () => {
       <div className="row mt-5">
         <div className="cart-row">
           <h5>Product</h5>
-          <h5>Price($)</h5>
-          <h5>weight(g)</h5>
+          <h5>Price(Rs)</h5>
+          {/* <h5>weight(g)</h5> */}
 
           <h5>Quantity</h5>
           <h5>Subtotal</h5>
@@ -87,7 +87,7 @@ const Cart = () => {
               <div>No image available</div> // Placeholder in case there's no image
             )}
             <h5>{cartItem.price}</h5>
-            <h5>{cartItem.newweight ?cartItem.newweight:cartItem.weight}</h5>
+            {/* <h5>{cartItem.newweight ?cartItem.newweight:cartItem.weight}</h5> */}
             <h5>
               <div className="d-flex align-items-center">
                 <button
@@ -160,7 +160,7 @@ const Cart = () => {
           <hr />
           <div className="process-box-row">
             <h6>Total:</h6>
-            <h6>${total}</h6>
+            <h6>Rs {total}</h6>
           </div>
           <div className="d-flex justify-content-center">
             <Link to={"/checkout"}>

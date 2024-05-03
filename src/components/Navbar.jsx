@@ -28,7 +28,7 @@ function Navbar() {
             aria-controls="offcanvasNavbar"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"> </span>
           </button>
           <a className="navbar-brand" href="/">
             HOUSE OF CAMBRIDGE

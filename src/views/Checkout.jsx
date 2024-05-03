@@ -21,12 +21,12 @@ const Checkout = () => {
     removeFromCart(itemName);
   };
   const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+Rs/;
     return emailRegex.test(email);
   };
 
   const isValidPhoneNumber = (phoneNo) => {
-    const phoneRegex = /^[0-9]{10}$/; // Adjust regex as per your phone number format
+    const phoneRegex = /^[0-9]{10}Rs/; // Adjust regex as per your phone number format
     return phoneRegex.test(phoneNo);
   };
 
@@ -57,72 +57,72 @@ const Checkout = () => {
 
   const finalTotal = parseFloat(total) + (parseFloat(shippingCost) || 0);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
 
-    if (!isValidEmail(email)) {
-      toast.error("Invalid email format.");
-      return;
-    }
+  //   if (!isValidEmail(email)) {
+  //     toast.error("Invalid email format.");
+  //     return;
+  //   }
 
-    if (!isValidPhoneNumber(phoneNo)) {
-      toast.error("Invalid phone number format.");
-      return;
-    }
+  //   if (!isValidPhoneNumber(phoneNo)) {
+  //     toast.error("Invalid phone number format.");
+  //     return;
+  //   }
 
-    const billDetails = [
-      {
-        name,
-        address,
-        apartment,
-        town,
-        phoneNo,
-        email,
-      },
-    ];
+  //   const billDetails = [
+  //     {
+  //       name,
+  //       address,
+  //       apartment,
+  //       town,
+  //       phoneNo,
+  //       email,
+  //     },
+  //   ];
 
 
   
-    const orderData = {
-      user: user._id,
-      items: cart.map((item) => ({
-        product: item.id, // Assuming 'id' is the product ID
-        quantity: item.quantity,
-        subtotal: item.subtotal,
-      })),
-      billDetails,
-      total,
-    };
+  //   const orderData = {
+  //     user: user._id,
+  //     items: cart.map((item) => ({
+  //       product: item.id, // Assuming 'id' is the product ID
+  //       quantity: item.quantity,
+  //       subtotal: item.subtotal,
+  //     })),
+  //     billDetails,
+  //     total,
+  //   };
 
-    console.log(cart);
-    try {
-      const response = await axios.post("/order/addOrder", orderData);
-      if (response.status === 201) {
-        const stripe = await loadStripe(
-         process.env.REACT_APP_SECRET_STRIPE
-        );
+  //   // console.log(cart);
+  //   try {
+  //     const response = await axios.post("/order/addOrder", orderData);
+  //     if (response.status === 201) {
+  //       const stripe = await loadStripe(
+  //        process.env.REACT_APP_SECRET_STRIPE
+  //       );
 
-        const response = await axios.post("/order/payment", {
-          total: orderData.total,
-        });
+  //       const response = await axios.post("/order/payment", {
+  //         total: orderData.total,
+  //       });
 
-        const session = response.data;
+  //       const session = response.data;
 
-        stripe
-          .redirectToCheckout({
-            sessionId: session.id,
-          })
+  //       stripe
+  //         .redirectToCheckout({
+  //           sessionId: session.id,
+  //         })
 
         
-          localStorage.removeItem("cart"); // Replace 'cart' with your cart's key in local storage
+  //         localStorage.removeItem("cart"); // Replace 'cart' with your cart's key in local storage
           
         
-      }
-    } catch (error) {
-      console.log("err");
-      // Handle error
-    }
-  };
+  //     }
+  //   } catch (error) {
+  //     console.log("err");
+  //     // Handle error
+  //   }
+  // };
 
   // // Function to process the order
   // const processOrder = async (orderData) => {
@@ -153,7 +153,7 @@ const Checkout = () => {
   //   }
   // };
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="container">
@@ -274,7 +274,7 @@ const Checkout = () => {
               <div className="cart-row" key={index}>
                 {cartItem.pic ? (
                  <img
-                src={`${process.env.REACT_APP_API_URL}/uploads/${cartItem.pic.split(cartItem.pic.includes("\\") ? "\\" : "/").pop()}`}
+                src={`Rs {process.env.REACT_APP_API_URL}/uploads/Rs{cartItem.pic.split(cartItem.pic.includes("\\") ? "\\" : "/").pop()}`}
                 alt={cartItem.pic}
                 style={{ height: "50px" }}/>
                 ) : (
@@ -282,7 +282,7 @@ const Checkout = () => {
                 )}
                 <h5>{cartItem.name}</h5>
                 <h5>
-                  ${cartItem.subtotal}{" "}
+                  Rs {cartItem.subtotal}{" "}
                   <MdDelete
                     size={25}
                     onClick={() => handelDelete(cartItem.name)}
@@ -295,7 +295,7 @@ const Checkout = () => {
           <div>
             <div className="process-box-row">
               <h6>Subtotal:</h6>
-              <h6>${total}</h6>
+              <h6>Rs {total}</h6>
             </div>
             <hr />
             <div className="process-box-row">
@@ -305,12 +305,12 @@ const Checkout = () => {
             <hr />
             <div className="process-box-row">
               <h6>Shipping:</h6>
-              <h6>{shippingCost !== null ? `${shippingCost} LKR` : 'Enter town to calculate shipping'}</h6>
+              <h6>{shippingCost !== null ? `Rs{shippingCost} LKR` : 'Enter town to calculate shipping'}</h6>
             </div>
             <hr />
             <div className="process-box-row">
               <h6>Total:</h6>
-              <h6>${finalTotal.toFixed(2)}</h6>
+              <h6>Rs {finalTotal.toFixed(2)}</h6>
             </div>
             <div class="form-check d-flex justify-content-between pt-4 ">
               <div>
@@ -417,7 +417,7 @@ const Checkout = () => {
             <div>
               <button
                 type="submit"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
                 class="cart-style mt-3 mb-3"
               >
                 Place Order
