@@ -274,7 +274,7 @@ const Checkout = () => {
               <div className="cart-row" key={index}>
                 {cartItem.pic ? (
                  <img
-                src={`Rs {process.env.REACT_APP_API_URL}/uploads/Rs{cartItem.pic.split(cartItem.pic.includes("\\") ? "\\" : "/").pop()}`}
+                 src={`${process.env.REACT_APP_API_URL}/uploads/${cartItem.pic.split(cartItem.pic.includes("\\") ? "\\" : "/").pop()}`}
                 alt={cartItem.pic}
                 style={{ height: "50px" }}/>
                 ) : (
