@@ -122,6 +122,7 @@ const Home = () => {
           infiniteLoop
           useKeyboardArrows
           autoPlay
+          showThumbs={false}
           centerMode
           centerSlidePercentage={centerSlidePercentage}
         >
