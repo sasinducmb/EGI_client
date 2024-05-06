@@ -18,7 +18,7 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [centerSlidePercentage, setCenterSlidePercentage] = useState(100);
   const [loader, setLoader] = useState(true);
-
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const updateCenterSlidePercentage = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth > 1000) {
@@ -62,7 +62,11 @@ const Home = () => {
       setCurrentIndex(index);
     }
   };
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
+  // console.log(categories);
   if (loader) {
     return (
       <div className="spinner-container">
@@ -194,6 +198,7 @@ const Home = () => {
               infiniteLoop
               useKeyboardArrows
               autoPlay
+              showThumbs={false}
               centerMode
               centerSlidePercentage={centerSlidePercentage}
             >
@@ -257,37 +262,76 @@ const Home = () => {
               <h6 className="pt-1 px-4">Our&nbsp;Products</h6>
             </div>
           </div>
-          <div className="row pt-4 ">
-            <div className="d-flex justify-content-between">
-              <div className="col-lg-5">
-                <h4 className="text-style">Explore Our Products</h4>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            {categories.map((category, index) => (
-              <div className="col-lg-3 col-sm-6">
-                <div className="item" style={{ height: "400px" }}>
-                  <Cards
-                    id={category._id}
-                    key={index}
-                    name={category.productName}
-                    price={category.price}
-                    pic={category.mainImage}
-                    subpic={category.additionalImages}
-                    ct={category.item_count}
-                    weight={category.weight}
-                    description={category.description}
-
-                    // other props
-                  />
+          <section id="womens-fashion">
+            <div className="row pt-4 ">
+              <div className="d-flex justify-content-between">
+                <div className="col-lg-5">
+                  <h4 className="text-style" id="womens-fashion">
+                    Explore Our Products
+                  </h4>
+                </div>
+                <div>
+                  <button
+                    className="btn-product mx-3"
+                    style={{ width: "150px", height: "45px" }}
+                    onClick={() => handleCategoryChange("All")}
+                  >
+                    All
+                  </button>
+                  <button
+                    className="btn-product mx-3"
+                    style={{ width: "150px", height: "45px" }}
+                    onClick={() => handleCategoryChange("Grocery")}
+                  >
+                    Grocery
+                  </button>
+                  <button
+                    className="btn-product mx-3"
+                    style={{ width: "150px", height: "45px" }}
+                    onClick={() => handleCategoryChange("Baby Needs")}
+                  >
+                    Baby Needs
+                  </button>
+                  <button
+                    className="btn-product mx-3"
+                    style={{ width: "150px", height: "45px" }}
+                    onClick={() => handleCategoryChange("HouseHold")}
+                  >
+                   HouseHold
+                  </button>
                 </div>
               </div>
-            ))}
-            <div className="row justify-content-center">
-              <button className="btn-product">View All Products</button>
             </div>
-          </div>
+
+            <div className="row">
+              {categories
+                .filter(
+                  (category) =>
+                    selectedCategory === "All" ||
+                    category.categoryId.categoryName === selectedCategory
+                )
+                .map((category, index) => (
+                  <div className="col-lg-3 col-sm-6" key={index}>
+                    <div className="item" style={{ height: "400px" }}>
+                      <Cards
+                        id={category._id}
+                        name={category.productName}
+                        price={category.price}
+                        pic={category.mainImage}
+                        subpic={category.additionalImages}
+                        ct={category.item_count}
+                        weight={category.weight}
+                        description={category.description}
+                        // other props
+                      />
+                    </div>
+                  </div>
+                ))}
+              <div className="row justify-content-center">
+                <button className="btn-product">View All Products</button>
+              </div>
+            </div>
+          </section>
           <div className="pt-5">
             <div className="d-flex align-items-center red-box ">
               <div>

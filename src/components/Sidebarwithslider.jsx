@@ -1,8 +1,16 @@
 import React from 'react';
 import './sidebar.css';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const Sidebarwithslider = () => {
+
+  const scrollUp = () => {
+    window.scrollTo({
+      top: 2500, // Scrolls to the middle of the page
+      behavior: "smooth" // Adds smooth scrolling effect
+    });
+  };
   return (
     <>
       <div className="row">
@@ -13,16 +21,20 @@ const Sidebarwithslider = () => {
                 className="d-flex flex-row flex-wrap  flex-lg-column align-items-start justify-content-center"
                 style={{ height: 'auto' }}
               >
-                <button type="button" class="btn" data-bs-toggle="button">
-                  Woman’s Fashion <MdOutlineKeyboardArrowRight size={25} />
+           
+           
+                <button type="button"  class="btn" data-bs-toggle="button" onClick={scrollUp}>
+                Grocery <MdOutlineKeyboardArrowRight size={25} />
                 </button>
-                <button type="button" class="btn" data-bs-toggle="button">
-                  Men’s Fashion <MdOutlineKeyboardArrowRight size={25} />
+             
+       
+                <button type="button" class="btn" data-bs-toggle="button" onClick={scrollUp}>
+                  HouseHold <MdOutlineKeyboardArrowRight size={25} />
                 </button>
-                <button type="button" class="btn" data-bs-toggle="button">
-                  Electronics
+                <button type="button" class="btn" data-bs-toggle="button" onClick={scrollUp}>
+                  Baby Needs <MdOutlineKeyboardArrowRight size={25} />
                 </button>
-                <button type="button" class="btn" data-bs-toggle="button">
+                {/* <button type="button" class="btn" data-bs-toggle="button">
                   Home & Lifestyle
                 </button>
                 <button type="button" class="btn" data-bs-toggle="button">
@@ -39,7 +51,7 @@ const Sidebarwithslider = () => {
                 </button>
                 <button type="button" class="btn" data-bs-toggle="button">
                   Health & Beauty
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
