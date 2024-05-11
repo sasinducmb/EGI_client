@@ -1,24 +1,24 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import Sidebarwithslider from "../components/Sidebarwithslider";
-import CountdownTimer from "../components/Countdowntimer";
-import Cards from "../components/Cards";
-import Category from "../components/Category";
-import { FiArrowLeft } from "react-icons/fi";
-import { FiArrowRight } from "react-icons/fi";
-import axios from "axios";
-import { CiDeliveryTruck } from "react-icons/ci";
-import { TfiHeadphoneAlt } from "react-icons/tfi";
-import { SiAdguard } from "react-icons/si";
-import { WishlistContext } from "../context/WishlistContext";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { TailSpin } from "react-loader-spinner";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import Sidebarwithslider from '../components/Sidebarwithslider';
+import CountdownTimer from '../components/Countdowntimer';
+import Cards from '../components/Cards';
+import Category from '../components/Category';
+import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowRight } from 'react-icons/fi';
+import axios from 'axios';
+import { CiDeliveryTruck } from 'react-icons/ci';
+import { TfiHeadphoneAlt } from 'react-icons/tfi';
+import { SiAdguard } from 'react-icons/si';
+import { WishlistContext } from '../context/WishlistContext';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { TailSpin } from 'react-loader-spinner';
 const Home = () => {
   const [categories, setCategories] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [centerSlidePercentage, setCenterSlidePercentage] = useState(100);
   const [loader, setLoader] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const updateCenterSlidePercentage = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth > 1000) {
@@ -35,15 +35,15 @@ const Home = () => {
 
   useEffect(() => {
     updateCenterSlidePercentage();
-    window.addEventListener("resize", updateCenterSlidePercentage);
+    window.addEventListener('resize', updateCenterSlidePercentage);
     return () =>
-      window.removeEventListener("resize", updateCenterSlidePercentage);
+      window.removeEventListener('resize', updateCenterSlidePercentage);
   }, []);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get("/products/getAllDetails");
+        const response = await axios.get('/products/getAllDetails');
         const activeProduct = response.data.filter(
           (product) => product.isActive === true
         );
@@ -131,9 +131,9 @@ const Home = () => {
           centerSlidePercentage={centerSlidePercentage}
         >
           {categories
-            .filter((category) => category.sellType === "flash")
+            .filter((category) => category.sellType === 'flash')
             .map((category, index) => (
-              <div key={index} className="item-c" style={{ height: "400px" }}>
+              <div key={index} className="item-c" style={{ height: '400px' }}>
                 <Cards
                   id={category._id}
                   key={index}
@@ -155,7 +155,7 @@ const Home = () => {
           <button className="btn-product mt-3">View All Products</button>
         </div>
         <hr />
-        <div className="d-flex align-items-center red-box ">
+        {/* <div className="d-flex align-items-center red-box ">
           <div>
             <h6 className="pt-1 px-4"> Categories</h6>
           </div>
@@ -172,7 +172,7 @@ const Home = () => {
         <div className="pb-4">
           <Category />
         </div>
-        <hr />
+        <hr /> */}
         <div>
           <div className="d-flex align-items-center red-box ">
             <div>
@@ -186,7 +186,7 @@ const Home = () => {
               </div>
               <div
                 className="col-lg-4 d-flex justify-content-center product-style align-items-center"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: 'pointer' }}
               >
                 <h6>View All</h6>
               </div>
@@ -203,9 +203,9 @@ const Home = () => {
               centerSlidePercentage={centerSlidePercentage}
             >
               {categories
-                .filter((category) => category.sellType === "best")
+                .filter((category) => category.sellType === 'best')
                 .map((category, index) => (
-                  <div key={index} className="item" style={{ height: "400px" }}>
+                  <div key={index} className="item" style={{ height: '400px' }}>
                     <Cards
                       id={category._id}
                       key={index}
@@ -227,20 +227,20 @@ const Home = () => {
         <div className="pt-5">
           <div className="container row black-box pt-5">
             <div className="px-5 col-lg-5 col-md-6 col-sm-12">
-              <h6 style={{ color: "#00FF66" }} className="pt-5">
+              <h6 style={{ color: '#00FF66' }} className="pt-5">
                 Categories
               </h6>
               <h2 className="text-color">
                 Enhance Your
                 <br /> Music Experience
               </h2>
-              <div className="timecount-align" style={{ color: "#ffffff" }}>
+              <div className="timecount-align" style={{ color: '#ffffff' }}>
                 <CountdownTimer targetDate="2024-2-29" />
               </div>
-              <div className="d-flex mt-5" style={{ height: "200px" }}>
+              <div className="d-flex mt-5" style={{ height: '200px' }}>
                 <div
                   className="buy-now d-flex justify-content-center align-items-center"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 >
                   <h6>Buy Now!</h6>
                 </div>
@@ -273,31 +273,31 @@ const Home = () => {
                 <div>
                   <button
                     className="btn-product mx-3"
-                    style={{ width: "150px", height: "45px" }}
-                    onClick={() => handleCategoryChange("All")}
+                    style={{ width: '150px', height: '45px' }}
+                    onClick={() => handleCategoryChange('All')}
                   >
                     All
                   </button>
                   <button
                     className="btn-product mx-3"
-                    style={{ width: "150px", height: "45px" }}
-                    onClick={() => handleCategoryChange("Grocery")}
+                    style={{ width: '150px', height: '45px' }}
+                    onClick={() => handleCategoryChange('Grocery')}
                   >
                     Grocery
                   </button>
                   <button
                     className="btn-product mx-3"
-                    style={{ width: "150px", height: "45px" }}
-                    onClick={() => handleCategoryChange("Baby Needs")}
+                    style={{ width: '150px', height: '45px' }}
+                    onClick={() => handleCategoryChange('Baby Needs')}
                   >
                     Baby Needs
                   </button>
                   <button
                     className="btn-product mx-3"
-                    style={{ width: "150px", height: "45px" }}
-                    onClick={() => handleCategoryChange("HouseHold")}
+                    style={{ width: '150px', height: '45px' }}
+                    onClick={() => handleCategoryChange('HouseHold')}
                   >
-                   HouseHold
+                    HouseHold
                   </button>
                 </div>
               </div>
@@ -307,12 +307,12 @@ const Home = () => {
               {categories
                 .filter(
                   (category) =>
-                    selectedCategory === "All" ||
+                    selectedCategory === 'All' ||
                     category.categoryId.categoryName === selectedCategory
                 )
                 .map((category, index) => (
                   <div className="col-lg-3 col-sm-6" key={index}>
-                    <div className="item" style={{ height: "400px" }}>
+                    <div className="item" style={{ height: '400px' }}>
                       <Cards
                         id={category._id}
                         name={category.productName}
@@ -332,7 +332,7 @@ const Home = () => {
               </div>
             </div>
           </section>
-          <div className="pt-5">
+          {/* <div className="pt-5">
             <div className="d-flex align-items-center red-box ">
               <div>
                 <h6 className="pt-1 px-4">Featured</h6>
@@ -397,11 +397,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
-      <div className="row pt-5 justify-content-center">
+      {/* <div className="row pt-5 justify-content-center">
         <div
           className="col-lg-4 mx-5  about-footer d-flex justify-content-center align-items-center"
           style={{ flexDirection: "column" }}
@@ -434,7 +434,7 @@ const Home = () => {
           </p>
           <p style={{ fontSize: "12px" }}>We return money within 30 days</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
