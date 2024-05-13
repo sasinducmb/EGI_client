@@ -224,7 +224,7 @@ const Home = () => {
             </Carousel>
           </div>
         </div>
-        <div className="pt-5">
+        {/* <div className="pt-5">
           <div className="container row black-box pt-5">
             <div className="px-5 col-lg-5 col-md-6 col-sm-12">
               <h6 style={{ color: '#00FF66' }} className="pt-5">
@@ -254,7 +254,7 @@ const Home = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="pt-5">
           <div className="d-flex align-items-center red-box ">
