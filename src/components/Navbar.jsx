@@ -30,6 +30,7 @@ function Navbar() {
           >
             <span className="navbar-toggler-icon"> </span>
           </button>
+          <img src="../../img/hocll.png"></img>
           <a className="navbar-brand" href="/">
             HOUSE OF CAMBRIDGE
           </a>
