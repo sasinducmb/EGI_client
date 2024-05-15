@@ -4,7 +4,7 @@ import { RxTwitterLogo } from 'react-icons/rx';
 import { IoLogoInstagram } from 'react-icons/io';
 import { RxLinkedinLogo } from 'react-icons/rx';
 import { IoIosArrowDropright } from 'react-icons/io';
-
+import { Link } from 'react-router-dom';
 
 function Footer() {
   return (
@@ -12,7 +12,6 @@ function Footer() {
       <div className="container-fluid footer">
         <div class="container text-left pt-5">
           <div class="row">
-            
             <div class="col-12 col-md-3 col-lg-3">
               <h6
                 style={{
@@ -56,11 +55,10 @@ function Footer() {
               >
                 Support
               </h6>
-              {/* <p className="pt-4">
-                111 Bijoy sarani, Dhaka, DH 1515, Bangladesh.
-              </p>
-              <p className="pt-2">exclusive@gmail.com</p>
-              <p className="pt-2">+88015-88888-9999</p> */}
+              <p className="pt-4">No 63 Old Road, Pannipitiya</p>
+              <p className="pt-2">houseofcambridge.lk@gmail.com</p>
+              <p className="pt-2">076 460 4227 - WhatsApp</p>
+              <p className="pt-2">0112 847 846</p>
             </div>
             <div class="col-12 col-md-3 col-lg-2">
               <h6
@@ -88,7 +86,9 @@ function Footer() {
               >
                 Quick Link
               </h6>
-              <p className="pt-4">Privacy Policy</p>
+              <a href='/policy'>
+                <p className="pt-4" style={{textDecoration:"none", color:"white"}}>Privacy Policy</p>
+                </a>
               <p className="pt-2">Terms Of Use</p>
               <p className="pt-2">FAQ</p>
               <p className="pt-2">Contact</p>

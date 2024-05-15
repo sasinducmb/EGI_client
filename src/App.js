@@ -25,6 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Verify from "./views/Verify";
 import PayementSuccess from "./views/PayementSuccess";
 import Fedback from "./views/Fedback";
+import Policy from "./views/Policy";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -49,9 +50,17 @@ function App() {
               <Route path="/productDetails/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/orders" element={<Orders />} />
-              <Route path="/user/:id/verify/:token" element={<Verify/>}/>
+              <Route path="/policy" element={<Policy />} />
+              <Route path="/user/:id/verify/:token" element={<Verify />} />
 
-              <Route path="/feedback/:id/:productName" element={ <ProtectedRoute><Fedback/> </ProtectedRoute>}/>
+              <Route
+                path="/feedback/:id/:productName"
+                element={
+                  <ProtectedRoute>
+                    <Fedback />{' '}
+                  </ProtectedRoute>
+                }
+              />
 
               <Route
                 path="/checkout"
@@ -61,7 +70,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/success" element={<PayementSuccess/>}/>
+              <Route path="/success" element={<PayementSuccess />} />
             </Routes>
             <Footer />
           </CartProvider>
