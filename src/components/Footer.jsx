@@ -45,7 +45,7 @@ function Footer() {
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-3 col-lg-2">
+            <div class="col-12 col-md-3 col-lg-4">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -60,7 +60,7 @@ function Footer() {
               <p className="pt-2">076 460 4227 - WhatsApp</p>
               <p className="pt-2">0112 847 846</p>
             </div>
-            <div class="col-12 col-md-3 col-lg-2">
+            {/* <div class="col-12 col-md-3 col-lg-2">
               <h6
                 style={{
                   fontFamily: 'Poppins',
@@ -75,7 +75,7 @@ function Footer() {
               <p className="pt-2">Cart</p>
               <p className="pt-2">Wishlist</p>
               <p className="pt-2">Shop</p>
-            </div>
+            </div> */}
             <div class="col-12 col-md-2 col-lg-2">
               <h6
                 style={{
@@ -86,12 +86,31 @@ function Footer() {
               >
                 Quick Link
               </h6>
-              <a href='/policy'>
-                <p className="pt-4" style={{textDecoration:"none", color:"white"}}>Privacy Policy</p>
-                </a>
-              <p className="pt-2">Terms Of Use</p>
-              <p className="pt-2">FAQ</p>
-              <p className="pt-2">Contact</p>
+              <a href="/policy">
+                <p
+                  className="pt-4"
+                  style={{ textDecoration: 'none', color: 'white' }}
+                >
+                  Privacy Policy
+                </p>
+              </a>
+              <a href="/terms">
+                <p
+                  className="pt-2"
+                  style={{ textDecoration: 'none', color: 'white' }}
+                >
+                  Terms and Condition
+                </p>{' '}
+              </a>
+              <a href="/refund">
+                <p
+                  className="pt-4"
+                  style={{ textDecoration: 'none', color: 'white' }}
+                >
+                  Refund Condition
+                </p>
+              </a>
+              {/* <p className="pt-2">Contact</p> */}
             </div>
             <div class="col-12 col-md-2 col-lg-3">
               {/* <h6

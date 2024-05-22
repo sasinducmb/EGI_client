@@ -28,7 +28,7 @@ const Contact = () => {
           </div>
           <div className="pt-3 px-4">
             <p>We are available 24/7, 7 days a week.</p>
-            <p>Phone:&nbsp; +8801611112222</p>
+            <p>Phone:&nbsp; 0112 847 846</p>
           </div>
           <hr />
           <div className="pt-4 d-flex ">
@@ -43,8 +43,8 @@ const Contact = () => {
           </div>
           <div className="pt-3 px-4">
             <p>Fill out our form and we will contact you within 24 hours.</p>
-            <p>Emails:&nbsp; customer@exclusive.com</p>
-            <p>Emails:&nbsp; support@exclusive.com</p>
+            {/* <p>Emails:&nbsp; customer@exclusive.com</p> */}
+            <p>Emails:&nbsp; houseofcambridge.lk@gmail.com</p>
           </div>
         </div>
 

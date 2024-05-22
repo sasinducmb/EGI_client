@@ -73,11 +73,11 @@ function Navbar() {
                     Contact
                   </a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a className="nav-link mx-lg-3" href="/about">
                     About
                   </a>
-                </li>
+                </li> */}
               
                 <li className="nav-item">
                   <a className="nav-link mx-lg-3" href="/signup">
