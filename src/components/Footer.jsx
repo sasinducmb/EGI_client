@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 function Footer() {
   return (
     <>
-      <div className="container-fluid footer">
+      <div className="container-fluid footer mt-3">
         <div class="container text-left pt-5">
           <div class="row">
             <div class="col-12 col-md-3 col-lg-3">
@@ -86,26 +86,26 @@ function Footer() {
               >
                 Quick Link
               </h6>
-              <a href="/policy">
+              <a href="/policy"  style={{ textDecoration: 'none', color: 'white' }}>
                 <p
                   className="pt-4"
-                  style={{ textDecoration: 'none', color: 'white' }}
+                 
                 >
                   Privacy Policy
                 </p>
               </a>
-              <a href="/terms">
+              <a href="/terms"  style={{ textDecoration: 'none', color: 'white' }}>
                 <p
                   className="pt-2"
-                  style={{ textDecoration: 'none', color: 'white' }}
+                 
                 >
                   Terms and Condition
                 </p>{' '}
               </a>
-              <a href="/refund">
+              <a href="/refund"  style={{ textDecoration: 'none', color: 'white' }}>
                 <p
                   className="pt-4"
-                  style={{ textDecoration: 'none', color: 'white' }}
+                 
                 >
                   Refund Condition
                 </p>
