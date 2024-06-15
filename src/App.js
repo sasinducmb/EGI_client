@@ -28,6 +28,7 @@ import Fedback from "./views/Fedback";
 import Terms from './views/Terms';
 import Policy from "./views/Policy";
 import Refund from './views/Refund';
+import Paycansel from "./views/Paycansel";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -75,6 +76,8 @@ function App() {
                 }
               />
               <Route path="/success" element={<PayementSuccess />} />
+              <Route path="/cancel" element={<Paycansel/>} />
+
             </Routes>
             <Footer />
           </CartProvider>

@@ -28,6 +28,7 @@ export const CartProvider = ({ children }) => {
               ...cartItem,
               quantity: updatedQuantity,
               subtotal: updatedSubtotal,
+             
             };
           } else {
             return cartItem;
@@ -38,7 +39,7 @@ export const CartProvider = ({ children }) => {
         const initialSubtotal = item.price.toFixed(2);
         return [
           ...prevCart,
-          { ...item, quantity: 1, subtotal: initialSubtotal },
+          { ...item, quantity: 1, subtotal: initialSubtotal,newweight:item.weight },
         ];
       }
     });
@@ -57,9 +58,9 @@ export const CartProvider = ({ children }) => {
           // Assuming cartItem.weight is the weight of a single unit
           const unitWeight = Number(cartItem.weight) || 0; // Convert to number to avoid NaN issues
           const updatedWeight = unitWeight * newQuantity; // Calculate total weight for new quantity
-  
+
           const updatedSubtotal = (newQuantity * cartItem.price).toFixed(2);
-  
+
           return {
             ...cartItem,
             quantity: newQuantity,
@@ -77,12 +78,15 @@ export const CartProvider = ({ children }) => {
   const totalItems = cart.reduce((total, item) => total + 1, 0);
   // Effect hook to update local storage when the cart state changes
 
-  const totalWeightInGrams = cart.reduce((acc, item) => acc + item.newweight, 0);
-const kilograms = Math.floor(totalWeightInGrams / 1000);
-const grams = totalWeightInGrams % 1000; // Remainder will be the grams
+  const totalWeightInGrams = cart.reduce(
+    (acc, item) => acc + item.newweight,
+    0
+  );
+  const kilograms = Math.floor(totalWeightInGrams / 1000);
+  const grams = totalWeightInGrams % 1000; // Remainder will be the grams
 
-const formattedTotalWeight = `${kilograms}kg ${grams}g`;
-  
+  const formattedTotalWeight = `${kilograms}kg ${grams}g`;
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -96,7 +100,7 @@ const formattedTotalWeight = `${kilograms}kg ${grams}g`;
         updateQuantity,
         total,
         totalItems,
-     
+
         formattedTotalWeight,
       }}
     >
