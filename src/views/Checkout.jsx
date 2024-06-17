@@ -17,6 +17,11 @@ const Checkout = () => {
   const [town, setTown] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
+  const [deliveryOption, setDeliveryOption] = useState('pickup');
+
+  const handleChange = (event) => {
+    setDeliveryOption(event.target.value);
+  };
 
   const handelDelete = (itemName) => {
     removeFromCart(itemName);
@@ -53,10 +58,12 @@ const Checkout = () => {
 
   const [shippingCost, setShippingCost] = useState(0);
   useEffect(() => {
-    if (town !== "") {
+    if (deliveryOption === 'deliver' && town !== '' && formattedTotalWeight !== '') {
       setShippingCost(calculateDeliveryCost(town, formattedTotalWeight));
+    } else {
+      setShippingCost(0);
     }
-  }, [town, formattedTotalWeight]);
+  }, [town, formattedTotalWeight, deliveryOption]);
   const finalTotal = parseFloat(total) + (parseFloat(shippingCost) || 0);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -69,6 +76,7 @@ const Checkout = () => {
         town,
         phoneNo,
         email,
+        deliveryOption
       },
     ];
     const orderData = {
@@ -150,9 +158,46 @@ const Checkout = () => {
         </div>
       </div>
 
+        <div  className="col-lg-6 col-md-12" style={{border:'2px solid red'}}>
+        <h2 className="mx-5">Delivery Option</h2>
+        <form>
+        <div className="form-check mt-3 mx-5">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="deliveryOption"
+            id="pickup"
+            value="pickup"
+            checked={deliveryOption === 'pickup'}
+            onChange={handleChange}
+            required
+            style={{ fontSize: '20px' }}
+          />
+          <label className="form-check-label" htmlFor="pickup" style={{ fontSize: '20px' }}>
+            Pickup at Office
+          </label>
+        </div>
+        <div className="form-check mt-3 mx-5">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="deliveryOption"
+            id="deliver"
+            value="deliver"
+            checked={deliveryOption === 'deliver'}
+            onChange={handleChange}
+            required
+            style={{ fontSize: '20px' }}
+          />
+          <label className="form-check-label" htmlFor="deliver" style={{ fontSize: '20px' }}>
+            Deliver
+          </label>
+        </div>
+      </form>
+        </div>
       <div className="row pt-5">
         <div className="col-lg-6 col-md-12">
-          <h2>Billing Details</h2>
+          <h2>Delivery Details</h2>
           <div className="pt-3 pb-3">
             <form onSubmit={handleSubmit}>
               <div className="checkout-input">
