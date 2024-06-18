@@ -21,10 +21,10 @@ function Header() {
         <div className=" row header-outer ">
           <div className="col-lg-10 col-md-12  d-flex justify-content-center  align-items-center header">
          
-            <p className="mt-3 header-text">Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</p>
+            {/* <p className="mt-3 header-text">Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</p> */}
               
      
-            <span>
+            {/* <span>
               <a
                 href=""
                 className="p-3"
@@ -33,7 +33,7 @@ function Header() {
                 {" "}
                 Shop Now
               </a>
-            </span>
+            </span> */}
           </div>
           <div className="col-lg-2  d-flex justify-content-end align-items-center">
             <select

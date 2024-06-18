@@ -141,10 +141,10 @@ const ProductDetail = () => {
               <div className="d-flex align-items-center">
                 <ManualRating />
                 <p className="m-2" style={{ opacity: "50%" }}>
-                  (150 Reviews) |
+                  {/* (150 Reviews) | */}
                 </p>
                 <p className="m-2" style={{ color: "#00FF66" }}>
-                  In Stock
+                  {/* In Stock */}
                 </p>
               </div>
               <h5 className="p-1">Rs:{productDetails.price}</h5>
@@ -156,17 +156,17 @@ const ProductDetail = () => {
               </p>
               <hr />
               <div className="d-flex">
-                <h6>Colors :</h6>
-                <div className="color-button-0 mx-2"></div>
-                <div className="color-button-1 mx-1"></div>
+                {/* <h6>Colors :</h6> */}
+                {/* <div className="color-button-0 mx-2"></div>
+                <div className="color-button-1 mx-1"></div> */}
               </div>
               <div className="d-flex pt-2">
-                <h6 className="p-1">Sizes:</h6>
+                {/* <h6 className="p-1">Sizes:</h6>
                 <div className="product-size">XS</div>
                 <div className="product-size">S</div>
                 <div className="product-size">M</div>
                 <div className="product-size">L</div>
-                <div className="product-size">XL</div>
+                <div className="product-size">XL</div> */}
               </div>
               <div className="d-flex pt-3">
                 <Link to={"/cart"} style={{ textDecoration: "none" }}>
@@ -189,7 +189,7 @@ const ProductDetail = () => {
                 </div>
               </div>
               <div className="pt-2">
-                <table className="product-table">
+                {/* <table className="product-table">
                   <div>
                     <tr className="pt-2">
                       <div className="d-flex align-items-center justify-content-center">
@@ -215,7 +215,7 @@ const ProductDetail = () => {
                       </div>
                     </tr>
                   </div>
-                </table>
+                </table> */}
               </div>
             </div>
           </div>

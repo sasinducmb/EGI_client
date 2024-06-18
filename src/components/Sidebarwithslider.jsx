@@ -7,7 +7,7 @@ const Sidebarwithslider = () => {
 
   const scrollUp = () => {
     window.scrollTo({
-      top: 2500, // Scrolls to the middle of the page
+      top: 2200, // Scrolls to the middle of the page
       behavior: "smooth" // Adds smooth scrolling effect
     });
   };

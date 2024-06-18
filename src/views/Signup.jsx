@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
+import { TailSpin } from "react-loader-spinner";
 
 const Signup = () => {
   const [message, setMessage] = useState("");
@@ -9,8 +10,8 @@ const Signup = () => {
   const [showconfirmPassword,setConfirmPassword]=useState(false);
   const [confirmPass, setConfirmPass] = useState('');
   const [isValidEmail, setIsValidEmail] = useState(true);
-const [isValidPhone, setIsValidPhone] = useState(true);
-
+  const [isValidPhone, setIsValidPhone] = useState(true);
+  const [loading, setLoading] = useState(false);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -53,19 +54,17 @@ const [isValidPhone, setIsValidPhone] = useState(true);
     password: "",
   });
 
-  // registration post rq
   const userRegistration = async (e) => {
     e.preventDefault();
 
-    const { name, username, phoneNo,password } = data;
-    // console.log(username);
-    if (data.password !== confirmPass) {
-      // Handle the mismatch case
+    const { name, username, phoneNo, password } = data;
+    if (password !== confirmPass) {
       setErrMsg("Password Not Match");
       return;
     }
 
     if (isValidEmail && isValidPhone) {
+      setLoading(true); // Start loading spinner
       try {
         const response = await axios.post("/user/register", {
           name,
@@ -74,13 +73,14 @@ const [isValidPhone, setIsValidPhone] = useState(true);
           password,
         });
         if (response.data.message === "ok") {
-          setMessage("Registrtion success...!");
+          setMessage("Registration success...!");
           SetData({
             name: "",
             username: "",
             phoneNo: "",
             password: "",
           });
+          setConfirmPass("");
         }
       } catch (error) {
         if (error.response && error.response.data) {
@@ -91,16 +91,32 @@ const [isValidPhone, setIsValidPhone] = useState(true);
             setErrMsg("Username already exists");
           }
         } else {
-          // Handle the case where error.response is undefined
           setErrMsg("An unexpected error occurred");
         }
+      } finally {
+        setLoading(false); // Stop loading spinner
       }
     } else {
       setErrMsg("Valid email or phone number required");
     }
   };
   return (
-    <div className="container pt-4 pb-5 ">
+    <div>
+    {loading ? (
+      <div className="spinner-container">
+        <TailSpin
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      </div>
+    ) : (
+      <div className="container pt-4 pb-5 ">
       <div className="row">
         <div className="col-lg-6 col-md-12 d-flex justify-content-center">
           <img
@@ -143,6 +159,7 @@ const [isValidPhone, setIsValidPhone] = useState(true);
                   class="form-control"
                   id="inputName"
                   placeholder="Name"
+                  value={data.name}
                   required
                   style={{
                     border: "none",
@@ -159,6 +176,7 @@ const [isValidPhone, setIsValidPhone] = useState(true);
                   class="form-control"
                   id="inputEmail"
                   required
+                  value={data.username}
                   aria-describedby="emailHelp"
                   placeholder="Email"
                   style={{
@@ -177,6 +195,7 @@ const [isValidPhone, setIsValidPhone] = useState(true);
                 <input
                   type="text"
                   class="form-control"
+                  value={data.phoneNo}
                   id="inputphonr"
                   required
                  
@@ -201,6 +220,7 @@ const [isValidPhone, setIsValidPhone] = useState(true);
                   type={showPassword ? "text" : "password"}
                   className="form-control mt-3"
                   id="inputPassword"
+                  value={data.password}
                   placeholder="Password"
                   style={{
                     border: "none",
@@ -245,6 +265,7 @@ const [isValidPhone, setIsValidPhone] = useState(true);
                  type={showconfirmPassword ? "text" : "password"}
                   className="form-control"
                   id="inputPassword"
+                  value={confirmPass}
                   placeholder="Confirm password"
                   style={{
                     border: "none",
@@ -343,6 +364,10 @@ const [isValidPhone, setIsValidPhone] = useState(true);
         </div>
       </div>
     </div>
+    )}
+    {errMsg && <p className="error">{errMsg}</p>}
+    {message && <p className="success">{message}</p>}
+  </div>
   );
 };
 

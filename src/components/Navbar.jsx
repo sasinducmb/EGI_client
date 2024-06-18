@@ -91,14 +91,14 @@ function Navbar() {
                 </li>
               </ul>
               {/* Search Form */}
-              <form className="d-flex mt-1" role="search">
+              {/* <form className="d-flex mt-1" role="search">
                 <input
                   className="form-control me-2"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                 />
-              </form>
+              </form> */}
               {/* User Icon */}
               {user && (
                 <div className="nav-heart">

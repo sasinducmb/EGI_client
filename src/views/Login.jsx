@@ -162,7 +162,7 @@ const Login = () => {
                     <span>Log In</span>
                   </button>
 
-                  <button
+                  {/* <button
                     style={{
                       width: "228px",
                       height: "56px",
@@ -179,7 +179,7 @@ const Login = () => {
                     className="mb-2 mt-2"
                   >
                     <span>Forget Password?</span>
-                  </button>
+                  </button> */}
                 </form>
               </div>
             </div>

@@ -151,9 +151,9 @@ const Home = () => {
             ))}
         </Carousel>
 
-        <div className="row justify-content-center mt-3">
+        {/* <div className="row justify-content-center mt-3">
           <button className="btn-product mt-3">View All Products</button>
-        </div>
+        </div> */}
         <hr />
         {/* <div className="d-flex align-items-center red-box ">
           <div>
@@ -184,12 +184,12 @@ const Home = () => {
               <div className="col-lg-5">
                 <h4 className="text-style">Best Selling Products</h4>
               </div>
-              <div
+              {/* <div
                 className="col-lg-4 d-flex justify-content-center product-style align-items-center"
                 style={{ cursor: 'pointer' }}
               >
                 <h6>View All</h6>
-              </div>
+              </div> */}
             </div>
 
             <Carousel
@@ -327,9 +327,9 @@ const Home = () => {
                     </div>
                   </div>
                 ))}
-              <div className="row justify-content-center">
+              {/* <div className="row justify-content-center">
                 <button className="btn-product">View All Products</button>
-              </div>
+              </div> */}
             </div>
           </section>
           {/* <div className="pt-5">
