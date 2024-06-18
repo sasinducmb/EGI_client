@@ -17,7 +17,7 @@ const Checkout = () => {
   const [town, setTown] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
-  const [deliveryOption, setDeliveryOption] = useState('pickup');
+  const [deliveryOption, setDeliveryOption] = useState("pickup");
 
   const handleChange = (event) => {
     setDeliveryOption(event.target.value);
@@ -58,7 +58,11 @@ const Checkout = () => {
 
   const [shippingCost, setShippingCost] = useState(0);
   useEffect(() => {
-    if (deliveryOption === 'deliver' && town !== '' && formattedTotalWeight !== '') {
+    if (
+      deliveryOption === "deliver" &&
+      town !== "" &&
+      formattedTotalWeight !== ""
+    ) {
       setShippingCost(calculateDeliveryCost(town, formattedTotalWeight));
     } else {
       setShippingCost(0);
@@ -76,7 +80,7 @@ const Checkout = () => {
         town,
         phoneNo,
         email,
-        deliveryOption
+        deliveryOption,
       },
     ];
     const orderData = {
@@ -92,8 +96,8 @@ const Checkout = () => {
     try {
       const response = await axios.post("/order/addOrder", orderData);
       if (response.data) {
-        const merchantId = process.env.REACT_APP_MERCHANT_ID;// Replace with your Merchant ID
-        const merchantSecret =process.env.REACT_APP_MERCHANT_SECRET; // Replace with your Merchant Secret
+        const merchantId = process.env.REACT_APP_MERCHANT_ID; // Replace with your Merchant ID
+        const merchantSecret = process.env.REACT_APP_MERCHANT_SECRET; // Replace with your Merchant Secret
         const orderId = `Order${Date.now()}`;
         const amount = parseFloat(finalTotal).toFixed(2).replace(",", "");
         const currency = "LKR";
@@ -158,43 +162,6 @@ const Checkout = () => {
         </div>
       </div>
 
-        <div  className="col-lg-6 col-md-12" style={{border:'2px solid red'}}>
-        <h2 className="mx-5">Delivery Option</h2>
-        <form>
-        <div className="form-check mt-3 mx-5">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="deliveryOption"
-            id="pickup"
-            value="pickup"
-            checked={deliveryOption === 'pickup'}
-            onChange={handleChange}
-            required
-            style={{ fontSize: '20px' }}
-          />
-          <label className="form-check-label" htmlFor="pickup" style={{ fontSize: '20px' }}>
-            Pickup at Office
-          </label>
-        </div>
-        <div className="form-check mt-3 mx-5">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="deliveryOption"
-            id="deliver"
-            value="deliver"
-            checked={deliveryOption === 'deliver'}
-            onChange={handleChange}
-            required
-            style={{ fontSize: '20px' }}
-          />
-          <label className="form-check-label" htmlFor="deliver" style={{ fontSize: '20px' }}>
-            Deliver
-          </label>
-        </div>
-      </form>
-        </div>
       <div className="row pt-5">
         <div className="col-lg-6 col-md-12">
           <h2>Delivery Details</h2>
@@ -285,6 +252,9 @@ const Checkout = () => {
                 />
               </div>
               <div>
+              <div className="alert alert-warning" role="alert">
+        Before placing the order, please ensure the delivery option is correct.
+      </div>
                 <button type="submit" className="cart-style mt-3 mb-3">
                   Place Order
                 </button>
@@ -346,53 +316,57 @@ const Checkout = () => {
               <h6>Total:</h6>
               <h6>Rs {finalTotal.toFixed(2)}</h6>
             </div>
-            <div class="form-check d-flex justify-content-between pt-4 ">
-              <div>
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="flexRadioDefault"
-                  id="flexRadioDefault1"
-                />
-                <label class="form-check-label" for="flexRadioDefault1">
-                  <h5>Bank</h5>
-                </label>
-              </div>
-              <div>
-                <img src="../../img/kash.png" className="image-visa" />
-                <img src="../../img/visa.png" className="image-visa" />
-                <img src="../../img/master.png" className="image-visa" />
-                <img src="../../img/nagad.png" className="image-visa" />
-              </div>
-            </div>
-            <div class="form-check pt-3">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault2"
-                checked
-              />
-              <label class="form-check-label" for="flexRadioDefault2">
-                <h5>Cash on delivery</h5>
-              </label>
-            </div>
-            <div className="d-flex justify-content-between">
-              {/* <div>
-                <input
-                  type="first"
-                  class="form-control"
-                  id="inputFirst"
-                  placeholder="Coupon Code"
-                  style={{ width: "300px", height: "56px" }}
-                />
-              </div> */}
+            <div class="form-check d-flex justify-content-between pt-4 "></div>
 
-              {/* <div>
-                <button type="submit" class="cart-style mx-3">
-                  Apply Coupon
-                </button>
-              </div> */}
+            <div className="d-flex justify-content-between">
+              <div
+                className="col-lg-12 col-md-12"
+                style={{ border: "2px solid red" }}
+              >
+                <h2 className="mx-5">Delivery Option</h2>
+                <form>
+                  <div className="form-check mt-3 mx-5">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="deliveryOption"
+                      id="pickup"
+                      value="pickup"
+                      checked={deliveryOption === "pickup"}
+                      onChange={handleChange}
+                      required
+                      style={{ fontSize: "20px" }}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="pickup"
+                      style={{ fontSize: "20px" }}
+                    >
+                      Pickup at Office
+                    </label>
+                  </div>
+                  <div className="form-check mt-3 mx-5">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="deliveryOption"
+                      id="deliver"
+                      value="deliver"
+                      checked={deliveryOption === "deliver"}
+                      onChange={handleChange}
+                      required
+                      style={{ fontSize: "20px" }}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="deliver"
+                      style={{ fontSize: "20px" }}
+                    >
+                      Deliver
+                    </label>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
