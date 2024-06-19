@@ -86,21 +86,14 @@ const Sidebarwithslider = () => {
                 ></button>
               </div>
               <div class="carousel-inner">
-                <div class="carousel-item active">
+              <div class="carousel-item active">
                   <img
-                    src="../../img/Frame560.png"
+                    src="../../img/Frame561.jpg"
                     class="d-block img-fluid"
                     alt="..."
                   />
                 </div>
-                <div class="carousel-item">
-                  <img
-                    src="../../img/Frame561.png"
-                    class="d-block img-fluid"
-                    alt="..."
-                  />
-                </div>
-                <div class="carousel-item">
+                <div class="carousel-item ">
                   <img
                     src="../../img/Frame560.png"
                     class="d-block img-fluid"
