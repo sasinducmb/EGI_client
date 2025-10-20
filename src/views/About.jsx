@@ -45,48 +45,7 @@ const About = () => {
           <img src="../../img/SideImage2.png" />
         </div>
       </div>
-      <div className="row pt-5 d-flex justify-content-between">
-        <div
-          className="col-lg-2 about-style border d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
-        >
-          <BsShop size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-            10.5k{' '}
-          </p>
-          <p className="">Sallers active our site</p>
-        </div>
-        <div
-          className="col-lg-2 about-style border d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
-        >
-          <HiCurrencyDollar size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-            33k{' '}
-          </p>
-          <p className="">Mopnthly Produduct Sale</p>
-        </div>
-        <div
-          className="col-lg-2 about-style border d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
-        >
-          <FiShoppingBag size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-            45.5k{' '}
-          </p>
-          <p className="">Customer active in our site</p>
-        </div>
-        <div
-          className="col-lg-2 about-style border d-flex justify-content-center align-items-center"
-          style={{ flexDirection: 'column' }}
-        >
-          <FaSackDollar size={80} />
-          <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-            25k{' '}
-          </p>
-          <p className="">Anual gross sale in our site</p>
-        </div>
-      </div>
+      
 
       <div className="row pt-5 justify-content-between">
         <div
@@ -95,7 +54,7 @@ const About = () => {
         >
           <CiDeliveryTruck size={110} />
           <p className="pt-2" style={{ fontSize: '20px', fontWeight: 'bold' }}>
-            FREE AND FAST DELIVERY
+             FAST DELIVERY
           </p>
           <p style={{ fontSize: '12px' }}>
             Free delivery for all orders over $140

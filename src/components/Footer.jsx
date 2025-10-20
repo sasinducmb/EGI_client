@@ -40,7 +40,7 @@ function Footer() {
           <h3>Quick Links</h3>
           <ul>
             <li>
-              <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/Policy">Privacy Policy</Link>
             </li>
             <li>
               <Link to="/terms">Terms and Conditions</Link>

@@ -13,7 +13,7 @@ const Terms = () => {
   };
 
   const headingStyle = {
-    color: "red",
+    color: "black",
     marginTop: "20px",
   };
 

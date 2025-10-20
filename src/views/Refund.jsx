@@ -17,7 +17,7 @@ const Refund = () => {
 
         .refund-container h2, 
         .refund-container h4 {
-          color: red;
+          color: black;
           margin-top: 20px;
         }
 

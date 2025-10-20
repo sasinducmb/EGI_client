@@ -20,7 +20,7 @@ const Policy = () => {
 
           .policy-container h2,
           .policy-container h4 {
-            color: red;
+            color:;
             margin-top: 20px;
           }
 
