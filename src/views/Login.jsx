@@ -4,6 +4,7 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
 import { TailSpin } from "react-loader-spinner";
 import { WishlistContext } from "../context/WishlistContext";
 import { CartContext } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [data, SetData] = useState({
@@ -175,6 +176,26 @@ const Login = () => {
           color: #5f9ea0;
         }
 
+        /* ADD THIS: Forgot Password Link Styles */
+        .forgot-password-link {
+          text-align: right;
+          margin-top: -12px;
+          margin-bottom: 16px;
+        }
+
+        .forgot-password-link a {
+          color: #5f9ea0;
+          text-decoration: none;
+          font-size: 14px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .forgot-password-link a:hover {
+          color: #4a7c7e;
+          text-decoration: underline;
+        }
+
         .login-button {
           width: 100%;
           padding: 16px;
@@ -287,6 +308,10 @@ const Login = () => {
           .login-card {
             padding: 32px 24px;
           }
+
+          .login-title {
+            font-size: 24px;
+          }
         }
       `}</style>
 
@@ -345,6 +370,11 @@ const Login = () => {
                     />
                   )}
                 </div>
+              </div>
+
+              {/* ADD THIS: Forgot Password Link */}
+              <div className="forgot-password-link">
+                <Link to="/forgot-password">Forgot Password?</Link>
               </div>
 
               <button

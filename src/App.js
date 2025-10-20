@@ -27,6 +27,8 @@ import Terms from "./views/Terms";
 import Policy from "./views/Policy";
 import Refund from "./views/Refund";
 import Paycansel from "./views/Paycansel";
+import ForgotPassword from "./views/ForgotPassword";
+import ResetPassword from "./views/ResetPassword";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 axios.defaults.withCredentials = true;
@@ -68,7 +70,8 @@ function App() {
               <Route path="/user/:id/verify/:token" element={<Verify />} />
               <Route path="/cancel" element={<Paycansel />} />
               <Route path="/success" element={<PayementSuccess />} />
-
+<Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
               <Route
                 path="/account"
                 element={
