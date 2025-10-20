@@ -1,373 +1,249 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa6";
 import { TailSpin } from "react-loader-spinner";
+import { WishlistContext } from "../context/WishlistContext";
+import { CartContext } from "../context/CartContext";
 
 const Signup = () => {
-  const [message, setMessage] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showconfirmPassword,setConfirmPassword]=useState(false);
-  const [confirmPass, setConfirmPass] = useState('');
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPhone, setIsValidPhone] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility=()=>{
-    setConfirmPassword(!showconfirmPassword)
-  }
-
-  const validateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (emailRegex.test(email)) {
-      setIsValidEmail(true);
-    } else {
-      setIsValidEmail(false);
-    }
-  };
-  
-  const validatePhone = (phoneNo) => {
-    const phoneRegex = /^[0-9]{10}$/; // Adjust regex based on your phone number format
-    if (phoneRegex.test(phoneNo)) {
-      setIsValidPhone(true);
-    } else {
-      setIsValidPhone(false);
-    }
-  };
-
-
-  // google auth setting
-  const googleAuth = () => {
-    window.open(
-      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
-      "_self"
-    );
-  };
-
-  const [data, SetData] = useState({
+  const [data, setData] = useState({
     name: "",
     username: "",
-    phoneNo:"",
+    phoneNo: "",
     password: "",
   });
+  const [confirmPass, setConfirmPass] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [savePassword, setSavePassword] = useState(false);
+  const [message, setMessage] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { loadWishlist } = useContext(WishlistContext);
+  const { mergeGuestCart, loadCart } = useContext(CartContext);
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("signupData");
+    if (savedData) setData(JSON.parse(savedData));
+  }, []);
+
+  useEffect(() => {
+    if (savePassword) {
+      localStorage.setItem("signupData", JSON.stringify(data));
+    } else {
+      localStorage.removeItem("signupData");
+    }
+  }, [savePassword, data]);
 
   const userRegistration = async (e) => {
     e.preventDefault();
 
-    const { name, username, phoneNo, password } = data;
-    if (password !== confirmPass) {
-      setErrMsg("Password Not Match");
+    if (data.password.length < 8) {
+      setErrMsg("Password must be at least 8 characters long.");
+      return;
+    }
+    if (data.password !== confirmPass) {
+      setErrMsg("Passwords do not match!");
       return;
     }
 
-    if (isValidEmail && isValidPhone) {
-      setLoading(true); // Start loading spinner
-      try {
-        const response = await axios.post("/user/register", {
-          name,
-          username,
-          phoneNo,
-          password,
-        });
-        if (response.data.message === "ok") {
-          setMessage("Registration success...!");
-          SetData({
-            name: "",
-            username: "",
-            phoneNo: "",
-            password: "",
-          });
-          setConfirmPass("");
-        }
-      } catch (error) {
-        if (error.response && error.response.data) {
-          const message = error.response.data.message;
-          if (message === "2") {
-            setErrMsg("Password must contain at least 8 characters");
-          } else if (message === "3") {
-            setErrMsg("Username already exists");
-          }
-        } else {
-          setErrMsg("An unexpected error occurred");
-        }
-      } finally {
-        setLoading(false); // Stop loading spinner
+    setLoading(true);
+    setErrMsg("");
+    setMessage("");
+
+    try {
+      const response = await axios.post("/user/register", data, {
+        validateStatus: () => true,
+      });
+
+      if (response.status === 201) {
+        setMessage("Account created successfully!");
+        localStorage.setItem("user", JSON.stringify(data));
+        await mergeGuestCart();
+        loadWishlist();
+        await loadCart();
+
+        setTimeout(() => {
+          window.location.href = process.env.REACT_APP_MAIN_URL || "/";
+        }, 1000);
+      } else if (response.status === 400 && response.data.message === "User already exists") {
+        setErrMsg("User already exists. Please use a different email.");
+      } else {
+        setErrMsg("User already exists. Please use a different email.");
       }
-    } else {
-      setErrMsg("Valid email or phone number required");
+    } catch (error) {
+      console.error("Signup error:", error);
+      setErrMsg("Registration failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <div>
-    {loading ? (
-      <div className="spinner-container">
-        <TailSpin
-          height="80"
-          width="80"
-          color="#4fa94d"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
-      </div>
-    ) : (
-      <div className="container pt-4 pb-5 ">
-      <div className="row">
-        <div className="col-lg-6 col-md-12 d-flex justify-content-center">
-          <img
-            src="../../img/SideImage.png"
-            style={{ hight: "500px", width: "600px", fontFamily: "Poppins" }}
-          className="img-fluid"/>
+    <>
+      <style>{`
+        .signup-container {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+          background: linear-gradient(90deg, #ffffffff 0%);
+        }
+        .signup-card {
+          background: #fff;
+          border-radius: 20px;
+          padding: 40px;
+          width: 100%;
+          max-width: 450px;
+          box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+        .signup-title {
+          text-align: center;
+          font-size: 28px;
+          font-weight: 700;
+          background: linear-gradient(90deg, #5f9ea0, #b8926a);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 10px;
+        }
+        .form-input {
+          width: 100%;
+          padding: 14px;
+          margin-bottom: 16px;
+          border-radius: 10px;
+          border: 2px solid #e2e8f0;
+          background: #f7fafc;
+          font-size: 15px;
+        }
+        .password-wrapper {
+          position: relative;
+        }
+        .password-toggle {
+          position: absolute;
+          right: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #555;
+        }
+        .signup-button {
+          width: 100%;
+          padding: 14px;
+          background: linear-gradient(90deg, #5f9ea0, #b8926a);
+          border: none;
+          border-radius: 10px;
+          color: white;
+          font-weight: 600;
+          cursor: pointer;
+        }
+        .error-message, .success-message {
+          margin-bottom: 20px;
+          padding: 12px;
+          border-radius: 8px;
+          font-weight: 500;
+        }
+        .error-message {
+          background: #ffe5e5;
+          color: #c53030;
+        }
+        .success-message {
+          background: #e6ffed;
+          color: #155724;
+        }
+      `}</style>
+
+      {loading ? (
+        <div className="signup-container">
+          <TailSpin height="80" width="80" color="#5f9ea0" ariaLabel="loading-indicator" />
         </div>
-        <div className="col-lg-6 col-md-12 d-flex justify-content-center">
-          <div className="container m-5" style={{ width: "400px" }}>
-            {}
-            {message ? (
-              <p className="alert alert-success">{message}</p>
-            ) : errMsg ? (
-              <p className="alert alert-danger">{errMsg}</p>
-            ) : null}
+      ) : (
+        <div className="signup-container">
+          <div className="signup-card">
+            <h2 className="signup-title">Create Account</h2>
+            {message && <div className="success-message">{message}</div>}
+            {errMsg && <div className="error-message">{errMsg}</div>}
 
-            <h2
-              style={{
-                fontWeight: 500,
-                fontSize: "36px",
-                fontFamily: "Poppins",
-              }}
-            >
-              Create an account
-            </h2>
-            <h4
-              style={{
-                fontWeight: 400,
-                fontSize: "16px",
-                fontFamily: "Poppins",
-              }}
-            >
-              Enter your details below
-            </h4>
+            <form onSubmit={userRegistration}>
+              <input
+                type="text"
+                className="form-input"
+                placeholder="Full Name"
+                value={data.name}
+                onChange={(e) => setData({ ...data, name: e.target.value })}
+              />
 
-            <form method="POST" onSubmit={userRegistration}>
-              <div class="form-group pt-4">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputName"
-                  placeholder="Name"
-                  value={data.name}
-                  required
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #000",
-                    outline: "none",
-                    borderRadius: "0",
-                  }}
-                  onChange={(e) => SetData({ ...data, name: e.target.value })}
-                />
-              </div>
-              <div class="form-group pt-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="inputEmail"
-                  required
-                  value={data.username}
-                  aria-describedby="emailHelp"
-                  placeholder="Email"
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #000",
-                    outline: "none",
-                    borderRadius: "0",
-                  }}
-                  onChange={(e) => {
-                    SetData({ ...data, username: e.target.value });
-                    validateEmail(e.target.value);
-                  }}
-                />
-              </div>
-                 <div class="form-group pt-3">
-                <input
-                  type="text"
-                  class="form-control"
-                  value={data.phoneNo}
-                  id="inputphonr"
-                  required
-                 
-                  aria-describedby="emailHelp"
-                  placeholder="Phone Number"
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #000",
-                    outline: "none",
-                    borderRadius: "0",
-                  }}
-                  onChange={(e) => {
-                    SetData({ ...data, phoneNo: e.target.value });
-                    validatePhone(e.target.value);
-                  }} 
-                />
-              </div>
+              <input
+                type="email"
+                className="form-input"
+                placeholder="Email"
+                value={data.username}
+                onChange={(e) => setData({ ...data, username: e.target.value })}
+              />
 
-            
-              <div style={{ position: "relative" }}>
+              <input
+                type="tel"
+                className="form-input"
+                placeholder="Phone Number"
+                value={data.phoneNo}
+                onChange={(e) => setData({ ...data, phoneNo: e.target.value })}
+              />
+
+              <div className="password-wrapper">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="form-control mt-3"
-                  id="inputPassword"
+                  className="form-input"
+                  placeholder="Password (min 8 characters)"
                   value={data.password}
-                  placeholder="Password"
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #000",
-                    outline: "none",
-                    borderRadius: "0",
-                    paddingRight: "30px", // Make room for the icon
-                  }}
-                  onChange={(e) =>
-                    SetData({ ...data, password: e.target.value })
-                  }
+                  onChange={(e) => setData({ ...data, password: e.target.value })}
                 />
                 {showPassword ? (
-                  <FaRegEye
-                    onClick={togglePasswordVisibility}
-                    style={{
-                      position: "absolute",
-                      right: "10px", // Adjust as needed
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <FaRegEye onClick={togglePasswordVisibility} className="password-toggle" />
                 ) : (
-                  <FaEyeSlash
-                    onClick={togglePasswordVisibility}
-                    style={{
-                      position: "absolute",
-                      right: "10px", // Adjust as needed
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <FaEyeSlash onClick={togglePasswordVisibility} className="password-toggle" />
                 )}
               </div>
-              <div
-                className="form-group pt-3 pb-3"
-                style={{ position: "relative" }}
-              >
+
+              <div className="password-wrapper">
                 <input
-                 type={showconfirmPassword ? "text" : "password"}
-                  className="form-control"
-                  id="inputPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  className="form-input"
+                  placeholder="Confirm Password"
                   value={confirmPass}
-                  placeholder="Confirm password"
-                  style={{
-                    border: "none",
-                    borderBottom: "1px solid #000",
-                    outline: "none",
-                    borderRadius: "0",
-                    paddingRight: "30px", // Make room for the icon
-                  }}
                   onChange={(e) => setConfirmPass(e.target.value)}
                 />
-               {showconfirmPassword ? (
-                  <FaRegEye
-                    onClick={toggleConfirmPasswordVisibility}
-                    style={{
-                      position: "absolute",
-                      right: "10px", // Adjust as needed
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      cursor: "pointer",
-                    }}
-                  />
+                {showConfirmPassword ? (
+                  <FaRegEye onClick={toggleConfirmPasswordVisibility} className="password-toggle" />
                 ) : (
-                  <FaEyeSlash
-                    onClick={toggleConfirmPasswordVisibility}
-                    style={{
-                      position: "absolute",
-                      right: "10px", // Adjust as needed
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      cursor: "pointer",
-                    }}
-                  />
+                  <FaEyeSlash onClick={toggleConfirmPasswordVisibility} className="password-toggle" />
                 )}
               </div>
 
-              <button
-                style={{
-                  width: "371px",
-                  height: "56px",
-                  borderRadius: "4px",
-                  border: "0px",
-                  padding: "16px 86px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                  backgroundColor: "#DB4444", // Adjust background color as needed
-                  color: "#FAFAFA", // Adjust text color as needed
-                  cursor: "pointer",
-                }}
-                className="mb-2 mt-2"
-                
-              >
-                <span>Create Account</span>
+              <label className="save-password">
+                <input
+                  type="checkbox"
+                  checked={savePassword}
+                  onChange={() => setSavePassword(!savePassword)}
+                />
+                Save Password
+              </label>
+
+              <button type="submit" className="signup-button">
+                Create Account
               </button>
             </form>
-            {/* <button
-              style={{
-                width: "371px",
-                height: "56px",
-                borderRadius: "4px",
-                border: "1px solid #000", // You can adjust the border color as needed
-                padding: "16px 86px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "10px",
-                backgroundColor: "#fff", // Adjust background color as needed
-                color: "#000", // Adjust text color as needed
-                cursor: "pointer",
-              }}
-              onClick={googleAuth} */}
-            {/* > */}
-              {/* Replace this with your Google icon IconGoogle */}
-              {/* <div style={{ width: "24px", height: "24px" }}>
-                <img src="../../img/IconGoogle.png" />
-              </div>
-              <span
-                style={{
-                  fontWeight: 400,
-                  fontSize: "16px",
-                  fontFamily: "Poppins",
-                }}
-              >
-                Sign up with Google
-              </span>
-            </button> */}
 
-            <p class="text-center text-muted mt-3 mb-0">
-              Have already an account?{" "}
-              <a href="/login" class="fw-bold text-body">
-                <u>Login here</u>
-              </a>
-            </p>
+            <div className="login-link">
+              Already have an account? <a href="/login">Login here</a>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    )}
-    {errMsg && <p className="error">{errMsg}</p>}
-    {message && <p className="success">{message}</p>}
-  </div>
+      )}
+    </>
   );
 };
 

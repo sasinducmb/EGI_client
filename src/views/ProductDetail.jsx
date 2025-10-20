@@ -16,15 +16,15 @@ const ProductDetail = () => {
   const { cart } = useContext(CartContext);
   const { addToWishlist } = useContext(WishlistContext);
   const [categories, setCategories] = useState([]);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
         const response = await axios.get(`/products/oneProductDetails/${id}`);
-        setProductDetails(response.data); // Assuming the details are in response.data
+        setProductDetails(response.data);
       } catch (error) {
         console.error("Error fetching product details:", error);
-        // Handle error appropriately
       }
     };
 
@@ -51,21 +51,27 @@ const ProductDetail = () => {
 
   const handelCart = () => {
     addToCart({
-      id: productDetails._id,
+      _id: productDetails._id, // ✅ Fixed: use _id
+      name: productDetails.productName,
+      price: productDetails.price,
+      pic: productDetails.mainImage,
+      ct: productDetails.item_count,
+      weight: productDetails.weight,
+      description: productDetails.description,
+    });
+    setMessage('✅ Successfully added to cart!');
+    setTimeout(() => setMessage(''), 2000);
+  };
+
+  const handleWishlistClick = () => {
+    addToWishlist({
+      _id: productDetails._id, // ✅ Fixed: use _id
       name: productDetails.productName,
       price: productDetails.price,
       pic: productDetails.mainImage,
     });
   };
 
-  const handleWishlistClick = () => {
-    addToWishlist({
-      id: productDetails._id,
-      name: productDetails.productName,
-      price: productDetails.price,
-      pic: productDetails.mainImage,
-    });
-  };
   const getPath = (pic) => {
     const separator = pic.includes("\\") ? "\\" : "/";
     return `${process.env.REACT_APP_API_URL}/uploads/${pic
@@ -73,9 +79,6 @@ const ProductDetail = () => {
       .pop()}`;
   };
 
-  // console.log(productDetails);
-
-  // console.log(cart);
   return (
     <div className="container">
       <div className=" row d-flex pt-5 ">
@@ -141,43 +144,27 @@ const ProductDetail = () => {
               <div className="d-flex align-items-center">
                 <ManualRating />
                 <p className="m-2" style={{ opacity: "50%" }}>
-                  {/* (150 Reviews) | */}
                 </p>
                 <p className="m-2" style={{ color: "#00FF66" }}>
-                  {/* In Stock */}
                 </p>
               </div>
               <h5 className="p-1">Rs:{productDetails.price}</h5>
               <p className="p-1 pb-2 text-align-justify" style={{textAlign:'justify'}}>
-               {
-
-                  productDetails.description
-               }
+               {productDetails.description}
               </p>
               <hr />
               <div className="d-flex">
-                {/* <h6>Colors :</h6> */}
-                {/* <div className="color-button-0 mx-2"></div>
-                <div className="color-button-1 mx-1"></div> */}
               </div>
               <div className="d-flex pt-2">
-                {/* <h6 className="p-1">Sizes:</h6>
-                <div className="product-size">XS</div>
-                <div className="product-size">S</div>
-                <div className="product-size">M</div>
-                <div className="product-size">L</div>
-                <div className="product-size">XL</div> */}
               </div>
               <div className="d-flex pt-3">
-                <Link to={"/cart"} style={{ textDecoration: "none" }}>
-                  <button
-                    className="product-buynow mb-3"
-                    style={{ border: "none" }}
-                    onClick={handelCart}
-                  >
-                    Buy Now
-                  </button>
-                </Link>
+                <button
+                  className="product-buynow mb-3"
+                  style={{ border: "none" }}
+                  onClick={handelCart}
+                >
+                  Buy Now
+                </button>
                 <div className="product-heart ">
                   <Link to={"/wishlist"} style={{ color: "black" }}>
                     <FaRegHeart
@@ -188,34 +175,9 @@ const ProductDetail = () => {
                   </Link>
                 </div>
               </div>
+              {/* ✅ Added success message */}
+              {message && <p style={{ color: 'green', marginTop: '10px' }}>{message}</p>}
               <div className="pt-2">
-                {/* <table className="product-table">
-                  <div>
-                    <tr className="pt-2">
-                      <div className="d-flex align-items-center justify-content-center">
-                        <CiDeliveryTruck size={40} className="mt-" />
-                        <div className="mx-2">
-                          <h6>Free Delivery</h6>
-                          <a href="#" style={{ color: "#000000" }}>
-                            <p>
-                              Enter your postal code for Delivery Availability
-                            </p>
-                          </a>
-                        </div>
-                      </div>
-                    </tr>
-                    <hr />
-                    <tr>
-                      <div className="d-flex">
-                        <BsArrowRepeat size={40} />
-                        <div className="mx-2">
-                          <h6>Return Delivery</h6>
-                          <p>Free 30 Days Delivery Returns. Details</p>
-                        </div>
-                      </div>
-                    </tr>
-                  </div>
-                </table> */}
               </div>
             </div>
           </div>
@@ -231,11 +193,10 @@ const ProductDetail = () => {
       </div>
       <div className="row">
         {categories.slice(0, 4).map((category, index) => (
-          <div className="col-lg-3 col-md-6">
+          <div className="col-lg-3 col-md-6" key={index}>
             <div className="item" style={{ height: "400px" }}>
               <Cards
                  id={category._id}
-                 key={index}
                  name={category.productName}
                  price={category.price}
                  pic={category.mainImage}
@@ -243,8 +204,6 @@ const ProductDetail = () => {
                  ct={category.item_count}
                  weight={category.weight}
                  description={category.description}
-
-                // other props
               />
             </div>
           </div>

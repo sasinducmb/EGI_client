@@ -1,157 +1,70 @@
-import React from 'react';
-import { FaFacebookSquare } from 'react-icons/fa';
-import { RxTwitterLogo } from 'react-icons/rx';
-import { IoLogoInstagram } from 'react-icons/io';
-import { RxLinkedinLogo } from 'react-icons/rx';
-import { IoIosArrowDropright } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import { Link } from "react-router-dom";
+import "./Footer.css";
 
 function Footer() {
   return (
-    <>
-      <div className="container-fluid footer mt-3">
-        <div class="container text-left pt-5">
-          <div class="row">
-            <div class="col-12 col-md-3 col-lg-3">
-              <h6
-                style={{
-                  fontFamily: 'poppins',
-                  fontWeight: 800,
-                  fontSize: '24px',
-                }}
-              >
-                Exclusive
-              </h6>
-              <p className="pt-4">Subscribe</p>
-              <p className="pt-2">Get 10% off your first order</p>
-              <div class=" ">
-                <div class="input-group mb-3">
-                  <input
-                    style={{
-                      width: '100px',
-                      height: '48px',
-                      background: 'black',
-                      color: 'white',
-                    }}
-                    type="text"
-                    class="form-control d-none d-md-block"
-                    placeholder="Your text here"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon"
-                  />
-                  <div class="input-group-append d-flex align-items-center justify-content-center ">
-                    <IoIosArrowDropright className="footer-img-arrow mx-2" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-3 col-lg-4">
-              <h6
-                style={{
-                  fontFamily: 'Poppins',
-                  fontWeight: 300,
-                  fontSize: '20px',
-                }}
-              >
-                Support
-              </h6>
-              <p className="pt-4">No 63 Old Road, Pannipitiya</p>
-              <p className="pt-2">houseofcambridge.lk@gmail.com</p>
-              <p className="pt-2">076 460 4227 - WhatsApp</p>
-              <p className="pt-2">0112 847 846</p>
-            </div>
-            {/* <div class="col-12 col-md-3 col-lg-2">
-              <h6
-                style={{
-                  fontFamily: 'Poppins',
-                  fontWeight: 300,
-                  fontSize: '20px',
-                }}
-              >
-                Account
-              </h6>
-              <p className="pt-4">My Account</p>
-              <p className="pt-2">Login / Register</p>
-              <p className="pt-2">Cart</p>
-              <p className="pt-2">Wishlist</p>
-              <p className="pt-2">Shop</p>
-            </div> */}
-            <div class="col-12 col-md-2 col-lg-2">
-              <h6
-                style={{
-                  fontFamily: 'Poppins',
-                  fontWeight: 300,
-                  fontSize: '20px',
-                }}
-              >
-                Quick Link
-              </h6>
-              <a href="/policy"  style={{ textDecoration: 'none', color: 'white' }}>
-                <p
-                  className="pt-4"
-                 
-                >
-                  Privacy Policy
-                </p>
-              </a>
-              <a href="/terms"  style={{ textDecoration: 'none', color: 'white' }}>
-                <p
-                  className="pt-2"
-                 
-                >
-                  Terms and Condition
-                </p>{' '}
-              </a>
-              <a href="/refund"  style={{ textDecoration: 'none', color: 'white' }}>
-                <p
-                  className="pt-4"
-                 
-                >
-                  Refund Condition
-                </p>
-              </a>
-              {/* <p className="pt-2">Contact</p> */}
-            </div>
-            <div class="col-12 col-md-2 col-lg-3">
-              {/* <h6
-                style={{
-                  fontFamily: 'Poppins',
-                  fontWeight: 300,
-                  fontSize: '20px',
-                }}
-              >
-                Download App
-              </h6> */}
-              {/* <p
-                className="pt-5"
-                style={{
-                  fontWeight: 500,
-                  fontSize: '12px',
-                  opacity: 0.7,
-                }}
-              >
-                Save $3 with App New User Only
-              </p>
-              <div className="d-flex">
-                <div className="pt-2">
-                  <img src="../../img/Qrcode1.png" />
-                </div>
-                <div className="abc px-2">
-                  <img src="../../img/GooglePlay.png" />
-                  <img className="p-1" src="../../img/download-appstore.png" />
-                </div>
-              </div>
-              <div className="col-12 col-md-2 col-lg-9 mt-3 d-flex">
-                <FaFacebookSquare className="footer-img mx-2"/>
-                <RxTwitterLogo className="footer-img mx-2" />
-                <IoLogoInstagram className="footer-img mx-2" />
-                <RxLinkedinLogo className="footer-img mx-2" />
-              </div> */}
-            </div>
-          </div>
+    <footer className="footer">
+      <div className="footer-container">
+        {/* Logo and Brand Section */}
+        <div className="footer-section logo-section">
+          <img
+            src="../../img/hocll.png"
+            alt="House of Cambridge Logo"
+            className="footer-logo"
+          />
+          <h3>HOUSE OF CAMBRIDGE</h3>
+          <p>
+            Your trusted partner for quality products </p>
+        </div>
+
+        {/* Support Section */}
+        <div className="footer-section support-section">
+          <h3>Support</h3>
+          <p>
+            <MdLocationOn /> No 63 Old Road, Pannipitiya
+          </p>
+          <p>
+            <MdEmail /> houseofcambridge.lk@gmail.com
+          </p>
+          <p>
+            <MdPhone /> 076 460 4227 – WhatsApp
+            <br />
+            0112 847 846
+          </p>
+        </div>
+
+        {/* Quick Links Section */}
+        <div className="footer-section quick-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li>
+              <Link to="/privacy">Privacy Policy</Link>
+            </li>
+            <li>
+              <Link to="/terms">Terms and Conditions</Link>
+            </li>
+            <li>
+              <Link to="/refund">Refund Policy</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact Us</Link>
+            </li>
+            <li>
+              <Link to="/about">About Us</Link>
+            </li>
+          </ul>
         </div>
       </div>
-    </>
+
+      <div className="footer-bottom">
+        <p>
+          © 2024 Exclusive. All rights reserved. | Designed for better shopping
+          experience
+        </p>
+      </div>
+    </footer>
   );
 }
 

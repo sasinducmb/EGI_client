@@ -1,440 +1,409 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebarwithslider from '../components/Sidebarwithslider';
-import CountdownTimer from '../components/Countdowntimer';
 import Cards from '../components/Cards';
-import Category from '../components/Category';
-import { FiArrowLeft } from 'react-icons/fi';
-import { FiArrowRight } from 'react-icons/fi';
+import MultiItemCarousel from '../components/MultiItemCarousel'; // Import new carousel
 import axios from 'axios';
-import { CiDeliveryTruck } from 'react-icons/ci';
-import { TfiHeadphoneAlt } from 'react-icons/tfi';
-import { SiAdguard } from 'react-icons/si';
-import { WishlistContext } from '../context/WishlistContext';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { TailSpin } from 'react-loader-spinner';
+
 const Home = () => {
   const [categories, setCategories] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [centerSlidePercentage, setCenterSlidePercentage] = useState(100);
   const [loader, setLoader] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const updateCenterSlidePercentage = () => {
-    const screenWidth = window.innerWidth;
-    if (screenWidth > 1000) {
-      // Large screens
-      setCenterSlidePercentage(25);
-    } else if (screenWidth > 600) {
-      // Medium screens
-      setCenterSlidePercentage(50);
-    } else {
-      // Small screens
-      setCenterSlidePercentage(100);
-    }
-  };
 
   useEffect(() => {
-    updateCenterSlidePercentage();
-    window.addEventListener('resize', updateCenterSlidePercentage);
-    return () =>
-      window.removeEventListener('resize', updateCenterSlidePercentage);
-  }, []);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProducts = async () => {
       try {
         const response = await axios.get('/products/getAllDetails');
-        const activeProduct = response.data.filter(
-          (product) => product.isActive === true
-        );
-        setCategories(activeProduct);
+        const activeProducts = response.data.filter(product => product.isActive === true);
+        setCategories(activeProducts);
         setLoader(false);
       } catch (err) {
-        console.log(err.message);
+        console.error(err.message);
       }
     };
-
-    fetchProduct();
+    fetchProducts();
   }, []);
 
-  const updateCurrentSlide = (index) => {
-    if (currentIndex !== index) {
-      setCurrentIndex(index);
-    }
-  };
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = category => setSelectedCategory(category);
+
+  const handleSidebarCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
-  // console.log(categories);
   if (loader) {
     return (
-      <div className="spinner-container">
-        <TailSpin
-          height="80"
-          width="80"
-          color="#4fa94d"
-          ariaLabel="tail-spin-loading"
-          radius="1"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-        />
+      <div className="spinner-container d-flex justify-content-center align-items-center" style={{ height: '70vh' }}>
+        <TailSpin height="80" width="80" color="#2a9d8f" visible={true} />
       </div>
     );
   }
+
+  // Filter products by type
+  const flashSaleProducts = categories.filter(item => item.sellType === 'flash');
+  const bestSellingProducts = categories.filter(item => item.sellType === 'best');
+  const filteredProducts = categories.filter(item =>
+    selectedCategory === 'All' ||
+    (item.categoryId && item.categoryId.categoryName === selectedCategory)
+  );
+
   return (
-    <div class="container-fluid">
-      <div className="container">
-        <Sidebarwithslider />
+    <div className="container-fluid" style={{ backgroundColor: '#ffffff', color: '#264653', position: 'relative' }}>
+      {/* Background Video */}
+      <div className="video-background">
+        <video autoPlay loop muted playsInline className="bg-video">
+          <source src="../assests/bgvideo.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="video-overlay"></div>
+      </div>
 
-        <div>
-          <div className="d-flex align-items-center red-box mt-3">
-            <div>
-              <h6 className="pt-1 px-4"> Today's</h6>
-            </div>
-          </div>
-        </div>
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        <Sidebarwithslider onCategorySelect={handleSidebarCategorySelect} />
 
-        <div className="row pt-4">
-          <div className="col-12 col-md-4 col-lg-3 ">
-            <h4 className="text-style">Flash Sales</h4>
-          </div>
-          <div className="col-12 col-md-8 col-lg-4 px-4 d-flex align-items-center ">
-            <CountdownTimer targetDate="2024-12-31" />
-          </div>
-          <div className="col-12 col-lg-4 d-flex align-items-center justify-content-end">
-            <div className="d-flex">
-              <div
-                className="arrow-keys"
-                onClick={() => setCurrentIndex(currentIndex - 1)}
-              >
-                <FiArrowLeft size={40} />
-              </div>
-              <div
-                className="arrow-keys"
-                onClick={() => setCurrentIndex(currentIndex + 1)}
-              >
-                <FiArrowRight size={40} />
-              </div>
+        {/* Flash Sales */}
+        {flashSaleProducts.length > 0 && (
+          <>
+            <div className="text-center mt-5">
+              <h4 className="section-title flash-sales-title">Flash Sales</h4>
             </div>
+            <MultiItemCarousel items={flashSaleProducts} itemsPerSlide={4} />
+            <hr className="section-divider" />
+          </>
+        )}
+
+        {/* Best Selling Products */}
+        {bestSellingProducts.length > 0 && (
+          <>
+            <div className="text-center mt-5">
+              <h4 className="section-title best-selling-title">Best Selling Products</h4>
+            </div>
+            <MultiItemCarousel items={bestSellingProducts} itemsPerSlide={4} />
+            <hr className="section-divider" />
+          </>
+        )}
+
+        {/* Explore Products */}
+        <div className="pt-5">
+          <div className="text-center mb-4">
+            <h4 className="section-title our-products-title">Our Products</h4>
           </div>
-        </div>
-        <Carousel
-          selectedItem={currentIndex}
-          onChange={updateCurrentSlide}
-          infiniteLoop
-          useKeyboardArrows
-          autoPlay
-          showThumbs={false}
-          centerMode
-          centerSlidePercentage={centerSlidePercentage}
-        >
-          {categories
-            .filter((category) => category.sellType === 'flash')
-            .map((category, index) => (
-              <div key={index} className="item-c" style={{ height: '400px' }}>
+          <div className="d-flex justify-content-end mb-4 flex-wrap gap-3">
+            {['All', 'Grocery', 'Baby Needs', 'HouseHold'].map(category => (
+              <button
+                key={category}
+                className={`category-filter-btn ${selectedCategory === category ? 'active' : ''}`}
+                onClick={() => handleCategoryChange(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div className="row">
+            {filteredProducts.map(item => (
+              <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-4 d-flex" key={item._id}>
                 <Cards
-                  id={category._id}
-                  key={index}
-                  name={category.productName}
-                  price={category.price}
-                  pic={category.mainImage}
-                  subpic={category.additionalImages}
-                  ct={category.item_count}
-                  weight={category.weight}
-                  description={category.description}
-
-                  // other props
+                  id={item._id}
+                  name={item.productName}
+                  price={item.price}
+                  pic={item.mainImage}
+                  subpic={item.additionalImages}
+                  ct={item.item_count}
+                  weight={item.weight}
+                  description={item.description}
                 />
               </div>
             ))}
-        </Carousel>
-
-        {/* <div className="row justify-content-center mt-3">
-          <button className="btn-product mt-3">View All Products</button>
-        </div> */}
-        <hr />
-        {/* <div className="d-flex align-items-center red-box ">
-          <div>
-            <h6 className="pt-1 px-4"> Categories</h6>
           </div>
         </div>
 
-        <div className="row pt-4">
-          <div className=" d-flex justify-content-between">
-            <div className="col-lg-5">
-              <h4 className="text-style">Browse By Category</h4>
-            </div>
-            <div className="col-lg-4 d-flex align-items-center justify-content-end"></div>
-          </div>
-        </div>
-        <div className="pb-4">
-          <Category />
-        </div>
-        <hr /> */}
-        <div>
-          <div className="d-flex align-items-center red-box ">
-            <div>
-              <h6 className="pt-1 px-4">This&nbsp;Month</h6>
-            </div>
-          </div>
-          <div className="row pt-4 ">
-            <div className="d-flex justify-content-between">
-              <div className="col-lg-5">
-                <h4 className="text-style">Best Selling Products</h4>
-              </div>
-              {/* <div
-                className="col-lg-4 d-flex justify-content-center product-style align-items-center"
-                style={{ cursor: 'pointer' }}
-              >
-                <h6>View All</h6>
-              </div> */}
-            </div>
+        {/* Optimized CSS */}
+        <style>{`
+          /* Background Video Styles */
+          .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+          }
 
-            <Carousel
-              selectedItem={currentIndex}
-              onChange={updateCurrentSlide}
-              infiniteLoop
-              useKeyboardArrows
-              autoPlay
-              showThumbs={false}
-              centerMode
-              centerSlidePercentage={centerSlidePercentage}
-            >
-              {categories
-                .filter((category) => category.sellType === 'best')
-                .map((category, index) => (
-                  <div key={index} className="item" style={{ height: '400px' }}>
-                    <Cards
-                      id={category._id}
-                      key={index}
-                      name={category.productName}
-                      price={category.price}
-                      pic={category.mainImage}
-                      subpic={category.additionalImages}
-                      ct={category.item_count}
-                      weight={category.weight}
-                      description={category.description}
+          .bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.15;
+            filter: brightness(0.9);
+          }
 
-                      // other props
-                    />
-                  </div>
-                ))}
-            </Carousel>
-          </div>
-        </div>
-        <div className="pt-5">
-          <div className="container row black-box pt-5">
-            <div className="px-5 col-lg-5 col-md-6 col-sm-12">
-              <h6 style={{ color: '#00FF66' }} className="pt-5">
-                Categories
-              </h6>
-              <h2 className="text-color">
-                Enhance Your
-                <br /> Haircare & Skincare
-              </h2>
-              <div className="timecount-align" style={{ color: '#ffffff' }}>
-                <CountdownTimer targetDate="2024-2-29" />
-              </div>
-              <div className="d-flex mt-5" style={{ height: '200px' }}>
-                <div
-                  className="buy-now d-flex justify-content-center align-items-center"
-                  style={{ cursor: 'pointer' }}
-                >
-                  <h6>Buy Now!</h6>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-7 col-md-5 col-sm-12 d-flex justify-content-center align-items-center">
-              <img
-                src="../../img/jbl.png"
-                alt="JBL"
-                className="responsive-img"
-              />
-            </div>
-          </div>
-        </div>
+          .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+         
+            backdrop-filter: blur(2px);
+          }
 
-        <div className="pt-5">
-          <div className="d-flex align-items-center red-box ">
-            <div>
-              <h6 className="pt-1 px-4">Our&nbsp;Products</h6>
-            </div>
-          </div>
-          <section id="womens-fashion">
-            <div className="row pt-4 ">
-              <div className="d-flex justify-content-between">
-                <div className="col-lg-5">
-                  <h4 className="text-style" id="womens-fashion">
-                    Explore Our Products
-                  </h4>
-                </div>
-                <div>
-                  <button
-                    className="btn-product mx-3"
-                    style={{ width: '150px', height: '45px' }}
-                    onClick={() => handleCategoryChange('All')}
-                  >
-                    All
-                  </button>
-                  <button
-                    className="btn-product mx-3"
-                    style={{ width: '150px', height: '45px' }}
-                    onClick={() => handleCategoryChange('Grocery')}
-                  >
-                    Grocery
-                  </button>
-                  <button
-                    className="btn-product mx-3"
-                    style={{ width: '150px', height: '45px' }}
-                    onClick={() => handleCategoryChange('Baby Needs')}
-                  >
-                    Baby Needs
-                  </button>
-                  <button
-                    className="btn-product mx-3"
-                    style={{ width: '150px', height: '45px' }}
-                    onClick={() => handleCategoryChange('HouseHold')}
-                  >
-                    HouseHold
-                  </button>
-                </div>
-              </div>
-            </div>
+          /* Section Titles - Modern Teal Theme */
+          .section-title {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 2rem 0;
+            position: relative;
+            cursor: default;
+            user-select: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, #2a9d8f 0%, #264653 25%, #2a9d8f 50%, #1a4d5c 75%, #2a9d8f 100%) !important;
+            background-size: 300% 300%;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            animation: gradientFlow 8s ease-in-out infinite;
+            filter: drop-shadow(0 4px 12px rgba(42, 157, 143, 0.25));
+            padding: 0 70px;
+            color: transparent !important;
+          }
 
-            <div className="row">
-              {categories
-                .filter(
-                  (category) =>
-                    selectedCategory === 'All' ||
-                    category.categoryId.categoryName === selectedCategory
-                )
-                .map((category, index) => (
-                  <div className="col-lg-3 col-sm-6" key={index}>
-                    <div className="item" style={{ height: '400px' }}>
-                      <Cards
-                        id={category._id}
-                        name={category.productName}
-                        price={category.price}
-                        pic={category.mainImage}
-                        subpic={category.additionalImages}
-                        ct={category.item_count}
-                        weight={category.weight}
-                        description={category.description}
-                        // other props
-                      />
-                    </div>
-                  </div>
-                ))}
-              {/* <div className="row justify-content-center">
-                <button className="btn-product">View All Products</button>
-              </div> */}
-            </div>
-          </section>
-          {/* <div className="pt-5">
-            <div className="d-flex align-items-center red-box ">
-              <div>
-                <h6 className="pt-1 px-4">Featured</h6>
-              </div>
-            </div>
-            <div className=" col-lg-6 col-md-6 col-sm-12 pt-3">
-              <h4 className="text-style">New Arrival</h4>
-            </div>
-            <div className="row box-play">
-              <div className="col-lg-6 d-flex justify-content-center align-items-end box-play-0">
-                <img src="../../img/play.png" />
-                <div className="image-text-0">
-                  <h3>PlayStation 5</h3>
-                  <h6 className="pt-2 pb-2">
-                    Black and White version of the PS5 <br /> coming out on
-                    sale.
-                  </h6>
-                  <a href="#" className="a">
-                    Shop Now
-                  </a>
-                </div>
-              </div>
-              <div className=" col-lg-6 col-md-12 col-sm-12">
-                <div className=" row col-lg-11  mx-auto  d-flex justify-content-end align-items-end box-play-1 m-2">
-                  <img
-                    src="../../img/img2.png"
-                    style={{ maxWidth: "100%", height: "auto" }}
-                    className=""
-                  />
-                  <div className="image-text-0">
-                    <h3>Women’s Collections</h3>
-                    <h6>
-                      Featured woman collections that <br /> give you another
-                      vibe.
-                    </h6>
-                    <a href="#" className="a">
-                      Shop Now
-                    </a>
-                  </div>
-                </div>
-                <div className="row d-flex justify-content-center align-items-center">
-                  <div className="col-lg-5  box-play-2 d-flex justify-content-center align-items-center m-1">
-                    <img src="../../img/img3.png" />
-                    <div className="image-text">
-                      <h3>Speakers</h3>
-                      <h6>Amazon wireless speakers</h6>
-                      <a href="#" className="a">
-                        Shop Now
-                      </a>
-                    </div>
-                  </div>
-                  <div className="col-lg-5 box-play-2 d-flex justify-content-center align-items-center m-1">
-                    <img src="../../img/img4.png" />
-                    <div className="image-text">
-                      <h3>Perfume</h3>
-                      <h6>GUCCI INTENSE OUD EDP</h6>
-                      <a href="#" className="a">
-                        Shop Now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </div>
+          .section-title:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 8px 20px rgba(42, 157, 143, 0.4));
+          }
+
+          .section-title::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(42, 157, 143, 0.3), transparent);
+            animation: shimmerEffect 4s ease-in-out infinite;
+          }
+
+          /* Title Icons */
+          .flash-sales-title::after {
+            content: "⚡";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(231, 111, 81, 0.6));
+          }
+
+          .best-selling-title::after {
+            content: "⭐";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            animation: rotate 4s linear infinite;
+            filter: drop-shadow(0 0 12px rgba(231, 111, 81, 0.6));
+          }
+
+          .our-products-title::after {
+            content: "🛍️";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 12px rgba(42, 157, 143, 0.6));
+          }
+
+          /* Animations */
+          @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+
+          @keyframes pulse {
+            0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
+            50% { transform: translateY(-50%) scale(1.15); opacity: 0.85; }
+          }
+
+          @keyframes rotate {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+          }
+
+          @keyframes bounce {
+            0%, 100% { transform: translateY(-50%) translateY(0); }
+            50% { transform: translateY(-50%) translateY(-8px); }
+          }
+
+          @keyframes shimmerEffect {
+            0% { left: -100%; }
+            100% { left: 100%; }
+          }
+
+          /* Our Products Section - Equal Card Heights */
+          .row > [class*="col-"] {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .row > [class*="col-"] > div {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+          }
+
+          /* Ensure Cards component fills height */
+          .row .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+          }
+
+          .row .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+
+          /* Category Filter Buttons */
+          .category-filter-btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: #264653;
+            border: 2px solid rgba(42, 157, 143, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 0.75rem 1.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            white-space: nowrap;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.15);
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+          }
+
+          .category-filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(42, 157, 143, 0.2), transparent);
+            transition: left 0.5s ease;
+          }
+
+          .category-filter-btn:hover::before {
+            left: 100%;
+          }
+          
+          .category-filter-btn:hover {
+            background: #2a9d8f;
+            color: white;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(42, 157, 143, 0.35);
+            border-color: #2a9d8f;
+          }
+          
+          .category-filter-btn.active {
+            background: linear-gradient(135deg, #2a9d8f, #264653);
+            color: white;
+            box-shadow: 0 6px 20px rgba(42, 157, 143, 0.4);
+            border-color: #2a9d8f;
+            transform: translateY(-2px);
+          }
+
+          .category-filter-btn.active:hover {
+            background: linear-gradient(135deg, #264653, #2a9d8f);
+          }
+
+          /* Section Divider */
+          .section-divider {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, 
+              transparent, 
+              rgba(42, 157, 143, 0.3), 
+              rgba(231, 111, 81, 0.25),
+              rgba(42, 157, 143, 0.3),
+              transparent
+            );
+            margin: 4rem 0;
+          }
+
+          /* Responsive Design */
+          @media (max-width: 992px) {
+            .section-title {
+              font-size: 2.5rem;
+              padding: 0 60px;
+            }
+            
+            .flash-sales-title::after,
+            .best-selling-title::after,
+            .our-products-title::after {
+              font-size: 2rem;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .bg-video {
+              opacity: 0.12;
+            }
+
+            .section-title {
+              font-size: 2rem;
+              padding: 0 50px;
+            }
+            
+            .flash-sales-title::after,
+            .best-selling-title::after,
+            .our-products-title::after {
+              font-size: 1.8rem;
+            }
+
+            .category-filter-btn { 
+              font-size: 0.9rem;
+              padding: 0.65rem 1.4rem;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .bg-video {
+              opacity: 0.08;
+            }
+
+            .section-title {
+              font-size: 1.6rem;
+              letter-spacing: 0.5px;
+              padding: 0 45px;
+            }
+            
+            .flash-sales-title::after,
+            .best-selling-title::after,
+            .our-products-title::after {
+              font-size: 1.5rem;
+            }
+
+            .category-filter-btn {
+              font-size: 0.85rem;
+              padding: 0.6rem 1.2rem;
+            }
+          }
+        `}</style>
       </div>
-
-      {/* <div className="row pt-5 justify-content-center">
-        <div
-          className="col-lg-4 mx-5  about-footer d-flex justify-content-center align-items-center"
-          style={{ flexDirection: "column" }}
-        >
-          <CiDeliveryTruck size={80} />
-          <p className="pt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
-            FREE AND FAST DELIVERY
-          </p>
-          <p style={{ fontSize: "12px" }}>
-            Free delivery for all orders over $140
-          </p>
-        </div>
-        <div
-          className="col-lg-4 mx-5 about-footer d-flex justify-content-center align-items-center"
-          style={{ flexDirection: "column" }}
-        >
-          <TfiHeadphoneAlt size={80} />
-          <p className="pt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
-            24/7 CUSTOMER SERVICE
-          </p>
-          <p style={{ fontSize: "12px" }}>Friendly 24/7 customer support</p>
-        </div>
-        <div
-          className="col-lg-4  mx-5 about-footer d-flex justify-content-center align-items-center"
-          style={{ flexDirection: "column" }}
-        >
-          <SiAdguard size={80} />
-          <p className="pt-2" style={{ fontSize: "20px", fontWeight: "bold" }}>
-            MONEY BACK GUARANTEE
-          </p>
-          <p style={{ fontSize: "12px" }}>We return money within 30 days</p>
-        </div>
-      </div> */}
     </div>
   );
 };
