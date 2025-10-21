@@ -63,7 +63,7 @@ const ResetPassword = () => {
 
         body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          background: linear-gradient(135deg, #5f9ea0 0%, #8b7355 100%);
+          background: white;
           min-height: 100vh;
         }
 

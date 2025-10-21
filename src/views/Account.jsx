@@ -198,9 +198,22 @@ const Account = () => {
                     <MdShoppingBag size={64} className="text-muted mb-3" />
                     <h5 className="text-muted">No orders yet</h5>
                     <p className="text-muted mb-4">Start shopping to see your orders here!</p>
-                    <Link to="/" className="btn btn-primary">
-                      Start Shopping
-                    </Link>
+                    <Link 
+  to="/" 
+  style={{
+    backgroundColor: "#228B22",
+    color: "black",
+    padding: "10px 20px",
+    borderRadius: "6px",
+    textDecoration: "none",
+    fontWeight: "600",
+    transition: "all 0.3s ease"
+  }}
+
+>
+  Start Shopping
+</Link>
+
                   </div>
                 ) : (
                   <div className="orders-list">

@@ -65,11 +65,12 @@ function App() {
 
               <Route path="/policy" element={<Policy />} />
               <Route path="/terms" element={<Terms />} />
-              <Route path="/refund" element={<Refund />} />
+              <Route path="/refund-policy" element={<Refund />} />
 
               <Route path="/user/:id/verify/:token" element={<Verify />} />
-              <Route path="/cancel" element={<Paycansel />} />
-              <Route path="/success" element={<PayementSuccess />} />
+              <Route path="/payment-cancel" element={<Paycansel />} />
+
+              <Route path="/payment-success" element={<PayementSuccess />} />
 <Route path="/forgot-password" element={<ForgotPassword />} />
 <Route path="/reset-password/:token" element={<ResetPassword />} />
               <Route

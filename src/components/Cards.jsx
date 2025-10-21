@@ -4,7 +4,8 @@ import { FaRegHeart } from 'react-icons/fa';
 import { FiEye } from 'react-icons/fi';
 import { WishlistContext } from '../context/WishlistContext';
 import { CartContext } from '../context/CartContext';
-import { Link } from 'react-router-dom';
+import { UserContext } from '../auth/userContext';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Cards = ({
   id,
@@ -19,10 +20,18 @@ const Cards = ({
 }) => {
   const { addToWishlist } = useContext(WishlistContext);
   const { addToCart } = useContext(CartContext);
+  const { isAuthenticated } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState('');
 
   const handleWishlistClick = () => {
+    if (!isAuthenticated()) {
+      setMessage('⚠️ Please login to add to wishlist');
+      setTimeout(() => setMessage(''), 2000);
+      return;
+    }
+
     const wishlistItem = {
       _id: id,
       name, 
@@ -39,6 +48,17 @@ const Cards = ({
   };
 
   const handelCart = () => {
+    // Check if user is authenticated
+    if (!isAuthenticated()) {
+      setMessage('⚠️ Please login to add items to cart');
+      setTimeout(() => {
+        setMessage('');
+        navigate('/login');
+      }, 1500);
+      return;
+    }
+
+    // If authenticated, add to cart
     addToCart({ 
       _id: id,
       name, 
@@ -231,6 +251,10 @@ const Cards = ({
             animation: fadeIn 0.3s ease;
           }
 
+          .cart-message.warning {
+            color: #e76f51;
+          }
+
           @keyframes fadeIn {
             from {
               opacity: 0;
@@ -348,8 +372,12 @@ const Cards = ({
             </h5>
           </div>
 
-          {/* Success Message */}
-          {message && <p className="cart-message">{message}</p>}
+          {/* Success/Warning Message */}
+          {message && (
+            <p className={`cart-message ${message.includes('login') ? 'warning' : ''}`}>
+              {message}
+            </p>
+          )}
         </div>
       </div>
     </>

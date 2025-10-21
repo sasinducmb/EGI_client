@@ -16,7 +16,7 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   
   const { loadWishlist } = useContext(WishlistContext);
-  const { mergeGuestCart, loadCart } = useContext(CartContext);
+  const { loadCart } = useContext(CartContext);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -41,10 +41,11 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      await mergeGuestCart();
+      // Load wishlist and cart for logged-in user
       loadWishlist();
       await loadCart();
 
+      // Trigger user state change event
       window.dispatchEvent(new Event('userStateChange'));
 
       const userRole = user.role;
@@ -176,7 +177,6 @@ const Login = () => {
           color: #5f9ea0;
         }
 
-        /* ADD THIS: Forgot Password Link Styles */
         .forgot-password-link {
           text-align: right;
           margin-top: -12px;
@@ -372,7 +372,6 @@ const Login = () => {
                 </div>
               </div>
 
-              {/* ADD THIS: Forgot Password Link */}
               <div className="forgot-password-link">
                 <Link to="/forgot-password">Forgot Password?</Link>
               </div>

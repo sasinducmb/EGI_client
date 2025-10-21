@@ -46,7 +46,7 @@ function Footer() {
               <Link to="/terms">Terms and Conditions</Link>
             </li>
             <li>
-              <Link to="/refund">Refund Policy</Link>
+              <Link to="/refund-policy">Refund Policy</Link>
             </li>
             <li>
               <Link to="/contact">Contact Us</Link>

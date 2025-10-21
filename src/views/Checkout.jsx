@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { UserContext } from "../auth/userContext";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "./Checkout.css";
 import md5 from "crypto-js/md5";
 
 const Checkout = () => {
-  const { cart, totalPrice, removeFromCart } = useContext(CartContext);
-  const { user, isLoading, error } = useContext(UserContext);
+  const { cart, totalPrice, clearCart } = useContext(CartContext);
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -18,19 +20,11 @@ const Checkout = () => {
   const [email, setEmail] = useState("");
   const [deliveryOption, setDeliveryOption] = useState("pickup");
   const [shippingCost, setShippingCost] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Debug: Log on mount
   useEffect(() => {
-    console.log("🔍 Checkout Component Loaded");
-    console.log("👤 User:", user);
-    console.log("🛒 Cart:", cart);
-    console.log("💰 Total Price:", totalPrice);
-    console.log("🌐 API URL:", process.env.REACT_APP_API_URL);
-  }, []);
-
-  const handleChange = (event) => {
-    setDeliveryOption(event.target.value);
-  };
+    console.log("🔍 Checkout loaded - User:", user?._id, "Cart items:", cart?.length);
+  }, [user, cart]);
 
   // Calculate total weight from cart items
   const calculateTotalWeight = () => {
@@ -74,39 +68,36 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    console.log("🔘 Place Order button clicked!");
-    console.log("📋 Form Data:", { name, address, town, phoneNo, email, deliveryOption });
-
-    // Check if user is logged in
-    if (!user || !user._id) {
-      console.error("❌ User not logged in");
-      toast.error("Please login to place an order");
+    if (isSubmitting) {
+      console.log("⚠️ Already submitting...");
       return;
     }
 
-    console.log("✅ User is logged in:", user._id);
+    console.log("🔘 Place Order clicked!");
+    
+    // Validation
+    if (!user || !user._id) {
+      toast.error("Please login to place an order");
+      navigate("/login");
+      return;
+    }
 
-    // Check if cart is empty
     if (!cart || cart.length === 0) {
-      console.error("❌ Cart is empty");
       toast.error("Your cart is empty");
       return;
     }
 
-    console.log("✅ Cart has items:", cart.length);
-    console.log("🚀 Submitting order...");
+    setIsSubmitting(true);
 
-    const billDetails = [
-      {
-        name,
-        address,
-        apartment,
-        town,
-        phoneNo,
-        email,
-        deliveryOption,
-      },
-    ];
+    const billDetails = [{
+      name,
+      address,
+      apartment,
+      town,
+      phoneNo,
+      email,
+      deliveryOption,
+    }];
 
     const orderData = {
       user: user._id,
@@ -122,21 +113,19 @@ const Checkout = () => {
     console.log("📦 Order Data:", orderData);
 
     try {
-      // Get token from localStorage
       const token = localStorage.getItem('token');
       
       if (!token) {
-        console.error("❌ No token found");
         toast.error("Authentication required. Please login again.");
+        navigate("/login");
         return;
       }
 
-      // TEMPORARY: Hardcoded URL for testing
-      const apiUrl = "http://localhost:5000/order/addOrder";
-      console.log("🌐 API URL:", apiUrl);
-      console.log("🔍 ENV CHECK - API_URL:", process.env.REACT_APP_API_URL);
+      const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
       
-      const response = await axios.post(apiUrl, orderData, {
+      console.log("🚀 Submitting order to:", `${apiUrl}/order/addOrder`);
+      
+      const response = await axios.post(`${apiUrl}/order/addOrder`, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -146,91 +135,121 @@ const Checkout = () => {
       console.log("✅ Order Response:", response.data);
       
       if (response.data && response.data.success) {
-        toast.success("Order placed successfully! Redirecting to payment...");
-        
-        // Replace these with your actual PayHere credentials
-        const merchantId = "1228337";
-        const merchantSecret = "YOUR_MERCHANT_SECRET_HERE"; // ⚠️ REPLACE THIS
-        
-        const orderId = `Order${Date.now()}`;
-        const amount = parseFloat(finalTotal).toFixed(2);
-        const currency = "LKR";
-
-        // Generate hash for PayHere
-        const hashedSecret = md5(merchantSecret).toString().toUpperCase();
-        const amountFormatted = amount.replace(".", ""); // Remove decimal for hash
-        const hash = md5(
-          merchantId + orderId + amountFormatted + currency + hashedSecret
-        ).toString().toUpperCase();
-
-        console.log("💳 Payment Hash Data:", {
-          merchantId,
-          orderId,
-          amount,
-          currency,
-          hash
-        });
-
-        const paymentData = {
-          merchant_id: merchantId,
-          return_url: "http://localhost:3000/success",
-          cancel_url: "http://localhost:3000/cancel",
-          notify_url: "http://localhost:5000/order/payment-notify",
-          first_name: name.split(" ")[0] || "Customer",
-          last_name: name.split(" ").slice(1).join(" ") || "Name",
-          email: email,
-          phone: phoneNo,
-          address: address,
-          city: town,
-          country: "Sri Lanka",
-          order_id: orderId,
-          items: cart.map((item) => item.name).join(", "),
-          currency: currency,
-          amount: amount,
-          hash: hash,
-        };
-
-        console.log("💳 Submitting to PayHere:", paymentData);
-
-        // Create and submit form to PayHere
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = "https://sandbox.payhere.lk/pay/checkout";
-
-        Object.keys(paymentData).forEach(key => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = key;
-          input.value = paymentData[key];
-          form.appendChild(input);
-        });
-        
-        document.body.appendChild(form);
-        
-        console.log("💳 Redirecting to PayHere...");
-        form.submit();
-        
-        // Clear cart after form submission
-        setTimeout(() => {
+        // Handle Pickup Option
+        if (deliveryOption === "pickup") {
+          console.log("📦 Pickup option selected - Order saved");
+          
+          // Clear cart immediately for pickup
+          await clearCart();
           localStorage.removeItem("cart");
           localStorage.removeItem("guestCart");
-        }, 100);
+          
+          toast.success("Order placed successfully! Please pick up at our office.", {
+            autoClose: 3000
+          });
+          
+          // Redirect to home page
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+          
+        } else {
+          // Handle Delivery Option - Redirect to PayHere
+          console.log("💳 Delivery option - Redirecting to payment...");
+          
+          toast.info("Redirecting to payment gateway...");
+          
+          // PayHere Configuration
+          const merchantId = process.env.REACT_APP_PAYHERE_MERCHANT_ID || "1228337";
+          const merchantSecret = process.env.REACT_APP_PAYHERE_MERCHANT_SECRET;
+          
+          // ⚠️ CRITICAL: Check if merchant secret exists
+          if (!merchantSecret || merchantSecret === "YOUR_MERCHANT_SECRET") {
+            toast.error("Payment configuration error. Please contact support.");
+            console.error("❌ Merchant secret not configured!");
+            setIsSubmitting(false);
+            return;
+          }
+
+          const orderId = `ORD${Date.now()}`;
+          const amount = parseFloat(finalTotal).toFixed(2);
+          const currency = "LKR";
+
+          // ✅ Correct PayHere hash generation
+          const hashedSecret = md5(merchantSecret).toString().toUpperCase();
+          const hash = md5(
+            merchantId + orderId + amount + currency + hashedSecret
+          ).toString().toUpperCase();
+
+          console.log("💳 Payment Hash Details:", {
+            merchantId,
+            orderId,
+            amount,
+            currency,
+            hashPreview: hash.substring(0, 20) + "...",
+            secretConfigured: !!merchantSecret
+          });
+
+          const paymentData = {
+            merchant_id: merchantId,
+            return_url: `${window.location.origin}/success`,
+            cancel_url: `${window.location.origin}/cancel`,
+            notify_url: `${apiUrl}/order/payment-notify`,
+            first_name: name.split(" ")[0] || "Customer",
+            last_name: name.split(" ").slice(1).join(" ") || "Name",
+            email: email,
+            phone: phoneNo,
+            address: address,
+            city: town,
+            country: "Sri Lanka",
+            order_id: orderId,
+            items: cart.map((item) => item.name).join(", "),
+            currency: currency,
+            amount: amount,
+            hash: hash,
+          };
+
+          console.log("💳 PayHere Payment Data:", {
+            ...paymentData,
+            hash: hash.substring(0, 20) + "..."
+          });
+
+          // Create and submit form
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = "https://sandbox.payhere.lk/pay/checkout";
+
+          Object.keys(paymentData).forEach(key => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = paymentData[key];
+            form.appendChild(input);
+          });
+          
+          document.body.appendChild(form);
+          
+          // ⚠️ CRITICAL FIX: DO NOT clear cart here!
+          // Cart will be cleared only on successful payment (in PaymentSuccess component)
+          console.log("💳 Submitting to PayHere Sandbox (Cart NOT cleared yet)...");
+          form.submit();
+        }
       } else {
-        toast.error("Failed to create order. Please try again.");
+        throw new Error("Order creation failed");
       }
     } catch (err) {
       console.error("❌ Order submission error:", err);
-      console.error("Error details:", err.response?.data || err.message);
       
       if (err.response?.status === 401) {
         toast.error("Session expired. Please login again.");
+        navigate("/login");
       } else if (err.response?.status === 400) {
         toast.error(err.response.data.message || "Invalid order data");
-      } else if (err.response?.status === 403) {
-        toast.error("Access denied. Please check your permissions.");
       } else {
         toast.error("Failed to place order. Please try again.");
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -240,7 +259,7 @@ const Checkout = () => {
         <div className="d-flex justify-content-between">
           <div className="d-flex">
             <h6 style={{ opacity: "50%" }}>
-              Account /My Account / Product / Cart /
+              Account / My Account / Product / Cart /
             </h6>
             <h6 className="ms-2">Checkout</h6>
           </div>
@@ -259,11 +278,11 @@ const Checkout = () => {
                 <input
                   type="text"
                   className="form-control"
-                  id="inputFirst"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   style={{ width: "100%", maxWidth: "470px", height: "50px" }}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -276,9 +295,9 @@ const Checkout = () => {
                   className="form-control"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  id="inputStreet"
                   style={{ width: "100%", maxWidth: "470px", height: "50px" }}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -291,8 +310,8 @@ const Checkout = () => {
                   className="form-control"
                   value={apartment}
                   onChange={(e) => setApartment(e.target.value)}
-                  id="inputApartment"
                   style={{ width: "100%", maxWidth: "470px", height: "50px" }}
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -303,11 +322,11 @@ const Checkout = () => {
                 <input
                   type="text"
                   className="form-control"
-                  id="inputTown"
                   value={town}
                   onChange={(e) => setTown(e.target.value)}
                   style={{ width: "100%", maxWidth: "470px", height: "50px" }}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -316,13 +335,13 @@ const Checkout = () => {
                   Phone Number<span style={{ color: "red" }}>*</span>
                 </h5>
                 <input
-                  type="text"
+                  type="tel"
                   className="form-control"
-                  id="inputPhone"
                   value={phoneNo}
                   onChange={(e) => setPhoneNo(e.target.value)}
                   style={{ width: "100%", maxWidth: "470px", height: "50px" }}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -335,18 +354,36 @@ const Checkout = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="form-control"
-                  id="inputEmail"
                   style={{ width: "100%", maxWidth: "470px", height: "50px" }}
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
               <div>
                 <div className="alert alert-warning" role="alert">
-                  Before placing the order, please ensure the delivery option is correct.
+                  <strong>Important:</strong> Please ensure the delivery option is correct before placing your order.
+                  {deliveryOption === "pickup" && (
+                    <div className="mt-2">
+                      <strong>Pickup Option Selected:</strong> No shipping charges. Pick up at our office.
+                    </div>
+                  )}
+                  {deliveryOption === "deliver" && (
+                    <div className="mt-2">
+                      <strong>Delivery Option Selected:</strong> You will be redirected to payment gateway.
+                    </div>
+                  )}
                 </div>
-                <button type="submit" className="cart-style mt-3 mb-3">
-                  Place Order
+                <button 
+                  type="submit" 
+                  className="cart-style mt-3 mb-3"
+                  disabled={isSubmitting}
+                  style={{
+                    opacity: isSubmitting ? 0.6 : 1,
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {isSubmitting ? "Processing..." : "Place Order"}
                 </button>
               </div>
             </form>
@@ -359,14 +396,14 @@ const Checkout = () => {
               <div className="cart-row" key={index}>
                 {cartItem.pic ? (
                   <img
-                    src={`http://localhost:5000/uploads/${cartItem.pic
+                    src={`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/uploads/${cartItem.pic
                       .split(cartItem.pic.includes("\\") ? "\\" : "/")
                       .pop()}`}
                     alt={cartItem.name}
                     style={{ height: "50px" }}
                   />
                 ) : (
-                  <div>No image available</div>
+                  <div>No image</div>
                 )}
                 <h5>{cartItem.name}</h5>
                 <h5>Rs {(cartItem.price * cartItem.quantity).toFixed(2)}</h5>
@@ -381,7 +418,7 @@ const Checkout = () => {
             </div>
             <hr />
             <div className="process-box-row">
-              <h6>Total-Weight:</h6>
+              <h6>Total Weight:</h6>
               <h6>{formattedTotalWeight}</h6>
             </div>
             <hr />
@@ -414,8 +451,9 @@ const Checkout = () => {
                       id="pickup"
                       value="pickup"
                       checked={deliveryOption === "pickup"}
-                      onChange={handleChange}
+                      onChange={(e) => setDeliveryOption(e.target.value)}
                       required
+                      disabled={isSubmitting}
                       style={{ fontSize: "20px" }}
                     />
                     <label
@@ -423,7 +461,7 @@ const Checkout = () => {
                       htmlFor="pickup"
                       style={{ fontSize: "18px" }}
                     >
-                      Pickup at Office
+                      Pickup at Office (No Payment Required)
                     </label>
                   </div>
                   <div className="form-check mt-3 mx-3 mb-3">
@@ -434,8 +472,9 @@ const Checkout = () => {
                       id="deliver"
                       value="deliver"
                       checked={deliveryOption === "deliver"}
-                      onChange={handleChange}
+                      onChange={(e) => setDeliveryOption(e.target.value)}
                       required
+                      disabled={isSubmitting}
                       style={{ fontSize: "20px" }}
                     />
                     <label
@@ -443,7 +482,7 @@ const Checkout = () => {
                       htmlFor="deliver"
                       style={{ fontSize: "18px" }}
                     >
-                      Deliver
+                      Deliver (Online Payment Required)
                     </label>
                   </div>
                 </form>

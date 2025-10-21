@@ -15,7 +15,7 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
 
   const { loadWishlist } = useContext(WishlistContext);
-  const { mergeGuestCart, loadCart } = useContext(CartContext);
+  const { loadCart } = useContext(CartContext);
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showconfirmPassword);
@@ -204,9 +204,13 @@ const Signup = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      await mergeGuestCart();
-      loadWishlist();
-      await loadCart();
+      // Load user's wishlist and cart after registration
+      try {
+        loadWishlist();
+        await loadCart();
+      } catch (contextError) {
+        console.warn("⚠️ Error loading wishlist/cart:", contextError);
+      }
 
       window.dispatchEvent(new Event('userStateChange'));
 
